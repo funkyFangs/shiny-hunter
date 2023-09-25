@@ -18,9 +18,9 @@ export class Game {
  * An enumeration of available games, grouped by generation
  */
 export const Games = new Map<string, Game>([
-  ['GOLD', new Game('Gold', 2, 'gold', '2', 'gold')],
-  ['SILVER', new Game('Silver', 2, 'silver', '2', 'silver')],
-  ['CRYSTAL', new Game('Crystal', 2, 'crystal', '2', 'crystal')],
+  ['GOLD', new Game('Gold', 2, 'gold', '2', 'gold_silver_crystal')],
+  ['SILVER', new Game('Silver', 2, 'silver', '2', 'gold_silver_crystal')],
+  ['CRYSTAL', new Game('Crystal', 2, 'crystal', '2', 'gold_silver_crystal')],
   ['RUBY', new Game('Ruby', 3, 'ruby_sapphire', '3_4_5', 'ruby_sapphire')],
   ['SAPPHIRE', new Game('Sapphire', 3, 'ruby_sapphire', '3_4_5', 'ruby_sapphire')],
   ['EMERALD', new Game('Emerald', 3, 'emerald', '3_4_5', 'emerald')],

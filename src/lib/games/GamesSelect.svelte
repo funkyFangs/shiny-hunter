@@ -2,7 +2,7 @@
   import { readonly, writable } from 'svelte/store'
 
   const writableSelectedGame = writable<Game>(undefined)
-  export const selectedGame = readonly<Game>(writableSelectedGame)
+  export const selectedGame = readonly(writableSelectedGame)
 </script>
 
 <script lang='ts'>
@@ -18,6 +18,7 @@
 <select bind:value={$writableSelectedGame} id='gameSelect'>
   {#each groupedGames as [generation, namedGames]}
     <optgroup label="Generation {generation}">
+      <option selected style='display:none'/>
       {#each namedGames as [, game]}
         <option value={game}>{game.displayName}</option>
       {/each}
