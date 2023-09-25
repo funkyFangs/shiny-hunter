@@ -1,38 +1,38 @@
 [
-    {
-        "displayName": "Chikorita",
-        "icon": "Oddish.gif"
-    },
-    {
-        "displayName": "Bayleef",
-        "icon": "Oddish.gif"
-    },
-    {
-        "displayName": "Meganium",
-        "icon": "Oddish.gif"
-    },
-    {
-        "displayName": "Cyndaquil",
-        "icon": "Animal.gif"
-    },
-    {
-        "displayName": "Quilava",
-        "icon": "Animal.gif"
-    },
-    {
-        "displayName": "Typhlosion",
-        "icon": "Animal.gif"
-    },
-    {
-        "displayName": "Totodile",
-        "icon": "Rhyhorn.gif"
-    },
-    {
-        "displayName": "Croconaw",
-        "icon": "Rhyhorn.gif"
-    },
-    {
-        "displayName": "Feraligatr",
-        "icon": "Rhyhorn.gif"
-    }
+  {
+    "displayName": "Chikorita",
+    "icon": "Oddish.gif"
+  },
+  {
+    "displayName": "Bayleef",
+    "icon": "Oddish.gif"
+  },
+  {
+    "displayName": "Meganium",
+    "icon": "Oddish.gif"
+  },
+  {
+    "displayName": "Cyndaquil",
+    "icon": "Animal.gif"
+  },
+  {
+    "displayName": "Quilava",
+    "icon": "Animal.gif"
+  },
+  {
+    "displayName": "Typhlosion",
+    "icon": "Animal.gif"
+  },
+  {
+    "displayName": "Totodile",
+    "icon": "Rhyhorn.gif"
+  },
+  {
+    "displayName": "Croconaw",
+    "icon": "Rhyhorn.gif"
+  },
+  {
+    "displayName": "Feraligatr",
+    "icon": "Rhyhorn.gif"
+  }
 ]
