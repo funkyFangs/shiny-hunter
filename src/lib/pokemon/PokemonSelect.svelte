@@ -14,7 +14,7 @@
 
   const unsubscribe = selectedGame.subscribe(game => {
     if (game) {
-      loadedPokemonPromise = fetch(game?.pokemonFile)
+      loadedPokemonPromise = fetch(game.pokemonFile)
         // Convert to JSON Array
         .then(response => response.json() as Promise<Array<any>>)
         // Map JSON values into Pokemon instances
