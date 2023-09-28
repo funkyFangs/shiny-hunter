@@ -10,15 +10,19 @@
   import { selectedGame } from '../games/GamesSelect.svelte'
   import { Pokemon } from './Pokemon'
 
-  let loadedPokemonPromise: Promise<Pokemon[]>
+  const pokemon$ = writable<Array<Pokemon>>([])
 
   const unsubscribe = selectedGame.subscribe(game => {
     if (game) {
-      loadedPokemonPromise = fetch(game.pokemonFile)
+      fetch(game.pokemonFile)
         // Convert to JSON Array
-        .then(response => response.json() as Promise<Array<any>>)
+        .then(response => response.json() as Promise<Array<Pokemon>>)
         // Map JSON values into Pokemon instances
-        .then(array => array.map(pokemon => new Pokemon(pokemon.displayName, pokemon?.image, pokemon?.shinyImage, pokemon?.icon, pokemon?.variants)))
+        .then(array => array.map(pokemon => new Pokemon(pokemon?.displayName, pokemon?.image, pokemon?.shinyImage, pokemon?.icon, pokemon?.variants)))
+        // Update writable
+        .then(pokemon => pokemon$.set(pokemon))
+        // Set to empty array if there's an error
+        .catch(() => pokemon$.set([]))
     }
   })
 
@@ -27,13 +31,9 @@
 
 <label for='pokemon'>Pokemon</label>
 
-<select bind:value={$writableSelectedPokemon} disabled={loadedPokemonPromise === undefined} id='pokemon'>
-  {#if loadedPokemonPromise}
-    {#await loadedPokemonPromise then loadedPokemon}
-      <option selected style='display:none'/>
-      {#each loadedPokemon as pokemon}
-        <option value={pokemon}>{pokemon.displayName}</option>
-      {/each}
-    {/await}
-  {/if}
+<select bind:value={$writableSelectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
+  <option selected style='display:none'/>
+  {#each $pokemon$ as pokemon}
+    <option value={pokemon}>{pokemon.displayName}</option>
+  {/each}
 </select>
