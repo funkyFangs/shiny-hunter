@@ -1,0 +1,12 @@
+[
+  {
+    "displayName": "Random Chance",
+    "singularUnit": "encounter",
+    "pluralUnit": "encounters"
+  },
+  {
+    "displayName": "Masuda Method",
+    "singularUnit": "egg",
+    "pluralUnit": "eggs"
+  }
+]
