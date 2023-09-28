@@ -1,0 +1,155 @@
+[
+  {
+    "displayName": "Gold",
+    "generation": 2,
+    "imageFolder": "gold",
+    "iconFolder": "2",
+    "pokemonFile": "gold_silver_crystal",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Silver",
+    "generation": 2,
+    "imageFolder": "silver",
+    "iconFolder": "2",
+    "pokemonFile": "gold_silver_crystal",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Crystal",
+    "generation": 2,
+    "imageFolder": "crystal",
+    "iconFolder": "2",
+    "pokemonFile": "gold_silver_crystal",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Ruby",
+    "generation": 3,
+    "imageFolder": "ruby_sapphire",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "ruby_sapphire_emerald",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Sapphire",
+    "generation": 3,
+    "imageFolder": "ruby_sapphire",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "ruby_sapphire_emerald",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Emerald",
+    "generation": 3,
+    "imageFolder": "emerald",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "ruby_sapphire_emerald",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Fire Red",
+    "generation": 3,
+    "imageFolder": "fire-red_leaf-green",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "fire-red_leaf-green",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Leaf Green",
+    "generation": 3,
+    "imageFolder": "fire-red_leaf-green",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "fire-red_leaf-green",
+    "methodsFile": "2_3",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Diamond",
+    "generation": 4,
+    "imageFolder": "diamond_pearl",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "diamond_pearl",
+    "methodsFile": "4",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Pearl",
+    "generation": 4,
+    "imageFolder": "diamond_pearl",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "diamond_pearl",
+    "methodsFile": "4",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Platinum",
+    "generation": 4,
+    "imageFolder": "platinum",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "platinum",
+    "methodsFile": "4",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Heart Gold",
+    "generation": 4,
+    "imageFolder": "heart-gold_soul-silver",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "heart-gold_soul-silver",
+    "methodsFile": "4",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Soul Silver",
+    "generation": 4,
+    "imageFolder": "heart-gold_soul-silver",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "heart-gold_soul-silver",
+    "methodsFile": "4",
+    "supportsShinyCharm": false
+  },
+  {
+    "displayName": "Black",
+    "generation": 5,
+    "imageFolder": "black_white",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "black_white",
+    "methodsFile": "5",
+    "supportsShinyCharm": true
+  },
+  {
+    "displayName": "White",
+    "generation": 5,
+    "imageFolder": "black_white",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "black_white",
+    "methodsFile": "5",
+    "supportsShinyCharm": true
+  },
+  {
+    "displayName": "Black 2",
+    "generation": 5,
+    "imageFolder": "black-2_white-2",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "black-2_white-2",
+    "methodsFile": "5",
+    "supportsShinyCharm": true
+  },
+  {
+    "displayName": "White 2",
+    "generation": 5,
+    "imageFolder": "black-2_white-2",
+    "iconFolder": "3_4_5",
+    "pokemonFile": "black-2_white-2",
+    "methodsFile": "5",
+    "supportsShinyCharm": true
+  }
+]

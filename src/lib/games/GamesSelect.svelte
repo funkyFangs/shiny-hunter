@@ -1,4 +1,5 @@
 <script context='module' lang='ts'>
+  import { Game } from './Game'
   import { readonly, writable } from 'svelte/store'
 
   const writableSelectedGame = writable<Game>(undefined)
@@ -6,22 +7,30 @@
 </script>
 
 <script lang='ts'>
-  import { Game, Games } from './Games'
   import { groupBy } from '../Utilities'
+  import loadedGamesJson from '../data/games.json'
 
-  // Group games by generation to build a grouped dropdown menu
-  const groupedGames = groupBy(Games, ([, game]) => game.generation)
+  const loadedGames = loadedGamesJson.map(game =>
+      new Game(game.displayName,
+               game.generation,
+               game.imageFolder,
+               game.iconFolder,
+               game.pokemonFile,
+               game.methodsFile,
+               game.supportsShinyCharm))
 </script>
 
-<label for='gameSelect'>Game</label>
+<div id='gameSelect'>
+  <label for='game'>Game</label>
 
-<select bind:value={$writableSelectedGame} id='gameSelect'>
-  {#each groupedGames as [generation, namedGames]}
-    <optgroup label="Generation {generation}">
-      <option selected style='display:none'/>
-      {#each namedGames as [, game]}
-        <option value={game}>{game.displayName}</option>
-      {/each}
-    </optgroup>
-  {/each}
-</select>
+  <select bind:value={$writableSelectedGame} id='game'>
+    {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
+      <optgroup label="Generation {generation}">
+        <option selected style='display:none'/>
+        {#each games as game}
+          <option value={game}>{game.displayName}</option>
+        {/each}
+      </optgroup>
+    {/each}
+  </select>
+</div>
