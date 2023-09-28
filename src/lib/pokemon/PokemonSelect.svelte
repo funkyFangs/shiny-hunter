@@ -27,7 +27,7 @@
 
 <label for='pokemon'>Pokemon</label>
 
-<select bind:value={$writableSelectedPokemon} disabled={loadedPokemonPromise == undefined} id='pokemon'>
+<select bind:value={$writableSelectedPokemon} disabled={loadedPokemonPromise === undefined} id='pokemon'>
   {#if loadedPokemonPromise}
     {#await loadedPokemonPromise then loadedPokemon}
       <option selected style='display:none'/>
