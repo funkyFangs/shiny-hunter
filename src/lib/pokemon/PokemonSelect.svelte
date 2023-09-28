@@ -18,7 +18,12 @@
         // Convert to JSON Array
         .then(response => response.json() as Promise<Array<Pokemon>>)
         // Map JSON values into Pokemon instances
-        .then(array => array.map(pokemon => new Pokemon(pokemon?.displayName, pokemon?.image, pokemon?.shinyImage, pokemon?.icon, pokemon?.variants)))
+        .then(array => array.map(pokemon =>
+            new Pokemon(pokemon?.displayName,
+                        pokemon?.image,
+                        pokemon?.shinyImage,
+                        pokemon?.icon,
+                        pokemon?.variants)))
         // Update writable
         .then(pokemon => pokemon$.set(pokemon))
         // Set to empty array if there's an error
