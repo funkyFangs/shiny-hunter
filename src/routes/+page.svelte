@@ -1,13 +1,18 @@
 <script>
   import GameSelect, { selectedGame } from '$lib/games/GamesSelect.svelte';
-  import PokemonSelect, { selectedPokemon } from '$lib/pokemon/PokemonSelect.svelte'
+  import MethodSelect, { selectedMethod } from '$lib/methods/MethodSelect.svelte';
+  import PokemonSelect, { selectedPokemon } from '$lib/pokemon/PokemonSelect.svelte';
+  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
 </script>
 
 <title>Shiny Hunter</title>
 
+<ThemeToggle/>
+
 <h1>Shiny Hunter</h1>
 <GameSelect/>
 <PokemonSelect/>
+<MethodSelect/>
 
 <!-- A quick and dirty little renderer to demonstrate the store is working as expected -->
 {#if $selectedGame}
@@ -22,6 +27,9 @@
       {#if $selectedPokemon?.variants?.length}
         Variants: {$selectedPokemon.variants}
       {/if}
+    {/if}
+    {#if $selectedMethod}
+      Selected Method: {$selectedMethod.displayName}
     {/if}
   </p>
 {/if}

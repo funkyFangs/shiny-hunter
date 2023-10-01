@@ -7,8 +7,8 @@
 </script>
 
 <script lang='ts'>
-  import { groupBy } from '../Utilities'
-  import loadedGamesJson from '../data/games.json'
+  import { groupBy } from '$lib/utilities/MapUtilities'
+  import loadedGamesJson from '$lib/data/games.json'
 
   const loadedGames = loadedGamesJson.map(game =>
       new Game(game.displayName,

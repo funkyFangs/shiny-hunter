@@ -34,11 +34,13 @@
   onDestroy(unsubscribe)
 </script>
 
-<label for='pokemon'>Pokemon</label>
+<div id='pokemonSelect'>
+  <label for='pokemon'>Pokemon</label>
 
-<select bind:value={$writableSelectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
-  <option selected style='display:none'/>
-  {#each $pokemon$ as pokemon}
-    <option value={pokemon}>{pokemon.displayName}</option>
-  {/each}
-</select>
+  <select bind:value={$writableSelectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
+    <option selected style='display:none'/>
+    {#each $pokemon$ as pokemon}
+      <option value={pokemon}>{pokemon.displayName}</option>
+    {/each}
+  </select>
+</div>
