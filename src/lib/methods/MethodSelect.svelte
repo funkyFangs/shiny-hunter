@@ -7,7 +7,7 @@
 
 <script lang='ts'>
   import { onDestroy } from 'svelte'
-  import { selectedGame } from '../games/GamesSelect.svelte'
+  import { selectedGame } from '../games/GameSelect.svelte'
   import { Method } from './Method'
 
   const methods$ = writable<Array<Method>>([])

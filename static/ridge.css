@@ -615,6 +615,10 @@ dd {
   margin: 0;
 }
 
+.hamburger {
+  --color: var(--main);
+}
+
 @media(max-width: 1023px) {
   body {
     width: 100%;
