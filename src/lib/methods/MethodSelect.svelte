@@ -31,13 +31,9 @@
   onDestroy(unsubscribe)
 </script>
 
-<div id='methodSelect'>
-  <label for='method'>Method</label>
-
-  <select bind:value={$writableSelectedMethod} disabled={$methods$.length <= 0} id='method'>
-    <option selected style='display:none'/>
-    {#each $methods$ as method}
-      <option value={method}>{method.displayName}</option>
-    {/each}
-  </select>
-</div>
+<select bind:value={$writableSelectedMethod} disabled={$methods$.length <= 0} id='method'>
+  <option selected style='display:none'/>
+  {#each $methods$ as method (method.displayName)}
+    <option value={method}>{method.displayName}</option>
+  {/each}
+</select>

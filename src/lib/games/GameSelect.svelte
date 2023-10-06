@@ -20,17 +20,14 @@
                game.supportsShinyCharm))
 </script>
 
-<div id='gameSelect'>
-  <label for='game'>Game</label>
 
-  <select bind:value={$writableSelectedGame} id='game'>
-    {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
-      <optgroup label="Generation {generation}">
-        <option selected style='display:none'/>
-        {#each games as game}
-          <option value={game}>{game.displayName}</option>
-        {/each}
-      </optgroup>
-    {/each}
-  </select>
-</div>
+<select bind:value={$writableSelectedGame} id='game'>
+  {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
+    <optgroup label="Generation {generation}">
+      <option selected style='display:none'/>
+      {#each games as game}
+        <option value={game}>{game.displayName}</option>
+      {/each}
+    </optgroup>
+  {/each}
+</select>

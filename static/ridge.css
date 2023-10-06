@@ -617,6 +617,7 @@ dd {
 
 .hamburger {
   --color: var(--main);
+  --active-color: var(--background-alt);
 }
 
 @media(max-width: 1023px) {
