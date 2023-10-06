@@ -1,25 +1,54 @@
 <script lang='ts'>
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
+  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
 </script>
 
 <title>About</title>
 
 <div class='content'>
   <h1>About</h1>
+  <p>
+    This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
+  </p>
 
-  <p>Fuck, man, FU-</p>
+  <h2>Contributors</h2>
+  <ul>
+    <li>funkyFangs</li>
+    <li>Maxzilla</li>
+  </ul>
+
+  <h2>Links</h2>
+  <nav>
+    <ul>
+      <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
+    </ul>
+  </nav>
 </div>
 
 <HeaderMenu>
-  <a href='/'>Home</a>
+  <li><a href='/'>Home</a></li>
+  <li><ThemeToggle/></li>
 </HeaderMenu>
 
 <style>
   .content {
     position: fixed;
     left: 20%;
-    margin-left: 25px;
     right: 20%;
-    margin-right: 25px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 30px;
+    padding: 0px;
   }
 </style>
