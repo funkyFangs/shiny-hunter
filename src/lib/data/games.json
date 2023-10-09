@@ -4,7 +4,7 @@
     "generation": 2,
     "imageFolder": "gold",
     "iconFolder": "2",
-    "pokemonFile": "gold_silver_crystal",
+    "pokemonFile": "2",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -13,7 +13,7 @@
     "generation": 2,
     "imageFolder": "silver",
     "iconFolder": "2",
-    "pokemonFile": "gold_silver_crystal",
+    "pokemonFile": "2",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -22,7 +22,7 @@
     "generation": 2,
     "imageFolder": "crystal",
     "iconFolder": "2",
-    "pokemonFile": "gold_silver_crystal",
+    "pokemonFile": "2",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -31,7 +31,7 @@
     "generation": 3,
     "imageFolder": "ruby_sapphire",
     "iconFolder": "3_4_5",
-    "pokemonFile": "ruby_sapphire_emerald",
+    "pokemonFile": "ruby_sapphire",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -40,7 +40,7 @@
     "generation": 3,
     "imageFolder": "ruby_sapphire",
     "iconFolder": "3_4_5",
-    "pokemonFile": "ruby_sapphire_emerald",
+    "pokemonFile": "ruby_sapphire",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -49,7 +49,7 @@
     "generation": 3,
     "imageFolder": "emerald",
     "iconFolder": "3_4_5",
-    "pokemonFile": "ruby_sapphire_emerald",
+    "pokemonFile": "emerald_fire-red_leaf-green",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -58,7 +58,7 @@
     "generation": 3,
     "imageFolder": "fire-red_leaf-green",
     "iconFolder": "3_4_5",
-    "pokemonFile": "fire-red_leaf-green",
+    "pokemonFile": "emerald_fire-red_leaf-green",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -67,7 +67,7 @@
     "generation": 3,
     "imageFolder": "fire-red_leaf-green",
     "iconFolder": "3_4_5",
-    "pokemonFile": "fire-red_leaf-green",
+    "pokemonFile": "emerald_fire-red_leaf-green",
     "methodsFile": "2_3",
     "supportsShinyCharm": false
   },
@@ -94,7 +94,7 @@
     "generation": 4,
     "imageFolder": "platinum",
     "iconFolder": "3_4_5",
-    "pokemonFile": "platinum",
+    "pokemonFile": "platinum_heart-gold_soul-silver",
     "methodsFile": "4",
     "supportsShinyCharm": false
   },
@@ -103,7 +103,7 @@
     "generation": 4,
     "imageFolder": "heart-gold_soul-silver",
     "iconFolder": "3_4_5",
-    "pokemonFile": "heart-gold_soul-silver",
+    "pokemonFile": "platinum_heart-gold_soul-silver",
     "methodsFile": "4",
     "supportsShinyCharm": false
   },
@@ -112,7 +112,7 @@
     "generation": 4,
     "imageFolder": "heart-gold_soul-silver",
     "iconFolder": "3_4_5",
-    "pokemonFile": "heart-gold_soul-silver",
+    "pokemonFile": "platinum_heart-gold_soul-silver",
     "methodsFile": "4",
     "supportsShinyCharm": false
   },

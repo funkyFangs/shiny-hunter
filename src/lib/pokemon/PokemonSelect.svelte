@@ -10,16 +10,16 @@
   import { selectedGame } from '../games/GameSelect.svelte'
   import { Pokemon } from './Pokemon'
 
-  const pokemon$ = writable<Array<Pokemon>>([])
+  const pokemon$ = writable<Pokemon[]>([])
 
   const unsubscribe = selectedGame.subscribe(game => {
     if (game) {
       fetch(game.pokemonFile)
         // Convert to JSON Array
-        .then(response => response.json() as Promise<Array<Pokemon>>)
+        .then(response => response.json() as Promise<Pokemon[]>)
         // Map JSON values into Pokemon instances
         .then(array => array.map(pokemon =>
-            new Pokemon(pokemon?.displayName,
+            new Pokemon(pokemon.displayName,
                         pokemon?.image,
                         pokemon?.shinyImage,
                         pokemon?.icon,
@@ -36,7 +36,7 @@
 
 <select bind:value={$writableSelectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
   <option selected style='display:none'/>
-  {#each $pokemon$ as pokemon (pokemon.displayName)}
+  {#each $pokemon$ as pokemon}
     <option value={pokemon}>{pokemon.displayName}</option>
   {/each}
 </select>

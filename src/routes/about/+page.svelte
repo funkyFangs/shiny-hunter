@@ -26,11 +26,19 @@
 </div>
 
 <HeaderMenu>
-  <li><a href='/'>Home</a></li>
+  <li><a class='navigation' href='/'>Home</a></li>
+  <li><a class='navigation' href='/credits'>Credits</a></li>
   <li><ThemeToggle/></li>
 </HeaderMenu>
 
 <style>
+  .navigation {
+    color: var(--background);
+    position: relative;
+    display: inline-block;
+    height: 60px;
+  }
+
   .content {
     position: fixed;
     left: 20%;

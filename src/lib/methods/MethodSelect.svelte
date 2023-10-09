@@ -33,7 +33,7 @@
 
 <select bind:value={$writableSelectedMethod} disabled={$methods$.length <= 0} id='method'>
   <option selected style='display:none'/>
-  {#each $methods$ as method (method.displayName)}
+  {#each $methods$ as method}
     <option value={method}>{method.displayName}</option>
   {/each}
 </select>

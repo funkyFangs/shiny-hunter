@@ -27,17 +27,25 @@
   </table>
 
   {#if $selectedGame && $selectedPokemon}
-    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.image} alt='The sprite of the selected Pokemon'/>
-    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.shinyImage} alt='The shiny sprite of the selected Pokemon'/>
+    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.image} alt='The sprite for {$selectedPokemon.displayName}'/>
+    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.shinyImage} alt='The shiny sprite for {$selectedPokemon.displayName}'/>
   {/if}
 </div>
 
 <HeaderMenu>
   <li><a href='/about'>About</a></li>
+  <li><a href='/credits'>Credits</a></li>
   <li><ThemeToggle/></li>
 </HeaderMenu>
 
 <style>
+  a {
+    color: var(--background);
+    position: relative;
+    display: inline-block;
+    height: 60px;
+  }
+
   .content {
     position: fixed;
     left: 20%;
@@ -56,5 +64,6 @@
     display: block;
     width: 300px;
     margin: auto;
+    image-rendering: pixelated;
   }
 </style>

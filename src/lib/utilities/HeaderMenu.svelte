@@ -20,7 +20,7 @@
   .sidebar {
     height: 100%;
     width: 300px;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -100%;
     background: var(--background-inverse);
