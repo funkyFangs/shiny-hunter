@@ -1,7 +1,7 @@
 import { writable, get, type Writable, type Updater } from 'svelte/store';
 import { browser } from '$app/environment';
 
-export function storable<Data>(key: string, data: Data): Writable<Data> {
+export function localWritable<Data>(key: string, data: Data): Writable<Data> {
   const store = writable(data);
   const { subscribe, set } = store;
 

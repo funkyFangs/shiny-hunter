@@ -1,33 +1,43 @@
 <script context='module' lang='ts'>
   import { Game } from './Game'
-  import { readonly, writable } from 'svelte/store'
+  import { writable } from 'svelte/store'
 
-  const writableSelectedGame = writable<Game>(undefined)
-  export const selectedGame = readonly(writableSelectedGame)
+  export const selectedGame = writable<Game | undefined>(undefined)
 </script>
 
 <script lang='ts'>
   import { groupBy } from '$lib/utilities/MapUtilities'
   import loadedGamesJson from '$lib/data/games.json'
 
-  const loadedGames = loadedGamesJson.map(game =>
-      new Game(game.displayName,
-               game.generation,
-               game.imageFolder,
-               game.iconFolder,
-               game.pokemonFile,
-               game.methodsFile,
-               game.supportsShinyCharm))
+  const loadedGames = loadedGamesJson.map(({displayName, generation, imageFolder, iconFolder, pokemonFile, methodsFile, supportsShinyCharm}) =>
+    new Game(displayName, generation, imageFolder, iconFolder, pokemonFile, methodsFile, supportsShinyCharm));
 </script>
 
+<div id='select-game'>
+  <label for='game'>Game</label>
+  <select bind:value={$selectedGame} id='game'>
+    {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
+      <optgroup label="Generation {generation}">
+        <option selected style='display:none'/>
+        {#each games as game}
+          <option value={game}>{game.displayName}</option>
+        {/each}
+      </optgroup>
+    {/each}
+  </select>
+</div>
 
-<select bind:value={$writableSelectedGame} id='game'>
-  {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
-    <optgroup label="Generation {generation}">
-      <option selected style='display:none'/>
-      {#each games as game}
-        <option value={game}>{game.displayName}</option>
-      {/each}
-    </optgroup>
-  {/each}
-</select>
+<style>
+  select {
+    background-color: var(--background);
+    margin-bottom: 10px;
+  }
+
+  #select-game * {
+    display: inline-block;
+  }
+
+  label {
+    margin-right: 10px;
+  }
+</style>

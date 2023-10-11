@@ -1,8 +1,7 @@
 <script context='module' lang='ts'>
-  import { readonly, writable } from 'svelte/store'
+  import { writable } from 'svelte/store'
 
-  const writableSelectedPokemon = writable<Pokemon>(undefined)
-  export const selectedPokemon = readonly(writableSelectedPokemon)
+  export const selectedPokemon = writable<Pokemon | undefined>(undefined);
 </script>
 
 <script lang='ts'>
@@ -18,25 +17,42 @@
         // Convert to JSON Array
         .then(response => response.json() as Promise<Pokemon[]>)
         // Map JSON values into Pokemon instances
-        .then(array => array.map(pokemon =>
-            new Pokemon(pokemon.displayName,
-                        pokemon?.image,
-                        pokemon?.shinyImage,
-                        pokemon?.icon,
-                        pokemon?.variants)))
+        .then(array => array.map(({displayName, image, shinyImage, icon, variants}) =>
+            new Pokemon(displayName, image, shinyImage, icon, variants)))
         // Update writable
         .then(pokemon => pokemon$.set(pokemon))
         // Set to empty array if there's an error
         .catch(() => pokemon$.set([]))
+    }
+    else {
+      pokemon$.set([]);
     }
   })
 
   onDestroy(unsubscribe)
 </script>
 
-<select bind:value={$writableSelectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
-  <option selected style='display:none'/>
-  {#each $pokemon$ as pokemon}
-    <option value={pokemon}>{pokemon.displayName}</option>
-  {/each}
-</select>
+<div id='select-pokemon'>
+  <label for='pokemon'>Pokemon</label>
+  <select bind:value={$selectedPokemon} disabled={$pokemon$.length <= 0} id='pokemon'>
+    <option selected style='display:none'/>
+    {#each $pokemon$ as pokemon}
+      <option value={pokemon}>{pokemon.displayName}</option>
+    {/each}
+  </select>
+</div>
+
+<style>
+  select {
+    background-color: var(--background);
+    margin-bottom: 10px;
+  }
+
+  #select-pokemon * {
+    display: inline-block;
+  }
+
+  label {
+    margin-right: 10px;
+  }
+</style>
