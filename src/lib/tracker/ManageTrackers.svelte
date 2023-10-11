@@ -15,6 +15,8 @@
 
   const hasTrackers = derived(trackers, trackers => trackers.length > 0);
 
+  let selectedTracker: Tracker | undefined = $trackers.length > 0 ? $trackers[0] : undefined;
+
   function createTracker() {
     const tracker = new Tracker($selectedGame!, $selectedPokemon!, $selectedMethod!);
     trackers.update(trackers => [...trackers, tracker]);
@@ -24,12 +26,27 @@
     selectedMethod.set(undefined);
   }
 
-  const deleteTracker = (index: number) => () => {
-    trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
-    selectedTracker = $trackers.length > 0 ? $trackers[0] : undefined;
+  function deleteTracker(index: number) {
+    return () => {
+      trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
+      selectedTracker = $trackers.length > 0 ? $trackers[0] : undefined;
+    }
   }
 
-  let selectedTracker: Tracker | undefined = $trackers.length > 0 ? $trackers[0] : undefined;
+  function increment() {
+    selectedTracker!.count += 1;
+    trackers.set($trackers);
+  }
+
+  function decrement() {
+    selectedTracker!.count = Math.max(selectedTracker!.count - 1, 0);
+    trackers.set($trackers);
+  }
+
+  function set(value: number) {
+    selectedTracker!.count = value;
+    trackers.set($trackers);
+  }
 </script>
 
 <div id='trackers'>
@@ -53,10 +70,10 @@
       <img class='sprite' src={selectedTracker.game.imageFolder + '/' + selectedTracker.pokemon.shinyImage} alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
       <div id='counter'>
         <div id='count-label'>
-          <input id='count-input' type='number' min={0} bind:value={selectedTracker.count}/>
+          <input id='count-input' type='number' min={0} value={selectedTracker.count} on:change={event => set(Number(event.currentTarget.value))}/>
           <label for='count-input'>{selectedTracker.count == 1 ? selectedTracker.method.singularUnit : selectedTracker.method.pluralUnit}</label>
         </div>
-        <button style='margin-right: 5px'>+</button><button>−</button>
+        <button on:click={increment}>+</button><button on:click={decrement}>−</button><button on:click={() => set(0)}>Reset</button>
       </div>
     {:else}
       <form id='create-tracker'>
@@ -70,52 +87,12 @@
 </div>
 
 <style>
-  #new-tab {
-    padding: 5px;
-    background: none;
-    color: var(--main);
-  }
-
-  #counter {
-    font-size: 40px;
-  }
-
-  #counter button {
-    padding: 10px;
-    margin: 0px;
-    background-color: var(--background);
-    color: var(--main);
-    display: inline;
-  }
-
-  #count-input {
-    padding: 0;
-    appearance: textfield;
-    background: none;
-    width: fit-content;
-    size-adjust: unset;
-    display: inline-block;
-  }
-
-  .tab ~ .tab {
-    margin-left: 3px;
-  }
-
+  /* Tabs */
   .tab {
     background-color: var(--background-dim);
     padding: 5px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-  }
-
-  .tab.selected {
-    background-color: var(--background-bright);
-  }
-
-  .tab:hover {
-    background-color: var(--background-bright);
-    transition: 0.2s;
-    cursor: pointer;
   }
 
   .tab-input {
@@ -134,14 +111,34 @@
     padding: 5px;
   }
 
+  /* Tab Selection */
+  .tab.selected {
+    background-color: var(--background-bright);
+  }
+
+  .tab:hover {
+    background-color: var(--background-bright);
+    transition: 0.2s;
+    cursor: pointer;
+  }
+
+  /* Tab Separation */
+  .tab ~ .tab {
+    margin-left: 3px;
+  }
+
+  /* New Tab */
+  #new-tab {
+    padding: 5px;
+    background: none;
+    color: var(--main);
+  }
+
+  /* Selected Tracker */
   #selected-tracker {
     background-color: var(--background-bright);
     padding: 10px;
     border-radius: 8px;
-  }
-
-  #count-label * {
-    width: 50%;
   }
 
   .sprite {
@@ -150,5 +147,35 @@
     margin-left: auto;
     margin-right: auto;
     width: 50%
+  }
+
+  /* Tracker Counter */
+  #counter {
+    font-size: 40px;
+  }
+
+  #counter button {
+    padding: 10px;
+    margin: 0px;
+    background-color: var(--background);
+    color: var(--main);
+    display: inline;
+  }
+
+  #counter button ~ button {
+    margin-left: 5px;
+  }
+
+  #count-input {
+    padding: 0;
+    appearance: textfield;
+    background: none;
+    width: fit-content;
+    size-adjust: unset;
+    display: inline-block;
+  }
+
+  #count-label * {
+    width: 50%;
   }
 </style>
