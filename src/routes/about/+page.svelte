@@ -1,57 +1,57 @@
 <script lang='ts'>
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
   import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
+  import { browser } from '$app/environment';
 </script>
 
 <title>About</title>
 
-<div class='content'>
+<header>
+  <HeaderMenu>
+    <li><a class='navigation' href='/'>Home</a></li>
+    <li><a class='navigation' href='/credits'>Credits</a></li>
+    <li><ThemeToggle/></li>
+    <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
+  </HeaderMenu>
   <h1>About</h1>
-  <p>
-    This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
-  </p>
+</header>
 
-  <h2>Contributors</h2>
+<p>
+  This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
+</p>
+
+<h2>Contributors</h2>
+<ul>
+  <li>funkyFangs</li>
+  <li>Maxzilla</li>
+</ul>
+
+<h2>Links</h2>
+<nav>
   <ul>
-    <li>funkyFangs</li>
-    <li>Maxzilla</li>
+    <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
   </ul>
-
-  <h2>Links</h2>
-  <nav>
-    <ul>
-      <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
-    </ul>
-  </nav>
-</div>
-
-<HeaderMenu>
-  <li><a class='navigation' href='/'>Home</a></li>
-  <li><a class='navigation' href='/credits'>Credits</a></li>
-  <li><ThemeToggle/></li>
-</HeaderMenu>
+</nav>
 
 <style>
-  .navigation {
+  :root {
+    padding: 15px;
+  }
+
+  header a {
     color: var(--background);
     position: relative;
     display: inline-block;
     height: 60px;
   }
 
-  .content {
-    position: fixed;
-    left: 20%;
-    right: 20%;
+  header h1 {
+    font-size: 28.7px;
+    display: inline;
   }
 
-  h1 {
-    margin-bottom: 20px;
-  }
-
-  h2 {
-    margin-bottom: 15px;
-    margin-top: 15px;
+  header {
+    padding-bottom: 15px;
   }
 
   ul {

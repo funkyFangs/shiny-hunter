@@ -1,6 +1,7 @@
 :root {
-  --background: #fff;
-  --background-alt: #efefef;
+  --background: #efefef;
+  --background-dim: #d7d7d7;
+  --background-bright: #fff;
   --background-inverse: #313a46;
 
   --main: #363636;

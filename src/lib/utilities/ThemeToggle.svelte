@@ -1,19 +1,19 @@
 <script lang='ts'>
   import { browser } from '$app/environment';
-  import { storable } from './Storable';
+  import { localWritable } from './StoreUtilities';
 
   enum Theme {
-    DARK = '/ridge-dark.css',
-    LIGHT = '/ridge-light.css'
+    DARK = 'ridge-dark.css',
+    LIGHT = 'ridge-light.css'
   }
 
-  const isDark = storable('isDark',
+  const isDark = localWritable('isDark',
     // If platform supports localStorage & window
     browser
       // If theme is not stored
       ? localStorage['isDark'] === undefined
         // Then determine if OS prefers a theme
-        ? window.matchMedia('(prefers-color-scheme: true)').matches
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
         // Else get stored theme
         : localStorage['isDark'] == 'true'
       // Else default to light theme
@@ -59,7 +59,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--background-alt);
+    background-color: var(--background-dim);
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -80,7 +80,7 @@
   }
 
   input:checked + .slider {
-    background-color: var(--background-alt);
+    background-color: var(--background-dim);
   }
 
   input:focus + .slider {

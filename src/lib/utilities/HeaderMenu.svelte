@@ -4,17 +4,13 @@
   export let open = false
 </script>
 
-<header class='header-menu'>
-  <div class='sidebar' class:open>
-    <ul>
-      <slot/>
-    </ul>
-  </div>
+<div class='sidebar' class:open>
+  <ul>
+    <slot/>
+  </ul>
+</div>
 
-  <div class='hamburger'>
-    <Hamburger bind:open/>
-  </div>
-</header>
+<Hamburger bind:open --padding=0px --display=inline/>
 
 <style>
   .sidebar {
@@ -33,14 +29,6 @@
     padding: 0;
     margin-top: 100px;
     margin-left: 45px;
-  }
-
-  .hamburger {
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin-top: 16px;
-    margin-left: 16px;
   }
 
   .open {

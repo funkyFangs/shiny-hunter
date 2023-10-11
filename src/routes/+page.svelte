@@ -1,69 +1,42 @@
-<script>
-  import GameSelect, { selectedGame } from '$lib/games/GameSelect.svelte';
-  import PokemonSelect, { selectedPokemon } from '$lib/pokemon/PokemonSelect.svelte';
-  import MethodSelect, { selectedMethod } from '$lib/methods/MethodSelect.svelte';
+<script lang='ts'>
+  import { browser } from '$app/environment';
+  import ManageTrackers from '$lib/tracker/ManageTrackers.svelte';
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
   import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
 </script>
 
 <title>Shiny Hunter</title>
 
-<div class='content'>
+<header>
+  <HeaderMenu>
+    <li><a href='/about'>About</a></li>
+    <li><a href='/credits'>Credits</a></li>
+    <li><ThemeToggle/></li>
+    <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
+  </HeaderMenu>
   <h1>Shiny Hunter</h1>
+</header>
 
-  <table>
-    <tr>
-      <td><strong>Game</strong></td>
-      <td><GameSelect/></td>
-    </tr>
-    <tr>
-      <td><strong>Pokemon</strong></td>
-      <td><PokemonSelect/></td>
-    </tr>
-    <tr>
-      <td><strong>Method</strong></td>
-      <td><MethodSelect/></td>
-    </tr>
-  </table>
-
-  {#if $selectedGame && $selectedPokemon}
-    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.image} alt='The sprite for {$selectedPokemon.displayName}'/>
-    <img class='sprite' src={$selectedGame.imageFolder + '/' + $selectedPokemon.shinyImage} alt='The shiny sprite for {$selectedPokemon.displayName}'/>
-  {/if}
-</div>
-
-<HeaderMenu>
-  <li><a href='/about'>About</a></li>
-  <li><a href='/credits'>Credits</a></li>
-  <li><ThemeToggle/></li>
-</HeaderMenu>
+<ManageTrackers/>
 
 <style>
-  a {
+  :root {
+    padding: 15px;
+  }
+
+  header {
+    padding-bottom: 15px;
+  }
+
+  header a {
     color: var(--background);
     position: relative;
     display: inline-block;
     height: 60px;
   }
 
-  .content {
-    position: fixed;
-    left: 20%;
-    right: 20%;
-  }
-
-  td {
-    font-size: 20px;
-  }
-
-  table {
-    width: 60%;
-  }
-
-  .sprite {
-    display: block;
-    width: 300px;
-    margin: auto;
-    image-rendering: pixelated;
+  header h1 {
+    font-size: 28.7px;
+    display: inline;
   }
 </style>
