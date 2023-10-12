@@ -26,6 +26,8 @@
 
   header {
     padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
   }
 
   header a {
@@ -37,6 +39,5 @@
 
   header h1 {
     font-size: 28.7px;
-    display: inline;
   }
 </style>

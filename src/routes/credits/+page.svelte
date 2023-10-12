@@ -38,9 +38,14 @@
     padding: 15px;
   }
 
+  header {
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   header h1 {
     font-size: 28.7px;
-    display: inline;
   }
 
   header a {
@@ -48,10 +53,6 @@
     position: relative;
     display: inline-block;
     height: 60px;
-  }
-
-  header {
-    padding-bottom: 15px;
   }
 
   ul {
