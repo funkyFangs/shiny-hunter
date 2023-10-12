@@ -9,6 +9,7 @@
   import GameSelect, { selectedGame } from '$lib/games/GameSelect.svelte';
   import PokemonSelect, { selectedPokemon } from '$lib/pokemon/PokemonSelect.svelte';
   import MethodSelect, { selectedMethod } from '$lib/methods/MethodSelect.svelte';
+  import ShinyCharmCheck, { shinyCharm } from './ShinyCharmCheck.svelte';
   import { derived } from 'svelte/store';
 
   const hasTrackers = derived(trackers, trackers => trackers.length > 0);
@@ -16,7 +17,7 @@
   let selectedTracker: Tracker | undefined = $hasTrackers ? $trackers[0] : undefined;
 
   function createTracker() {
-    const tracker = new Tracker($selectedGame!, $selectedPokemon!, $selectedMethod!);
+    const tracker = new Tracker($selectedGame!, $selectedPokemon!, $selectedMethod!, $shinyCharm);
     trackers.update(trackers => [...trackers, tracker]);
     selectedTracker = tracker
     selectedGame.set(undefined);
@@ -72,7 +73,7 @@
           </label>
         </div>
         <div id='odds'>
-          {selectedTracker.method.odds[Math.max(0, Math.min(selectedTracker.count, selectedTracker.method.odds.length - 1))]}% Chance
+          {(selectedTracker.method.odds[Math.max(0, Math.min(selectedTracker.count, selectedTracker.method.odds.length - 1))] * (selectedTracker.shinyCharm ? 3 : 1)).toFixed(3)}% Chance
         </div>
         <div id='controls'>
           <button id='increment' on:click={increment}>+</button>
@@ -85,6 +86,7 @@
         <GameSelect/>
         <PokemonSelect/>
         <MethodSelect/>
+        <ShinyCharmCheck/>
         <button disabled={!($selectedGame && $selectedPokemon && $selectedMethod)} on:click={createTracker}>Create Tracker</button>
       </form>
     {/if}
@@ -141,6 +143,7 @@
 
   #create-tracker button {
     display: block;
+    margin-top: 10px;
   }
 
   /* Selected Tracker */
