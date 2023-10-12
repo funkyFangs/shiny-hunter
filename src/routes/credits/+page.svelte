@@ -1,15 +1,12 @@
 <script>
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
-  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
-  import { browser } from '$app/environment';
 </script>
 
 <header>
   <HeaderMenu>
-    <li><a href='/'>Home</a></li>
-    <li><a href='/about'>About</a></li>
-    <li><ThemeToggle/></li>
-    <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
+    <li><a class='navigation' href='/'>Home</a></li>
+    <li><a class='navigation' href='/about'>About</a></li>
+    <li><a class='navigation selected' href='/credits'>Credits</a></li>
   </HeaderMenu>
   <h1>Credits</h1>
 </header>
@@ -38,6 +35,17 @@
     padding: 15px;
   }
 
+  .navigation {
+    color: var(--background);
+    position: relative;
+    display: inline-block;
+    height: 60px;
+  }
+
+  .navigation:hover, .navigation.selected {
+    color: var(--background-bright);
+  }
+
   header {
     padding-bottom: 15px;
     display: flex;
@@ -46,13 +54,6 @@
 
   header h1 {
     font-size: 28.7px;
-  }
-
-  header a {
-    color: var(--background);
-    position: relative;
-    display: inline-block;
-    height: 60px;
   }
 
   ul {

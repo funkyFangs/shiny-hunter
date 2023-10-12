@@ -1,5 +1,7 @@
 <script>
   import { Hamburger } from 'svelte-hamburgers';
+  import ThemeToggle from './ThemeToggle.svelte';
+  import { browser } from '$app/environment';
 
   export let open = false
 </script>
@@ -7,6 +9,8 @@
 <div class='sidebar' class:open>
   <ul>
     <slot/>
+    <li><ThemeToggle/></li>
+    <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
   </ul>
 </div>
 

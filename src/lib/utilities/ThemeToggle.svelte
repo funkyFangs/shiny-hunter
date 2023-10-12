@@ -7,17 +7,7 @@
     LIGHT = 'ridge-light.css'
   }
 
-  const isDark = localWritable('isDark',
-    // If platform supports localStorage & window
-    browser
-      // If theme is not stored
-      ? localStorage['isDark'] === undefined
-        // Then determine if OS prefers a theme
-        ? window.matchMedia('(prefers-color-scheme: dark)').matches
-        // Else get stored theme
-        : localStorage['isDark'] == 'true'
-      // Else default to light theme
-      : false);
+  const isDark = localWritable('isDark', browser && window.matchMedia('(prefers-color-scheme: dark)').matches);
 </script>
 
 <svelte:head>

@@ -9,8 +9,13 @@
   import { groupBy } from '$lib/utilities/MapUtilities'
   import loadedGamesJson from '$lib/data/games.json'
 
-  const loadedGames = loadedGamesJson.map(({displayName, generation, imageFolder, iconFolder, pokemonFile, methodsFile, supportsShinyCharm}) =>
-    new Game(displayName, generation, imageFolder, iconFolder, pokemonFile, methodsFile, supportsShinyCharm));
+  const loadedGames = loadedGamesJson.map(loadedGame =>
+    new Game(loadedGame.displayName,
+             loadedGame.generation,
+             loadedGame.imageFolder,
+             loadedGame.iconFolder,
+             loadedGame.pokemonFile,
+             loadedGame.methodsFile));
 </script>
 
 <div id='select-game'>

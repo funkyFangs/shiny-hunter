@@ -9,9 +9,8 @@
 <header>
   <HeaderMenu>
     <li><a class='navigation' href='/'>Home</a></li>
+    <li><a class='navigation selected' href='/about'>About</a></li>
     <li><a class='navigation' href='/credits'>Credits</a></li>
-    <li><ThemeToggle/></li>
-    <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
   </HeaderMenu>
   <h1>About</h1>
 </header>
@@ -38,11 +37,15 @@
     padding: 15px;
   }
 
-  header a {
+  .navigation {
     color: var(--background);
     position: relative;
     display: inline-block;
     height: 60px;
+  }
+
+  .navigation.selected {
+    color: var(--background-bright);
   }
 
   header h1 {

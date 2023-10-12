@@ -13,13 +13,13 @@ export class Game {
               iconFolder: string,
               pokemonFile: string,
               methodsFile: string,
-              supportsShinyCharm: boolean) {
+              supportsShinyCharm?: boolean) {
     this.displayName = name
     this.generation = generation
     this.imageFolder = `/images/${imageFolder}`
     this.iconFolder = `/icons/${iconFolder}`
     this.pokemonFile = `/pokemon/${pokemonFile}.pokemon.json`
     this.methodsFile = `/methods/${methodsFile}.json`
-    this.supportsShinyCharm = supportsShinyCharm
+    this.supportsShinyCharm = supportsShinyCharm === undefined ? generation >= 5 : supportsShinyCharm;
   }
 }

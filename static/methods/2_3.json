@@ -1,7 +1,10 @@
 [
   {
     "displayName": "Random Chance",
-    "singularUnit": "encounter",
-    "pluralUnit": "encounters"
+    "singularUnit": "Encounter",
+    "pluralUnit": "Encounters",
+    "odds": [
+      0.012
+    ]
   }
 ]

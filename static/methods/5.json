@@ -1,12 +1,18 @@
 [
   {
     "displayName": "Random Chance",
-    "singularUnit": "encounter",
-    "pluralUnit": "encounters"
+    "singularUnit": "Encounter",
+    "pluralUnit": "Encounters",
+    "odds": [
+      0.012
+    ]
   },
   {
     "displayName": "Masuda Method",
-    "singularUnit": "egg",
-    "pluralUnit": "eggs"
+    "singularUnit": "Egg",
+    "pluralUnit": "Eggs",
+    "odds": [
+      0.061
+    ]
   }
 ]

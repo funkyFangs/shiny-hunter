@@ -5,8 +5,7 @@
     "imageFolder": "gold",
     "iconFolder": "2",
     "pokemonFile": "2",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Silver",
@@ -14,8 +13,7 @@
     "imageFolder": "silver",
     "iconFolder": "2",
     "pokemonFile": "2",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Crystal",
@@ -23,8 +21,7 @@
     "imageFolder": "crystal",
     "iconFolder": "2",
     "pokemonFile": "2",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Ruby",
@@ -32,8 +29,7 @@
     "imageFolder": "ruby_sapphire",
     "iconFolder": "3_4_5",
     "pokemonFile": "ruby_sapphire",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Sapphire",
@@ -41,8 +37,7 @@
     "imageFolder": "ruby_sapphire",
     "iconFolder": "3_4_5",
     "pokemonFile": "ruby_sapphire",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Emerald",
@@ -50,8 +45,7 @@
     "imageFolder": "emerald",
     "iconFolder": "3_4_5",
     "pokemonFile": "emerald_fire-red_leaf-green",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Fire Red",
@@ -59,8 +53,7 @@
     "imageFolder": "fire-red_leaf-green",
     "iconFolder": "3_4_5",
     "pokemonFile": "emerald_fire-red_leaf-green",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Leaf Green",
@@ -68,8 +61,7 @@
     "imageFolder": "fire-red_leaf-green",
     "iconFolder": "3_4_5",
     "pokemonFile": "emerald_fire-red_leaf-green",
-    "methodsFile": "2_3",
-    "supportsShinyCharm": false
+    "methodsFile": "2_3"
   },
   {
     "displayName": "Diamond",
@@ -77,8 +69,7 @@
     "imageFolder": "diamond_pearl",
     "iconFolder": "3_4_5",
     "pokemonFile": "diamond_pearl",
-    "methodsFile": "4",
-    "supportsShinyCharm": false
+    "methodsFile": "4"
   },
   {
     "displayName": "Pearl",
@@ -86,8 +77,7 @@
     "imageFolder": "diamond_pearl",
     "iconFolder": "3_4_5",
     "pokemonFile": "diamond_pearl",
-    "methodsFile": "4",
-    "supportsShinyCharm": false
+    "methodsFile": "4"
   },
   {
     "displayName": "Platinum",
@@ -95,8 +85,7 @@
     "imageFolder": "platinum",
     "iconFolder": "3_4_5",
     "pokemonFile": "platinum_heart-gold_soul-silver",
-    "methodsFile": "4",
-    "supportsShinyCharm": false
+    "methodsFile": "4"
   },
   {
     "displayName": "Heart Gold",
@@ -104,8 +93,7 @@
     "imageFolder": "heart-gold_soul-silver",
     "iconFolder": "3_4_5",
     "pokemonFile": "platinum_heart-gold_soul-silver",
-    "methodsFile": "4",
-    "supportsShinyCharm": false
+    "methodsFile": "4"
   },
   {
     "displayName": "Soul Silver",
@@ -113,8 +101,7 @@
     "imageFolder": "heart-gold_soul-silver",
     "iconFolder": "3_4_5",
     "pokemonFile": "platinum_heart-gold_soul-silver",
-    "methodsFile": "4",
-    "supportsShinyCharm": false
+    "methodsFile": "4"
   },
   {
     "displayName": "Black",
@@ -122,8 +109,7 @@
     "imageFolder": "black_white",
     "iconFolder": "3_4_5",
     "pokemonFile": "black_white",
-    "methodsFile": "5",
-    "supportsShinyCharm": true
+    "methodsFile": "5"
   },
   {
     "displayName": "White",
@@ -131,8 +117,7 @@
     "imageFolder": "black_white",
     "iconFolder": "3_4_5",
     "pokemonFile": "black_white",
-    "methodsFile": "5",
-    "supportsShinyCharm": true
+    "methodsFile": "5"
   },
   {
     "displayName": "Black 2",
@@ -140,8 +125,7 @@
     "imageFolder": "black-2_white-2",
     "iconFolder": "3_4_5",
     "pokemonFile": "black-2_white-2",
-    "methodsFile": "5",
-    "supportsShinyCharm": true
+    "methodsFile": "5"
   },
   {
     "displayName": "White 2",
@@ -149,7 +133,6 @@
     "imageFolder": "black-2_white-2",
     "iconFolder": "3_4_5",
     "pokemonFile": "black-2_white-2",
-    "methodsFile": "5",
-    "supportsShinyCharm": true
+    "methodsFile": "5"
   }
 ]

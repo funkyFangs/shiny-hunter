@@ -1,10 +1,8 @@
 <script context='module' lang='ts'>
-  import { browser } from '$app/environment';
   import { localWritable } from '$lib/utilities/StoreUtilities';
   import { Tracker } from '$lib/tracker/Tracker';
 
-  export const trackers = localWritable<Tracker[]>('trackers', browser && localStorage['trackers']
-    ? JSON.parse(localStorage['trackers']) : []);
+  export const trackers = localWritable<Tracker[]>('trackers', []);
 </script>
 
 <script lang='ts'>
@@ -15,7 +13,7 @@
 
   const hasTrackers = derived(trackers, trackers => trackers.length > 0);
 
-  let selectedTracker: Tracker | undefined = $trackers.length > 0 ? $trackers[0] : undefined;
+  let selectedTracker: Tracker | undefined = $hasTrackers ? $trackers[0] : undefined;
 
   function createTracker() {
     const tracker = new Tracker($selectedGame!, $selectedPokemon!, $selectedMethod!);
@@ -26,11 +24,9 @@
     selectedMethod.set(undefined);
   }
 
-  function deleteTracker(index: number) {
-    return () => {
-      trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
-      selectedTracker = $trackers.length > 0 ? $trackers[0] : undefined;
-    }
+  const deleteTracker = (index: number) => () => {
+    trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
+    selectedTracker = $hasTrackers ? $trackers[index - 1] : undefined;
   }
 
   function increment() {
@@ -69,11 +65,20 @@
     {#if selectedTracker}
       <img class='sprite' src={selectedTracker.game.imageFolder + '/' + selectedTracker.pokemon.shinyImage} alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
       <div id='counter'>
-        <div id='count-label'>
-          <input id='count-input' type='number' min={0} value={selectedTracker.count} on:change={event => set(Number(event.currentTarget.value))}/>
-          <label for='count-input'>{selectedTracker.count == 1 ? selectedTracker.method.singularUnit : selectedTracker.method.pluralUnit}</label>
+        <div id='count'>
+          <label id='count'>
+            <input id='count-input' type='number' min={0} value={selectedTracker.count} on:change={event => set(Number(event.currentTarget.value))}/>
+            {selectedTracker.count == 1 ? selectedTracker.method.singularUnit : selectedTracker.method.pluralUnit}
+          </label>
         </div>
-        <button on:click={increment}>+</button><button on:click={decrement}>−</button><button on:click={() => set(0)}>Reset</button>
+        <div id='odds'>
+          {selectedTracker.method.odds[Math.max(0, Math.min(selectedTracker.count, selectedTracker.method.odds.length - 1))]}% Chance
+        </div>
+        <div id='controls'>
+          <button id='increment' on:click={increment}>+</button>
+          <button id='reset' on:click={() => set(0)}>Reset</button>
+          <button id='decrement' on:click={decrement}>−</button>
+        </div>
       </div>
     {:else}
       <form id='create-tracker'>
@@ -134,6 +139,10 @@
     color: var(--main);
   }
 
+  #create-tracker button {
+    display: block;
+  }
+
   /* Selected Tracker */
   #selected-tracker {
     background-color: var(--background-bright);
@@ -154,28 +163,58 @@
     font-size: 40px;
   }
 
-  #counter button {
+  #counter * ~ * {
+    margin-top: 10px;
+  }
+
+  #count {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #count input {
+    padding: 0;
+    appearance: textfield;
+    background: none;
+    text-align: center;
+    width: 150px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  
+  #count input:focus {
+    background-color: var(--background);
+  }
+
+  #odds {
+    text-align: center;
+  }
+
+  #controls {
+    display: flex;
+  }
+
+  #controls button {
     padding: 10px;
     margin: 0px;
-    background-color: var(--background);
+    background-color: var(--background-dim);
     color: var(--main);
     display: inline;
   }
 
-  #counter button ~ button {
-    margin-left: 5px;
+  #controls button:hover {
+    background-color: var(--background);
   }
 
-  #count-input {
-    padding: 0;
-    appearance: textfield;
-    background: none;
-    width: fit-content;
-    size-adjust: unset;
-    display: inline-block;
+  #controls button ~ button {
+    margin-left: 10px;
   }
 
-  #count-label * {
-    width: 50%;
+  #increment, #decrement {
+    width: 42.5%;
+  }
+
+  #reset {
+    width: 15%;
   }
 </style>
