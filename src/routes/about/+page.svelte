@@ -1,16 +1,15 @@
 <script lang='ts'>
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
-  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
-  import { browser } from '$app/environment';
+  import { base } from '$app/paths';
 </script>
 
 <title>About</title>
 
 <header>
   <HeaderMenu>
-    <li><a class='navigation' href='/'>Home</a></li>
-    <li><a class='navigation selected' href='/about'>About</a></li>
-    <li><a class='navigation' href='/credits'>Credits</a></li>
+    <li><a class='navigation' href='{base}'>Home</a></li>
+    <li><a class='navigation selected' href='{base}/about'>About</a></li>
+    <li><a class='navigation' href='{base}/credits'>Credits</a></li>
   </HeaderMenu>
   <h1>About</h1>
 </header>

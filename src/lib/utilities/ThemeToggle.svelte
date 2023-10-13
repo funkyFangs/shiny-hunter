@@ -1,6 +1,7 @@
 <script lang='ts'>
   import { browser } from '$app/environment';
   import { localWritable } from './StoreUtilities';
+  import { base } from '$app/paths';
 
   enum Theme {
     DARK = 'ridge-dark.css',
@@ -11,7 +12,7 @@
 </script>
 
 <svelte:head>
-  <link rel='stylesheet' href={$isDark ? Theme.DARK : Theme.LIGHT}/>
+  <link rel='stylesheet' href='{base}{$isDark ? Theme.DARK : Theme.LIGHT}'/>
 </svelte:head>
 
 <label for='theme-toggle'>Theme</label>

@@ -11,6 +11,7 @@
   import MethodSelect, { selectedMethod } from '$lib/methods/MethodSelect.svelte';
   import ShinyCharmCheck, { shinyCharm } from './ShinyCharmCheck.svelte';
   import { derived } from 'svelte/store';
+  import { base } from '$app/paths';
 
   const hasTrackers = derived(trackers, trackers => trackers.length > 0);
 
@@ -64,7 +65,7 @@
 
   <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
     {#if selectedTracker}
-      <img class='sprite' src={selectedTracker.game.imageFolder + '/' + selectedTracker.pokemon.shinyImage} alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
+      <img class='sprite' src='{base}{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.shinyImage}' alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
       <div id='counter'>
         <div id='count'>
           <label id='count'>

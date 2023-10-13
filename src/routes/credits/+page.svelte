@@ -1,12 +1,13 @@
 <script>
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
+  import { base } from '$app/paths';
 </script>
 
 <header>
   <HeaderMenu>
-    <li><a class='navigation' href='/'>Home</a></li>
-    <li><a class='navigation' href='/about'>About</a></li>
-    <li><a class='navigation selected' href='/credits'>Credits</a></li>
+    <li><a class='navigation' href='{base}'>Home</a></li>
+    <li><a class='navigation' href='{base}/about'>About</a></li>
+    <li><a class='navigation selected' href='{base}/credits'>Credits</a></li>
   </HeaderMenu>
   <h1>Credits</h1>
 </header>
