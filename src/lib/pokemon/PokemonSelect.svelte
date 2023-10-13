@@ -6,8 +6,8 @@
 
 <script lang='ts'>
   import { onDestroy } from 'svelte'
-  import { selectedGame } from '../games/GameSelect.svelte'
-  import { Pokemon } from './Pokemon'
+  import { selectedGame } from '$lib/games/GameSelect.svelte'
+  import { Pokemon } from '$lib/pokemon/Pokemon'
 
   const pokemon$ = writable<Pokemon[]>([])
 

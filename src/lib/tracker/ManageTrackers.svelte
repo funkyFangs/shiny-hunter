@@ -65,7 +65,7 @@
 
   <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
     {#if selectedTracker}
-      <img class='sprite' src='{base}{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.shinyImage}' alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
+      <img class='sprite' src='{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.shinyImage}' alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
       <div id='counter'>
         <div id='count'>
           <label id='count'>

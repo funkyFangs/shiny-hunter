@@ -1,13 +1,13 @@
 <script context='module' lang='ts'>
-  import { readonly, writable } from 'svelte/store'
+  import { writable } from 'svelte/store'
 
   export const selectedMethod = writable<Method | undefined>(undefined);
 </script>
 
 <script lang='ts'>
   import { onDestroy } from 'svelte'
-  import { selectedGame } from '../games/GameSelect.svelte'
-  import { Method } from './Method'
+  import { selectedGame } from '$lib/games/GameSelect.svelte'
+  import { Method } from '$lib/methods/Method'
 
   const methods$ = writable<Array<Method>>([])
 

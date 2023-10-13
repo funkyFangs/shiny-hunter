@@ -12,7 +12,8 @@
 </script>
 
 <svelte:head>
-  <link rel='stylesheet' href='{base}{$isDark ? Theme.DARK : Theme.LIGHT}'/>
+  <link rel='stylesheet' href='{base}/ridge.css'/>
+  <link rel='stylesheet' href='{base}/{$isDark ? Theme.DARK : Theme.LIGHT}'/>
 </svelte:head>
 
 <label for='theme-toggle'>Theme</label>
