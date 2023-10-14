@@ -9,7 +9,8 @@
   import GameSelect, { selectedGame } from '$lib/games/GameSelect.svelte';
   import PokemonSelect, { selectedPokemon } from '$lib/pokemon/PokemonSelect.svelte';
   import MethodSelect, { selectedMethod } from '$lib/methods/MethodSelect.svelte';
-  import ShinyCharmCheck, { shinyCharm } from './ShinyCharmCheck.svelte';
+  import ShinyCharmCheck, { shinyCharm } from '$lib/tracker/ShinyCharmCheck.svelte';
+  import { showShinyForm, showNormalForm } from '$lib/utilities/HeaderMenu.svelte';
   import { derived } from 'svelte/store';
   import { base } from '$app/paths';
 
@@ -45,6 +46,12 @@
     selectedTracker!.count = value;
     trackers.set($trackers);
   }
+
+  const defaultImage = (file: string) => (event: any) => {
+    if (event?.target) {
+      event.target.src = file;
+    }
+  }
 </script>
 
 <div id='trackers'>
@@ -53,7 +60,8 @@
       {#each $trackers as tracker, index}
         <label class='tab{tracker === selectedTracker ? ' selected' : ''}'>
           <input class='tab-input' name='tabs' type='radio' value={tracker} bind:group={selectedTracker}>
-          {tracker.pokemon.displayName} ({tracker.game.displayName})
+          <img class='icon' src='{tracker.game.iconFolder}/{tracker.pokemon.icon}' on:error={defaultImage(`${base}/icons/Default.png`)}/>
+          {tracker.pokemon.displayName}
           <button class='close-tab' on:click={deleteTracker(index)}>×</button>
         </label>
       {/each}
@@ -65,7 +73,16 @@
 
   <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
     {#if selectedTracker}
-      <img class='sprite' src='{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.shinyImage}' alt='The shiny sprite for {selectedTracker.pokemon.displayName}'/>
+      {#if $showShinyForm || $showNormalForm}
+      <div id='sprites'>
+        {#if $showShinyForm}
+          <img class='sprite' src='{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.shinyImage}' alt='The shiny sprite for {selectedTracker.pokemon.displayName}' on:error={defaultImage(`${base}/images/Default.png`)}/>
+        {/if}
+        {#if $showNormalForm}
+          <img class='sprite' src='{selectedTracker.game.imageFolder}/{selectedTracker.pokemon.image}' alt='The sprite for {selectedTracker.pokemon.displayName}' on:error={defaultImage(`${base}/images/Default.png`)}/>
+        {/if}
+      </div>
+      {/if}
       <div id='counter'>
         <div id='count'>
           <label id='count'>
@@ -101,15 +118,15 @@
     padding: 5px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    justify-content: space-evenly;
+  }
+
+  .tab * {
+    display: inline-flex;
   }
 
   .tab-input {
-    opacity: 0;
-    height: 0;
-    width: 0;
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
+    display: none;
   }
 
   .close-tab {
@@ -120,6 +137,16 @@
   }
 
   /* Tab Selection */
+  .icon {
+    margin-right: 5px;
+    max-height: 14px;
+    padding: 0px;
+  }
+
+  .tab:first-of-type .icon {
+    margin-left: 3px;
+  }
+
   .tab.selected {
     background-color: var(--background-bright);
   }
@@ -154,12 +181,17 @@
     border-radius: 8px;
   }
 
+  #sprites {
+    justify-content: space-around;
+    display: flex;
+  }
+
   .sprite {
+    width: 75%;
+  }
+
+  .icon, .sprite {
     image-rendering: pixelated;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%
   }
 
   /* Tracker Counter */

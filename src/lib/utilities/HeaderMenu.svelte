@@ -1,6 +1,14 @@
+<script context='module'>
+  import Toggle from '$lib/utilities/Toggle.svelte';
+  import { localWritable } from './StoreUtilities';
+
+  export const showShinyForm = localWritable('showShiny', true);
+  export const showNormalForm = localWritable('showNormal', false);
+</script>
+
 <script>
   import { Hamburger } from 'svelte-hamburgers';
-  import ThemeToggle from './ThemeToggle.svelte';
+  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
   import { browser } from '$app/environment';
 
   export let open = false
@@ -10,6 +18,8 @@
   <ul>
     <slot/>
     <li><ThemeToggle/></li>
+    <li><Toggle id='showShiny' checked={showShinyForm} label='Shiny Form'/></li>
+    <li><Toggle id='showNormal' checked={showNormalForm} label='Normal Form'/></li>
     <li><button disabled={!browser} on:click={() => localStorage.clear()}>Clear Cache</button></li>
   </ul>
 </div>
