@@ -54,7 +54,10 @@
   }
 </script>
 
+<!-- Trackers -->
 <div id='trackers'>
+
+  <!-- Tabs -->
   {#if $hasTrackers}
     <form id='tabs'>
       {#each $trackers as tracker, index}
@@ -65,14 +68,17 @@
           <button class='close-tab' on:click={deleteTracker(index)}>×</button>
         </label>
       {/each}
+
       {#if selectedTracker}
         <button id='new-tab' on:click={() => selectedTracker = undefined}>+</button>
       {/if}
     </form>
   {/if}
 
+  <!-- Selected Tracker -->
   <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
     {#if selectedTracker}
+      <!-- Sprites -->
       {#if $showShinyForm || $showNormalForm}
       <div id='sprites'>
         {#if $showShinyForm}
@@ -83,16 +89,23 @@
         {/if}
       </div>
       {/if}
+
+      <!-- Counter -->
       <div id='counter'>
+        <!-- Count -->
         <div id='count'>
           <label id='count'>
             <input id='count-input' type='number' min={0} value={selectedTracker.count} on:change={event => set(Number(event.currentTarget.value))}/>
             {selectedTracker.count == 1 ? selectedTracker.method.singularUnit : selectedTracker.method.pluralUnit}
           </label>
         </div>
+
+        <!-- Odds -->
         <div id='odds'>
           {(selectedTracker.method.odds[Math.max(0, Math.min(selectedTracker.count, selectedTracker.method.odds.length - 1))] * (selectedTracker.shinyCharm ? 3 : 1)).toFixed(3)}% Chance
         </div>
+
+        <!-- Count Controls -->
         <div id='controls'>
           <button id='increment' on:click={increment}>+</button>
           <button id='reset' on:click={() => set(0)}>Reset</button>
@@ -100,6 +113,7 @@
         </div>
       </div>
     {:else}
+      <!-- Create Tracker -->
       <form id='create-tracker'>
         <GameSelect/>
         <PokemonSelect/>
@@ -188,6 +202,7 @@
 
   .sprite {
     width: 75%;
+    padding: 15px;
   }
 
   .icon, .sprite {

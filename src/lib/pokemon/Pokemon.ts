@@ -9,7 +9,7 @@ export class Pokemon {
     this.displayName = displayName
     this.image = image ? image : displayName + '.png'
     this.shinyImage = shinyImage ? shinyImage : displayName + '.shiny.png'
-    this.icon = icon ? icon : displayName + '.gif'
+    this.icon = icon ? icon : displayName + '.png'
     this.variants = variants ? variants : []
   }
 }
