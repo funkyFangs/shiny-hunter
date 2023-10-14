@@ -7,7 +7,7 @@
 
 <header>
   <HeaderMenu>
-    <li><a class='navigation' href='{base}'>Home</a></li>
+    <li><a class='navigation' href='{base}/'>Home</a></li>
     <li><a class='navigation selected' href='{base}/about'>About</a></li>
     <li><a class='navigation' href='{base}/credits'>Credits</a></li>
   </HeaderMenu>
