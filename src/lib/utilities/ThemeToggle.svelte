@@ -16,13 +16,20 @@
   <link rel='stylesheet' href='{base}/{$isDark ? Theme.DARK : Theme.LIGHT}'/>
 </svelte:head>
 
-<label for='theme-toggle'>Theme</label>
-<label class='switch' id='theme-toggle'>
-  <input type='checkbox' bind:checked={$isDark}/>
-  <span class='slider round'/>
-</label>
+<div class='toggle'>
+  <label for='theme-toggle'>Theme</label>
+  <label class='switch' id='theme-toggle'>
+    <input type='checkbox' bind:checked={$isDark}/>
+    <span class='slider round'/>
+  </label>
+</div>
 
 <style>
+  .toggle {
+    display: flex;
+    justify-content: space-between;
+  }
+
   label {
     color: var(--background);
     position: relative;

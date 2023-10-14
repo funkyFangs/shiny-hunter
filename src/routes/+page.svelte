@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import ManageTrackers from '$lib/tracker/ManageTrackers.svelte';
+  import ManageTrackers from '$lib/ManageTrackers.svelte';
   import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
   import { base } from '$app/paths';
 </script>

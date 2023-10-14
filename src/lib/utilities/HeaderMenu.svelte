@@ -36,13 +36,12 @@
     background: var(--background-inverse);
     transition: left 0.3s ease-in-out;
     font-size: 24px;
+    padding: 20px;
   }
 
   .sidebar ul {
     list-style: none;
     padding: 0;
-    margin-top: 100px;
-    margin-left: 45px;
   }
 
   .open {

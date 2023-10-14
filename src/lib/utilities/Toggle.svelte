@@ -6,15 +6,22 @@
   export let id: string;
 </script>
 
-{#if label}
-  <label for={id}>{label}</label>
-{/if}
-<label class='switch' id={id}>
-  <input type='checkbox' bind:checked={$checked}/>
-  <span class='slider round'/>
-</label>
+<div class='toggle'>
+  {#if label}
+    <label for={id}>{label}</label>
+  {/if}
+  <label class='switch' id={id}>
+    <input type='checkbox' bind:checked={$checked}/>
+    <span class='slider round'/>
+  </label>
+</div>
 
 <style>
+  .toggle {
+    display: flex;
+    justify-content: space-between;
+  }
+
   label {
     color: var(--background);
     position: relative;
