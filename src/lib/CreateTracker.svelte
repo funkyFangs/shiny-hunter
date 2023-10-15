@@ -70,54 +70,62 @@
 </script>
 
 <!-- Selections -->
-<form id='selections'>
-  <!-- Game Select -->
-  <label for='game'>Game</label>
-  <select bind:value={$selectedGame} id='game'>
-    {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
-      <optgroup label="Generation {generation}">
-        <option selected style='display:none'/>
-        {#each games as game}
-          <option value={game}>{game.displayName}</option>
-        {/each}
-      </optgroup>
-    {/each}
-  </select>
+<div id='create-tracker'>
+  <form id='selections'>
+    <!-- Game Select -->
+    <label for='game'>Game</label>
+    <select class='selection' bind:value={$selectedGame} id='game'>
+      {#each groupBy(loadedGames, game => game.generation) as [generation, games]}
+        <optgroup label="Generation {generation}">
+          <option selected style='display:none'/>
+          {#each games as game}
+            <option value={game}>{game.displayName}</option>
+          {/each}
+        </optgroup>
+      {/each}
+    </select>
 
-  <!-- Pokemon Select -->
-  <label for='pokemon'>Pokemon</label>
-  <select id='pokemon' bind:value={$selectedPokemon} disabled={$loadedPokemon.length <= 0}>
-    <option selected style='display:none'/>
-    {#each $loadedPokemon as pokemon}
-      <option value={pokemon}>{pokemon.displayName}</option>
-    {/each}
-  </select>
+    <!-- Pokemon Select -->
+    <label for='pokemon'>Pokemon</label>
+    <select class='selection' id='pokemon' bind:value={$selectedPokemon} disabled={$loadedPokemon.length <= 0}>
+      <option selected style='display:none'/>
+      {#each $loadedPokemon as pokemon}
+        <option value={pokemon}>{pokemon.displayName}</option>
+      {/each}
+    </select>
 
-  <!-- Method Select -->
-  <label for='method'>Method</label>
-  <select id='method' bind:value={$selectedMethod} disabled={$loadedMethods.length <= 0}>
-    <option selected style='display:none'/>
-    {#each $loadedMethods as method}
-      <option value={method}>{method.displayName}</option>
-    {/each}
-  </select>
+    <!-- Method Select -->
+    <label for='method'>Method</label>
+    <select class='selection' id='method' bind:value={$selectedMethod} disabled={$loadedMethods.length <= 0}>
+      <option selected style='display:none'/>
+      {#each $loadedMethods as method}
+        <option value={method}>{method.displayName}</option>
+      {/each}
+    </select>
 
-  <!-- Shiny Charm Check -->
-  <label for='shiny-charm'>Shiny Charm</label>
-  <input type='checkbox' id='shiny-charm' bind:checked={$shinyCharm} disabled={!$selectedGame?.supportsShinyCharm}/>
-</form>
+    <!-- Shiny Charm Check -->
+    <label for='shiny-charm'>Shiny Charm</label>
+    <input class='selection' type='checkbox' id='shiny-charm' bind:checked={$shinyCharm} disabled={!$selectedGame?.supportsShinyCharm}/>
+  </form>
 
-<button id='create' disabled={!($selectedGame && $selectedPokemon && $selectedMethod)} on:click={createTracker}>Create Tracker</button>
+  <button id='create' disabled={!($selectedGame && $selectedPokemon && $selectedMethod)} on:click={createTracker}>Create Tracker</button>
+</div>
 
 <style>
+  #create-tracker {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+
   #selections {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    width: fit-content;
     gap: 10px;
     align-items: center;
-    text-align: center;
     margin-bottom: 15px;
+    width: fit-content;
   }
 
   #selections label {
@@ -126,5 +134,9 @@
 
   #create {
     display: block;
+  }
+
+  .selection {
+    justify-self: right;
   }
 </style>
