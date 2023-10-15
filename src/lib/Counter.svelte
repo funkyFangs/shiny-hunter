@@ -1,4 +1,5 @@
 <script lang='ts'>
+  import { base } from '$app/paths';
   import { trackers, selectedTracker } from '$lib/Tracker';
 
   function increment() {
@@ -41,16 +42,16 @@
 
     <!-- Count Controls -->
     <div id='controls'>
-      <button id='increment' on:click={increment}>+</button>
-      <button id='reset' on:click={() => set(0)}>Reset</button>
-      <button id='decrement' on:click={decrement}>−</button>
+      <button id='increment' on:click={increment} title='Increment'>+</button>
+      <button id='reset' on:click={() => set(0)} title='Reset'><img src='{base}/loop.png' alt='The reset button'></button>
+      <button id='decrement' on:click={decrement} title='Decrement'>−</button>
     </div>
   </div>
 {/if}
 
 <style>
   #counter {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   #counter * ~ * {
@@ -92,6 +93,11 @@
     display: inline;
   }
 
+  #reset img {
+    vertical-align: middle;
+    padding: none;
+  }
+
   #controls button:hover {
     background-color: var(--background);
   }
@@ -106,5 +112,9 @@
 
   #reset {
     width: 15%;
+  }
+
+  #reset img {
+    height: 30px;
   }
 </style>
