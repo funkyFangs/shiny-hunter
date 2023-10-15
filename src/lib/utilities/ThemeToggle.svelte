@@ -12,7 +12,6 @@
 </script>
 
 <svelte:head>
-  <link rel='stylesheet' href='{base}/ridge.css'/>
   <link rel='stylesheet' href='{base}/{$isDark ? Theme.DARK : Theme.LIGHT}'/>
 </svelte:head>
 
