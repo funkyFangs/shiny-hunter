@@ -2,18 +2,8 @@
   import { showShinyForm, showNormalForm } from '$lib/utilities/HeaderMenu.svelte';
   import { base } from '$app/paths';
   import CreateTracker from '$lib/CreateTracker.svelte';
-  import { trackers, selectedTracker } from '$lib/Tracker';
+  import { trackers, hasTrackers, selectedIndex, selectedTracker } from '$lib/Tracker';
   import Counter from '$lib/Counter.svelte';
-  import { onDestroy } from 'svelte';
-
-  const unsubscribe = trackers.subscribe(trackers => {
-    if (trackers.length > 0) {
-      selectedTracker.set(trackers[trackers.length - 1]);
-    }
-    else {
-      selectedTracker.set(undefined);
-    }
-  });
 
   function defaultImage(event: any, file: string) {
     if (event?.target) {
@@ -25,25 +15,23 @@
     trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
 
     if ($trackers.length > 0) {
-      selectedTracker.set($trackers[index < $trackers.length ? index : Math.max(index - 1, 0)]);
+      selectedIndex.set(index < $trackers.length ? index : Math.max(index - 1, 0));
     }
     else {
-      selectedTracker.set(undefined);
+      selectedIndex.set(undefined);
     }
   }
-
-  onDestroy(unsubscribe);
 </script>
 
 <!-- Trackers -->
 <div id='trackers'>
 
   <!-- Tabs -->
-  {#if $trackers.length > 0}
+  {#if $hasTrackers}
     <form id='tabs'>
       {#each $trackers as tracker, index}
         <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
-          <input class='tab-input' name='tabs' type='radio' value={tracker} bind:group={$selectedTracker}>
+          <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedIndex}>
           <img class='icon' src='{tracker.game.iconFolder}/{tracker.pokemon.icon}' alt='The icon for {$trackers[index].pokemon.displayName}' on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
           {tracker.pokemon.displayName}
           <button class='close-tab' on:click={() => deleteTracker(index)}>×</button>
@@ -51,13 +39,13 @@
       {/each}
 
       {#if $selectedTracker}
-        <button id='new-tab' on:click={() => selectedTracker.set(undefined)}>+</button>
+        <button id='new-tab' on:click={() => selectedIndex.set(undefined)}>+</button>
       {/if}
     </form>
   {/if}
 
   <!-- Selected Tracker -->
-  <div id='selected-tracker' style='border-top-left-radius: {$trackers.length > 0 ? '0' : '8'}px;'>
+  <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
     {#if $selectedTracker}
       <h2>{$selectedTracker.pokemon.displayName}</h2>
       <h3>{$selectedTracker.game.displayName} - {$selectedTracker.method.displayName}</h3>

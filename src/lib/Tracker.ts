@@ -2,7 +2,7 @@ import type { Game } from '$lib/Game';
 import type { Pokemon } from '$lib/Pokemon';
 import type { Method } from '$lib/Method';
 import { localWritable } from '$lib/utilities/StoreUtilities';
-import { writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 
 export class Tracker {
   game: Game;
@@ -20,4 +20,8 @@ export class Tracker {
 }
 
 export const trackers = localWritable<Tracker[]>('trackers', []);
-export const selectedTracker = writable<Tracker | undefined>(undefined);
+export const hasTrackers = derived(trackers, trackers => trackers.length > 0);
+export const selectedIndex = localWritable<number | undefined>('selected', undefined);
+export const selectedTracker = derived([trackers, selectedIndex],
+  ([trackers, selectedIndex]) => selectedIndex !== undefined ? trackers[selectedIndex] : undefined,
+  undefined);

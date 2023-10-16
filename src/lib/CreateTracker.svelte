@@ -5,7 +5,7 @@
   import { Game } from '$lib/Game';
   import { Pokemon } from '$lib/Pokemon';
   import { Method } from '$lib/Method';
-  import { Tracker, trackers } from '$lib/Tracker';
+  import { Tracker, selectedIndex, trackers } from '$lib/Tracker';
   import { onDestroy } from 'svelte';
 
   const loadedGames = loadedGamesJson.map(loadedGame =>
@@ -42,11 +42,13 @@
           new Method(displayName, singularUnit, pluralUnit, odds)))
         .then(methods => loadedMethods.set(methods));
 
+      // Reset Shiny Charm if Unsupported
       if (!game.supportsShinyCharm) {
         shinyCharm.set(false);
       }
     }
     else {
+      //  Clear Dependent Selections
       selectedPokemon.set(undefined);
       selectedMethod.set(undefined);
       shinyCharm.set(false);
@@ -60,7 +62,12 @@
 
   function createTracker() {
     if ($selectedGame && $selectedPokemon && $selectedMethod) {
+      // Update Trackers & Selected Index
+      const index = $trackers.length;
       $trackers = [...$trackers, new Tracker($selectedGame, $selectedPokemon, $selectedMethod, $shinyCharm)];
+      selectedIndex.set(index);
+
+      // Clear Selections
       selectedGame.set(undefined);
       selectedPokemon.set(undefined);
       selectedMethod.set(undefined);
