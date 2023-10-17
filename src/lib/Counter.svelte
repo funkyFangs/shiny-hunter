@@ -1,24 +1,24 @@
 <script lang='ts'>
   import { base } from '$app/paths';
-  import { trackers, selectedTracker, selectedIndex } from '$lib/Tracker';
+  import { trackers, selectedTracker, selectedTrackerIndex } from '$lib/Tracker';
 
   function increment() {
-    if ($selectedIndex !== undefined) {
-      $trackers[$selectedIndex].count += 1;
+    if ($selectedTrackerIndex !== undefined) {
+      $trackers[$selectedTrackerIndex].count += 1;
       trackers.update(trackers => trackers);
     }
   }
 
   function decrement() {
-    if ($selectedIndex !== undefined) {
-      $trackers[$selectedIndex].count = Math.max($trackers[$selectedIndex].count - 1, 0);
+    if ($selectedTrackerIndex !== undefined) {
+      $trackers[$selectedTrackerIndex].count = Math.max($trackers[$selectedTrackerIndex].count - 1, 0);
       trackers.update(trackers => trackers);
     }
   }
 
   function set(count: number) {
-    if ($selectedIndex !== undefined) {
-      $trackers[$selectedIndex].count = count;
+    if ($selectedTrackerIndex !== undefined) {
+      $trackers[$selectedTrackerIndex].count = count;
       trackers.update(trackers => trackers);
     }
   }

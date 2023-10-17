@@ -1,3 +1,6 @@
+import { selectedTracker } from '$lib/Tracker';
+import { derived } from 'svelte/store';
+
 export class Pokemon {
   displayName: string
   image: string
@@ -5,11 +8,11 @@ export class Pokemon {
   icon: string
   variants: Variant[]
 
-  constructor(displayName: string, image?: string, shinyImage?: string, icon?: string, variants?: Variant[]) {
-    this.displayName = displayName
-    this.image = image ? image : displayName + '.png'
-    this.shinyImage = shinyImage ? shinyImage : displayName + '.shiny.png'
-    this.icon = icon ? icon : displayName + '.png'
+  constructor(displayName: string, image: string, shinyImage: string, icon: string, variants?: Variant[]) {
+    this.displayName = displayName;
+    this.image = image;
+    this.shinyImage = shinyImage;
+    this.icon = icon;
     this.variants = variants ? variants : []
   }
 }
@@ -20,10 +23,17 @@ export class Variant {
   shinyImage: string
   icon: string
 
-  constructor(displayName: string, image?: string, shinyImage?: string, icon?: string) {
-    this.displayName = displayName
-    this.image = image ? image : displayName + '.png'
-    this.shinyImage = shinyImage ? shinyImage : displayName + '.shiny.png'
-    this.icon = icon ? icon : displayName + '.gif'
+  constructor(displayName: string, image: string, shinyImage: string, icon: string) {
+    this.displayName = displayName;
+    this.image = image;
+    this.shinyImage = shinyImage;
+    this.icon = icon;
+    console.log(icon);
   }
 }
+
+export const hasVariants = derived(selectedTracker, tracker => tracker?.pokemon?.variants?.length);
+export const selectedVariant = derived(selectedTracker,
+  (tracker) => tracker?.pokemon?.variants?.length && tracker.selectedVariant !== undefined
+    ? tracker.pokemon.variants[tracker.selectedVariant]
+    : undefined)

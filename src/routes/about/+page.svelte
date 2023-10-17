@@ -12,6 +12,7 @@
     <li><a class='navigation' href='{base}/credits'>Credits</a></li>
   </HeaderMenu>
   <h1>About</h1>
+  <hr/>
 </header>
 
 <p>

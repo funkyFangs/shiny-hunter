@@ -171,9 +171,7 @@ body {
 
   color: var(--main);
   background: var(--background);
-}
 
-body {
   transition: background-color var(--animation-duration) linear
 }
 

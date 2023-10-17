@@ -6,7 +6,15 @@
     "displayName": "Ivysaur"
   },
   {
-    "displayName": "Venusaur"
+    "displayName": "Venusaur",
+    "variants": [
+      {
+        "displayName": "Female"
+      },
+      {
+        "displayName": "Male"
+      }
+    ]
   },
   {
     "displayName": "Charmander"
@@ -1263,7 +1271,17 @@
     "displayName": "Cherrim"
   },
   {
-    "displayName": "Shellos"
+    "displayName": "Shellos",
+    "variants": [
+      {
+        "displayName": "West Sea",
+        "icon": "Shellos.West Sea.png"
+      },
+      {
+        "displayName": "East Sea",
+        "icon": "Shellos.East Sea.png"
+      }
+    ]
   },
   {
     "displayName": "Gastrodon"

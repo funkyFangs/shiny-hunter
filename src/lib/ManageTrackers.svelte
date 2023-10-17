@@ -1,45 +1,42 @@
 <script lang='ts'>
-  import { showShinyForm, showNormalForm } from '$lib/utilities/HeaderMenu.svelte';
   import { base } from '$app/paths';
   import CreateTracker from '$lib/CreateTracker.svelte';
-  import { trackers, hasTrackers, selectedIndex, selectedTracker } from '$lib/Tracker';
+  import { trackers, hasTrackers, selectedTrackerIndex, selectedTracker } from '$lib/Tracker';
   import Counter from '$lib/Counter.svelte';
-
-  function defaultImage(event: any, file: string) {
-    if (event?.target) {
-      event.target.src = file;
-    }
-  }
+  import Sprites from '$lib/Sprites.svelte';
+  import { defaultImage } from '$lib/utilities/SpriteUtilities';
 
   function deleteTracker(index: number) {
     trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
 
     if ($trackers.length > 0) {
-      selectedIndex.set(index < $trackers.length ? index : Math.max(index - 1, 0));
+      selectedTrackerIndex.set(index < $trackers.length ? index : Math.max(index - 1, 0));
     }
     else {
-      selectedIndex.set(undefined);
+      selectedTrackerIndex.set(undefined);
     }
   }
 </script>
 
 <!-- Trackers -->
 <div id='trackers'>
-
   <!-- Tabs -->
   {#if $hasTrackers}
     <form id='tabs'>
       {#each $trackers as tracker, index}
         <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
-          <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedIndex}>
-          <img class='icon' src='{tracker.game.iconFolder}/{tracker.pokemon.icon}' alt='The icon for {$trackers[index].pokemon.displayName}' on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
+          <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
+          <img class='icon'
+            src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
+            alt='The icon for {$trackers[index].pokemon.displayName}'
+            on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
           {tracker.pokemon.displayName}
           <button class='close-tab' on:click={() => deleteTracker(index)}>×</button>
         </label>
       {/each}
 
       {#if $selectedTracker}
-        <button id='new-tab' on:click={() => selectedIndex.set(undefined)}>+</button>
+        <button id='new-tab' on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
       {/if}
     </form>
   {/if}
@@ -53,28 +50,7 @@
         <h4>Shiny Charm</h4>
       {/if}
 
-      <!-- Sprites -->
-      {#if $showShinyForm || $showNormalForm}
-        <div id='sprites'>
-          <!-- Shiny Form -->
-          {#if $showShinyForm}
-            <img class='sprite'
-              src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.shinyImage}'
-              alt='The shiny sprite for {$selectedTracker.pokemon.displayName}'
-              on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
-          {/if}
-
-          <!-- Normal Form -->
-          {#if $showNormalForm}
-            <img class='sprite'
-              src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.image}'
-              alt='The sprite for {$selectedTracker.pokemon.displayName}'
-              on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
-          {/if}
-        </div>
-      {/if}
-
-      <!-- Counter -->
+      <Sprites/>
       <Counter/>
     {:else}
       <CreateTracker/>
@@ -152,17 +128,7 @@
     justify-content: space-around;
   }
 
-  #sprites {
-    justify-content: space-around;
-    display: flex;
-  }
-
-  .sprite {
-    width: 75%;
-    padding: 15px;
-  }
-
-  .icon, .sprite {
+  .icon {
     image-rendering: pixelated;
   }
 </style>

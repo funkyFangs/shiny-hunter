@@ -10,18 +10,23 @@ export class Tracker {
   method: Method;
   shinyCharm: boolean;
   count: number = 0;
+  selectedVariant?: number;
 
   constructor(game: Game, pokemon: Pokemon, method: Method, shinyCharm: boolean) {
     this.game = game;
     this.pokemon = pokemon;
     this.method = method;
     this.shinyCharm = shinyCharm;
+    
+    if (pokemon.variants.length) {
+      this.selectedVariant = 0;
+    }
   }
 }
 
 export const trackers = localWritable<Tracker[]>('trackers', []);
 export const hasTrackers = derived(trackers, trackers => trackers.length > 0);
-export const selectedIndex = localWritable<number | undefined>('selected', undefined);
-export const selectedTracker = derived([trackers, selectedIndex],
+export const selectedTrackerIndex = localWritable<number | undefined>('tracker', undefined);
+export const selectedTracker = derived([trackers, selectedTrackerIndex],
   ([trackers, selectedIndex]) => selectedIndex !== undefined ? trackers[selectedIndex] : undefined,
   undefined);

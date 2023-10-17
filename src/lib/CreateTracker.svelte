@@ -3,9 +3,9 @@
   import { groupBy } from '$lib/utilities/MapUtilities';
   import loadedGamesJson from '$lib/data/games.json';
   import { Game } from '$lib/Game';
-  import { Pokemon } from '$lib/Pokemon';
+  import { Pokemon, Variant } from '$lib/Pokemon';
   import { Method } from '$lib/Method';
-  import { Tracker, selectedIndex, trackers } from '$lib/Tracker';
+  import { Tracker, selectedTrackerIndex, trackers } from '$lib/Tracker';
   import { onDestroy } from 'svelte';
 
   const loadedGames = loadedGamesJson.map(loadedGame =>
@@ -31,8 +31,18 @@
       // Load Pokemon
       fetch(game.pokemonFile)
         .then(response => response.json() as Promise<Pokemon[]>)
-        .then(array => array.map(({displayName, image, shinyImage, icon, variants}) =>
-          new Pokemon(displayName, image, shinyImage, icon, variants)))
+        .then(array => array.map(({ displayName, image, shinyImage, icon, variants }) =>
+          new Pokemon(displayName,
+            image ? image : displayName + '.png',
+            shinyImage ? shinyImage : displayName + '.shiny.png',
+            icon ? icon : displayName + '.png',
+            variants
+              ? variants.map(variant =>
+                  new Variant(variant.displayName,
+                    variant.image ? variant.image : `${displayName}.${variant.displayName}.png`,
+                    variant.shinyImage ? variant.shinyImage : `${displayName}.${variant.displayName}.shiny.png`,
+                    variant.icon ? variant.icon : `${displayName}.png`))
+              : undefined)))
         .then(pokemon => loadedPokemon.set(pokemon));
 
       // Load Methods
@@ -65,7 +75,7 @@
       // Update Trackers & Selected Index
       const index = $trackers.length;
       $trackers = [...$trackers, new Tracker($selectedGame, $selectedPokemon, $selectedMethod, $shinyCharm)];
-      selectedIndex.set(index);
+      selectedTrackerIndex.set(index);
 
       // Clear Selections
       selectedGame.set(undefined);
