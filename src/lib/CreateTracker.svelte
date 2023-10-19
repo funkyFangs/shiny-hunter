@@ -33,15 +33,15 @@
         .then(response => response.json() as Promise<Pokemon[]>)
         .then(array => array.map(({ displayName, image, shinyImage, icon, variants }) =>
           new Pokemon(displayName,
-            image ? image : displayName + '.png',
-            shinyImage ? shinyImage : displayName + '.shiny.png',
-            icon ? icon : displayName + '.png',
+            image ? image : `${displayName}.png`.replace(' ', '_'),
+            shinyImage ? shinyImage : `${displayName}.shiny.png`.replace(' ', '_'),
+            icon ? icon : `${displayName}.png`.replace(' ', '_'),
             variants
               ? variants.map(variant =>
                   new Variant(variant.displayName,
-                    variant.image ? variant.image : `${displayName}.${variant.displayName}.png`,
-                    variant.shinyImage ? variant.shinyImage : `${displayName}.${variant.displayName}.shiny.png`,
-                    variant.icon ? variant.icon : `${displayName}.png`))
+                    variant.image ? variant.image : `${displayName}.${variant.displayName}.png`.replace(' ', '_'),
+                    variant.shinyImage ? variant.shinyImage : `${displayName}.${variant.displayName}.shiny.png`.replace(' ', '_'),
+                    variant.icon ? variant.icon : `${displayName}.png`.replace(' ', '_')))
               : undefined)))
         .then(pokemon => loadedPokemon.set(pokemon));
 

@@ -597,7 +597,93 @@
     "displayName": "Misdreavus"
   },
   {
-    "displayName": "Unown"
+    "displayName": "Unown",
+    "variants": [
+      {
+        "displayName": "Unown A"
+      },
+      {
+        "displayName": "Unown B"
+      },
+      {
+        "displayName": "Unown C"
+      },
+      {
+        "displayName": "Unown D"
+      },
+      {
+        "displayName": "Unown E"
+      },
+      {
+        "displayName": "Unown F"
+      },
+      {
+        "displayName": "Unown G"
+      },
+      {
+        "displayName": "Unown H"
+      },
+      {
+        "displayName": "Unown I"
+      },
+      {
+        "displayName": "Unown J"
+      },
+      {
+        "displayName": "Unown K"
+      },
+      {
+        "displayName": "Unown L"
+      },
+      {
+        "displayName": "Unown M"
+      },
+      {
+        "displayName": "Unown N"
+      },
+      {
+        "displayName": "Unown O"
+      },
+      {
+        "displayName": "Unown P"
+      },
+      {
+        "displayName": "Unown Q"
+      },
+      {
+        "displayName": "Unown R"
+      },
+      {
+        "displayName": "Unown S"
+      },
+      {
+        "displayName": "Unown T"
+      },
+      {
+        "displayName": "Unown U"
+      },
+      {
+        "displayName": "Unown V"
+      },
+      {
+        "displayName": "Unown W"
+      },
+      {
+        "displayName": "Unown X"
+      },
+      {
+        "displayName": "Unown Y"
+      },
+      {
+        "displayName": "Unown Z"
+      },
+      {
+        "displayName": "Unown !"
+      },
+      {
+        "displayName": "Unown ?"
+      }
+    ]
   },
   {
     "displayName": "Wobbuffet"

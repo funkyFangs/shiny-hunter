@@ -28,7 +28,6 @@ export class Variant {
     this.image = image;
     this.shinyImage = shinyImage;
     this.icon = icon;
-    console.log(icon);
   }
 }
 
