@@ -27,7 +27,7 @@
         <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
           <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
           <img class='icon'
-            src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
+            src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
             alt='The icon for {$trackers[index].pokemon.displayName}'
             on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
           {tracker.pokemon.displayName}
@@ -79,19 +79,31 @@
   .close-tab {
     background: none;
     color: var(--main);
-    margin: 0;
     padding: 5px;
+    margin: 0;
+    opacity: 0%;
+    transition-duration: 0.125s;
+    transition-property: opacity;
+  }
+
+  #tabs:hover #new-tab {
+    opacity: 100%;
+  }
+
+  .tab:hover .close-tab {
+    opacity: 100%;
   }
 
   /* Tab Selection */
   .icon {
-    margin-right: 5px;
+    margin: 0;
+    margin-right: 3px;
     max-height: 14px;
     padding: 0px;
   }
 
   .tab:first-of-type .icon {
-    margin-left: 3px;
+    margin-left: 4.38333px;
   }
 
   .tab.selected {
@@ -114,6 +126,9 @@
     padding: 5px;
     background: none;
     color: var(--main);
+    opacity: 0%;
+    transition-property: opacity;
+    transition-duration: 0.125s;
   }
 
   /* Selected Tracker */
