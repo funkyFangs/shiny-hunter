@@ -686,10 +686,14 @@
         "displayName": "Unown Z"
       },
       {
-        "displayName": "Unown !"
+        "displayName": "Unown !",
+        "image": "Unown.Unown_Exclamation.png",
+        "shinyImage": "Unown.Unown_Exclamation.shiny.png"
       },
       {
-        "displayName": "Unown ?"
+        "displayName": "Unown ?",
+        "image": "Unown.Unown_Question.png",
+        "shinyImage": "Unown.Unown_Question.shiny.png"
       }
     ]
   },
