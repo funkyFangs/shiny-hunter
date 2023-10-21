@@ -34,6 +34,7 @@
 <style>
   :root {
     padding: 15px;
+    padding-top: 38.1833px;
   }
 
   .navigation {
@@ -43,22 +44,21 @@
     height: 60px;
   }
 
-  .navigation:hover, .navigation.selected {
+  .navigation.selected {
     color: var(--background-bright);
   }
 
   header {
-    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    width: 100%;
   }
 
   header h1 {
     font-size: 28.7px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0px;
   }
 </style>

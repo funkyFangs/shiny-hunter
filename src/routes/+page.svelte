@@ -22,7 +22,7 @@
 <style>
   :root {
     padding: 15px;
-    padding-top: 75.1833px;
+    padding-top: 38.1833px;
   }
 
   .navigation {

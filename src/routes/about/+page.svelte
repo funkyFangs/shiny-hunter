@@ -12,7 +12,6 @@
     <li><a class='navigation' href='{base}/credits'>Credits</a></li>
   </HeaderMenu>
   <h1>About</h1>
-  <hr/>
 </header>
 
 <p>
@@ -35,6 +34,7 @@
 <style>
   :root {
     padding: 15px;
+    padding-top: 38.1833px;
   }
 
   .navigation {
@@ -48,19 +48,17 @@
     color: var(--background-bright);
   }
 
-  header h1 {
-    font-size: 28.7px;
-  }
-
   header {
-    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    width: 100%;
   }
 
-  ul {
-    list-style: none;
-    margin-left: 30px;
-    padding: 0px;
+  header h1 {
+    font-size: 28.7px;
   }
 </style>
