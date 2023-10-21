@@ -35,6 +35,7 @@
     display: inline-block;
     width: 60px;
     height: 34px;
+    margin: 0;
   }
 
   .switch input {

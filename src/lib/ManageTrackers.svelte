@@ -18,44 +18,39 @@
   }
 </script>
 
-<!-- Trackers -->
-<div id='trackers'>
-  <!-- Tabs -->
-  {#if $hasTrackers}
-    <form id='tabs'>
-      {#each $trackers as tracker, index}
-        <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
-          <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
-          <img class='icon'
-            src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
-            alt='The icon for {$trackers[index].pokemon.displayName}'
-            on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
-          {tracker.pokemon.displayName}
-          <button class='close-tab' on:click={() => deleteTracker(index)}>×</button>
-        </label>
-      {/each}
 
-      {#if $selectedTracker}
-        <button id='new-tab' on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
-      {/if}
-    </form>
-  {/if}
-
-  <!-- Selected Tracker -->
-  <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
+<!-- Tabs -->
+{#if $hasTrackers}
+  <form id='tabs'>
+    {#each $trackers as tracker, index}
+      <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
+        <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
+        <img class='icon'
+          src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
+          alt='The icon for {$trackers[index].pokemon.displayName}'
+          on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
+        {tracker.pokemon.displayName}
+        <button class='close-tab' on:click={() => deleteTracker(index)}>×</button>
+      </label>
+    {/each}
     {#if $selectedTracker}
-      <h2>{$selectedTracker.pokemon.displayName}</h2>
-      <h3>{$selectedTracker.game.displayName} - {$selectedTracker.method.displayName}</h3>
-      {#if $selectedTracker.shinyCharm}
-        <h4>Shiny Charm</h4>
-      {/if}
-
-      <Sprites/>
-      <Counter/>
-    {:else}
-      <CreateTracker/>
+      <button id='new-tab' on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
     {/if}
-  </div>
+  </form>
+{/if}
+<!-- Selected Tracker -->
+<div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
+  {#if $selectedTracker}
+    <h2>{$selectedTracker.pokemon.displayName}</h2>
+    <h3>{$selectedTracker.game.displayName} - {$selectedTracker.method.displayName}</h3>
+    {#if $selectedTracker.shinyCharm}
+      <h4>Shiny Charm</h4>
+    {/if}
+    <Sprites/>
+    <Counter/>
+  {:else}
+    <CreateTracker/>
+  {/if}
 </div>
 
 <style>

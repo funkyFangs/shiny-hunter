@@ -15,11 +15,14 @@
   <h1>Shiny Hunter</h1>
 </header>
 
-<ManageTrackers/>
+<div id='trackers'>
+  <ManageTrackers/>
+</div>
 
 <style>
   :root {
     padding: 15px;
+    padding-top: 75.1833px;
   }
 
   .navigation {
@@ -34,9 +37,13 @@
   }
 
   header {
-    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px;
+    width: 100%;
   }
 
   header h1 {
