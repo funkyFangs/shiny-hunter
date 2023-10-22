@@ -18,7 +18,6 @@
   }
 </script>
 
-
 <!-- Tabs -->
 {#if $hasTrackers}
   <form id='tabs'>
@@ -61,6 +60,13 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     justify-content: space-evenly;
+  }
+
+  #tabs {
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
   }
 
   .tab * {

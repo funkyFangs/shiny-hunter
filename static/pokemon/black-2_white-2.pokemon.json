@@ -608,90 +608,118 @@
     "displayName": "Unown",
     "variants": [
       {
-        "displayName": "Unown A"
+        "displayName": "Unown A",
+        "icon": "Unown.Unown_A.png"
       },
       {
-        "displayName": "Unown B"
+        "displayName": "Unown B",
+        "icon": "Unown.Unown_B.png"
       },
       {
-        "displayName": "Unown C"
+        "displayName": "Unown C",
+        "icon": "Unown.Unown_C.png"
       },
       {
-        "displayName": "Unown D"
+        "displayName": "Unown D",
+        "icon": "Unown.Unown_D.png"
       },
       {
-        "displayName": "Unown E"
+        "displayName": "Unown E",
+        "icon": "Unown.Unown_E.png"
       },
       {
-        "displayName": "Unown F"
+        "displayName": "Unown F",
+        "icon": "Unown.Unown_F.png"
       },
       {
-        "displayName": "Unown G"
+        "displayName": "Unown G",
+        "icon": "Unown.Unown_G.png"
       },
       {
-        "displayName": "Unown H"
+        "displayName": "Unown H",
+        "icon": "Unown.Unown_H.png"
       },
       {
-        "displayName": "Unown I"
+        "displayName": "Unown I",
+        "icon": "Unown.Unown_I.png"
       },
       {
-        "displayName": "Unown J"
+        "displayName": "Unown J",
+        "icon": "Unown.Unown_J.png"
       },
       {
-        "displayName": "Unown K"
+        "displayName": "Unown K",
+        "icon": "Unown.Unown_K.png"
       },
       {
-        "displayName": "Unown L"
+        "displayName": "Unown L",
+        "icon": "Unown.Unown_L.png"
       },
       {
-        "displayName": "Unown M"
+        "displayName": "Unown M",
+        "icon": "Unown.Unown_M.png"
       },
       {
-        "displayName": "Unown N"
+        "displayName": "Unown N",
+        "icon": "Unown.Unown_N.png"
       },
       {
-        "displayName": "Unown O"
+        "displayName": "Unown O",
+        "icon": "Unown.Unown_O.png"
       },
       {
-        "displayName": "Unown P"
+        "displayName": "Unown P",
+        "icon": "Unown.Unown_P.png"
       },
       {
-        "displayName": "Unown Q"
+        "displayName": "Unown Q",
+        "icon": "Unown.Unown_Q.png"
       },
       {
-        "displayName": "Unown R"
+        "displayName": "Unown R",
+        "icon": "Unown.Unown_R.png"
       },
       {
-        "displayName": "Unown S"
+        "displayName": "Unown S",
+        "icon": "Unown.Unown_S.png"
       },
       {
-        "displayName": "Unown T"
+        "displayName": "Unown T",
+        "icon": "Unown.Unown_T.png"
       },
       {
-        "displayName": "Unown U"
+        "displayName": "Unown U",
+        "icon": "Unown.Unown_U.png"
       },
       {
-        "displayName": "Unown V"
+        "displayName": "Unown V",
+        "icon": "Unown.Unown_V.png"
       },
       {
-        "displayName": "Unown W"
+        "displayName": "Unown W",
+        "icon": "Unown.Unown_W.png"
       },
       {
-        "displayName": "Unown X"
+        "displayName": "Unown X",
+        "icon": "Unown.Unown_X.png"
       },
       {
-        "displayName": "Unown Y"
+        "displayName": "Unown Y",
+        "icon": "Unown.Unown_Y.png"
       },
       {
-        "displayName": "Unown Z"
+        "displayName": "Unown Z",
+        "icon": "Unown.Unown_Z.png"
       },
       {
         "displayName": "Unown !",
+        "icon": "Unown.Unown_Exclamation.png",
         "image": "Unown.Unown_Exclamation.png",
         "shinyImage": "Unown.Unown_Exclamation.shiny.png"
       },
       {
         "displayName": "Unown ?",
+        "icon": "Unown.Unown_Question.png",
         "image": "Unown.Unown_Question.png",
         "shinyImage": "Unown.Unown_Question.shiny.png"
       }
