@@ -6,9 +6,10 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter()
+	},
+	paths: {
+		base: process.argv.includes('dev') ? '' : '/shiny-hunter'
 	}
 };
-
-config.paths = { base: process.argv.includes('dev') ? '' : '/shiny-hunter' }
 
 export default config;

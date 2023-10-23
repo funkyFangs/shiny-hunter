@@ -1,0 +1,12 @@
+{
+  "name": "Shiny Hunter",
+  "description": "A web application used for keeping track of hunts for shiny Pokemon.",
+  "start_url": ".",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "any"
+    }
+  ],
+  "display": "standalone"
+}
