@@ -21,7 +21,20 @@
 
 <style>
   :root {
-    padding: var(--spacing-m);
+    transition-property: padding;
+    transition-duration: 0.25s;
+  }
+
+  @media (max-width: 1001px) {
+    :root {
+      padding: var(--spacing-s);
+    }
+  }
+
+  @media (min-width: 1001px) {
+    :root {
+      padding: var(--spacing-m);
+    }
   }
 
   #trackers {

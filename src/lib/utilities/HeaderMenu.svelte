@@ -37,9 +37,8 @@
   .sidebar {
     transition: left 0.3s ease-in-out;
     font-size: 24px;
-    padding: 20px;
     height: 100%;
-    width: 300px;
+    width: 350px;
     position: fixed;
     top: 0;
     left: -100%;
@@ -47,9 +46,24 @@
   }
 
   .content {
-    margin-top: 70.1833px;
     display: grid;
     grid-template-columns: repeat(1);
+    transition-property: margin;
+    transition-duration: 0.25s;
+  }
+
+  @media (max-width: 1001px) {
+    .content {
+      margin: 15px;
+      margin-top: 75px;
+    }
+  }
+
+  @media (min-width: 1001px) {
+    .content {
+      margin: 30px;
+      margin-top: 90px;
+    }
   }
 
   #clear-cache {
