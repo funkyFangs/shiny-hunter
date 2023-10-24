@@ -5,6 +5,7 @@
   import Counter from '$lib/Counter.svelte';
   import Sprites from '$lib/Sprites.svelte';
   import { defaultImage } from '$lib/utilities/SpriteUtilities';
+  import Device from 'svelte-device-info';
 
   function deleteTracker(index: number) {
     trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
@@ -22,21 +23,22 @@
 {#if $hasTrackers}
   <form id='tabs'>
     {#each $trackers as tracker, index}
-      <label class='tab{tracker === $selectedTracker ? ' selected' : ''}'>
+      <label class='tab' class:selected={tracker === $selectedTracker}>
         <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
         <img class='icon'
           src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
           alt='The icon for {$trackers[index].pokemon.displayName}'
           on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
         {tracker.pokemon.displayName}
-        <button class='close-tab' on:click={() => deleteTracker(index)}>×</button>
+        <button class='close-tab' class:transparent={Device.canHover} on:click={() => deleteTracker(index)}>×</button>
       </label>
     {/each}
     {#if $selectedTracker}
-      <button id='new-tab' on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
+      <button id='new-tab' class:transparent={Device.canHover} on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
     {/if}
   </form>
 {/if}
+
 <!-- Selected Tracker -->
 <div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
   {#if $selectedTracker}
@@ -82,7 +84,6 @@
     color: var(--main);
     padding: 5px;
     margin: 0;
-    opacity: 0%;
     transition-duration: 0.125s;
     transition-property: opacity;
   }
@@ -93,6 +94,10 @@
 
   .tab:hover .close-tab {
     opacity: 100%;
+  }
+
+  .transparent {
+    opacity: 0%;
   }
 
   /* Tab Selection */
@@ -127,7 +132,6 @@
     padding: 5px;
     background: none;
     color: var(--main);
-    opacity: 0%;
     transition-property: opacity;
     transition-duration: 0.125s;
   }

@@ -24,5 +24,8 @@
 		"typescript": "^5.2.2",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-device-info": "^1.0.0"
+	}
 }
