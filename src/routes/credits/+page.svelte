@@ -5,9 +5,9 @@
 
 <header>
   <HeaderMenu>
-    <li><a class='navigation' href='{base}/'>Home</a></li>
-    <li><a class='navigation' href='{base}/about'>About</a></li>
-    <li><a class='navigation selected' href='{base}/credits'>Credits</a></li>
+    <a class='navigation' href='{base}/'>Home</a>
+    <a class='navigation' href='{base}/about'>About</a>
+    <a class='navigation selected' href='{base}/credits'>Credits</a>
   </HeaderMenu>
   <h1>Credits</h1>
 </header>
