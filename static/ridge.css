@@ -11,6 +11,7 @@
   --spacing-2xl: 16rem;
   --spacing-3xl: 32rem;
   --spacing-4xl: 64rem;
+  --max-width: 969px;
 }
 
 *, *:before, *:after {
@@ -162,9 +163,8 @@ vstack[stretch] {
 }
 
 body {
-  margin: 0 auto;
-  max-width: 969px;
-  padding: var(--spacing-m);
+  margin: 0;
+  width: 100%;
 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.4;

@@ -14,27 +14,33 @@
   <h1>About</h1>
 </header>
 
-<p>
-  This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
-</p>
+<div id='content'>
+  <p>
+    This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
+  </p>
 
-<h2>Contributors</h2>
-<ul>
-  <li>funkyFangs</li>
-  <li>Maxzilla</li>
-</ul>
-
-<h2>Links</h2>
-<nav>
+  <h2>Contributors</h2>
   <ul>
-    <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
+    <li>funkyFangs</li>
+    <li>Maxzilla</li>
   </ul>
-</nav>
+
+  <h2>Links</h2>
+  <nav>
+    <ul>
+      <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
+    </ul>
+  </nav>
+</div>
 
 <style>
   :root {
-    padding: 15px;
-    padding-top: 38.1833px;
+    padding: var(--spacing-m);
+  }
+
+  #content {
+    max-width: var(--max-width);
+    margin: 0 auto;
   }
 
   .navigation {
@@ -51,14 +57,11 @@
   header {
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 15px;
-    width: 100%;
+    position: sticky;
+    margin-bottom: 15px;
   }
 
   header h1 {
-    font-size: 28.7px;
+    font-size: 2em;
   }
 </style>

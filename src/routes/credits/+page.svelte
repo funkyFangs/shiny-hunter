@@ -12,29 +12,35 @@
   <h1>Credits</h1>
 </header>
 
-<h2>Assets</h2>
+<div id='content'>
+  <h2>Assets</h2>
 
-<h3>Sprites & Icons</h3>
+  <h3>Sprites & Icons</h3>
 
-<nav>
-  <ul>
-    <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://bulbapedia.bulbagarden.net/wiki/Main_Page'>Bulbapedia</a></li>
-    <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://www.pokencyclopedia.info/en/index.php'>Pokencyclopedia</a></li>
-  </ul>
-</nav>
+  <nav>
+    <ul>
+      <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://bulbapedia.bulbagarden.net/wiki/Main_Page'>Bulbapedia</a></li>
+      <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://www.pokencyclopedia.info/en/index.php'>Pokencyclopedia</a></li>
+    </ul>
+  </nav>
 
-<h3>Web Icons</h3>
+  <h3>Web Icons</h3>
 
-<nav>
-  <ul>
-    <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://www.flaticon.com/free-icons/miscellaneous'>Freepik - Flaticon</a></li>
-  </ul>
-</nav>
+  <nav>
+    <ul>
+      <li><a target='_blank' rel='noopener noreferrer' class='attribution' href='https://www.flaticon.com/free-icons/miscellaneous'>Freepik - Flaticon</a></li>
+    </ul>
+  </nav>
+</div>
 
 <style>
   :root {
-    padding: 15px;
-    padding-top: 38.1833px;
+    padding: var(--spacing-m);
+  }
+
+  #content {
+    max-width: var(--max-width);
+    margin: 0 auto;
   }
 
   .navigation {
@@ -51,14 +57,11 @@
   header {
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 15px;
-    width: 100%;
+    position: sticky;
+    margin-bottom: 15px;
   }
 
   header h1 {
-    font-size: 28.7px;
+    font-size: 2em;
   }
 </style>

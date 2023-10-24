@@ -21,8 +21,12 @@
 
 <style>
   :root {
-    padding: 15px;
-    padding-top: 38.1833px;
+    padding: var(--spacing-m);
+  }
+
+  #trackers {
+    max-width: var(--max-width);
+    margin: 0 auto;
   }
 
   .navigation {
@@ -39,14 +43,11 @@
   header {
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 15px;
-    width: 100%;
+    position: sticky;
+    margin-bottom: 15px;
   }
 
   header h1 {
-    font-size: 28.7px;
+    font-size: 2em;
   }
 </style>
