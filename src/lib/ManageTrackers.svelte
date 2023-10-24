@@ -69,6 +69,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    border-top-right-radius: 8px;
   }
 
   .tab * {
