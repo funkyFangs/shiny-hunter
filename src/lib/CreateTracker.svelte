@@ -14,7 +14,9 @@
              loadedGame.imageFolder,
              loadedGame.iconFolder,
              loadedGame.pokemonFile,
-             loadedGame.methodsFile));
+             loadedGame.methodsFile,
+             loadedGame.imageExtension,
+             loadedGame.iconExtension));
 
   // Selected Options
   const selectedGame = writable<Game | undefined>();
@@ -33,15 +35,15 @@
         .then(response => response.json() as Promise<Pokemon[]>)
         .then(array => array.map(({ displayName, image, shinyImage, icon, variants }) =>
           new Pokemon(displayName,
-            image ? image : `${displayName}.png`.replace(' ', '_'),
-            shinyImage ? shinyImage : `${displayName}.shiny.png`.replace(' ', '_'),
-            icon ? icon : `${displayName}.png`.replace(' ', '_'),
-            variants
+            variants?.length ? undefined : `${image || displayName}.${game.imageExtension}`.replace(' ', '_'),
+            variants?.length ? undefined : `${shinyImage || displayName}.shiny.${game.imageExtension}`.replace(' ', '_'),
+            variants?.length ? undefined : `${icon || displayName}.${game.iconExtension}`.replace(' ', '_'),
+            variants?.length
               ? variants.map(variant =>
                   new Variant(variant.displayName,
-                    variant.image ? variant.image : `${displayName}.${variant.displayName}.png`.replace(' ', '_'),
-                    variant.shinyImage ? variant.shinyImage : `${displayName}.${variant.displayName}.shiny.png`.replace(' ', '_'),
-                    variant.icon ? variant.icon : `${displayName}.png`.replace(' ', '_')))
+                    `${variant.image || `${displayName}.${variant.displayName}`}.${game.imageExtension}`.replace(' ', '_'),
+                    `${variant.shinyImage || `${displayName}.${variant.displayName}`}.shiny.${game.imageExtension}`.replace(' ', '_'),
+                    `${variant.icon || displayName}.${game.iconExtension}`.replace(' ', '_')))
               : undefined)))
         .then(pokemon => loadedPokemon.set(pokemon));
 
@@ -76,6 +78,9 @@
       const index = $trackers.length;
       $trackers = [...$trackers, new Tracker($selectedGame, $selectedPokemon, $selectedMethod, $shinyCharm)];
       selectedTrackerIndex.set(index);
+
+      console.log($selectedGame);
+      console.log($selectedPokemon);
 
       // Clear Selections
       selectedGame.set(undefined);

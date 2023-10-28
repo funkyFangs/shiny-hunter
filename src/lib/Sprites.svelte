@@ -4,6 +4,8 @@
   import { base } from '$app/paths';
   import { defaultImage } from '$lib/utilities/SpriteUtilities';
   import { selectedVariant } from '$lib/Pokemon';
+
+  const DEFAULT_SPRITE = `${base}/images/Default.gif`;
 </script>
 
 <!-- Sprites -->
@@ -17,7 +19,7 @@
               src='{$selectedTracker.game.imageFolder}/{$selectedVariant.shinyImage}'
               alt='The shiny sprite for {$selectedVariant.displayName}'
               title='Shiny {$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
-              on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
+              on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
           {/if}
 
           {#if $showNormalForm}
@@ -25,7 +27,7 @@
               src='{$selectedTracker.game.imageFolder}/{$selectedVariant.image}'
               alt='The sprite for {$selectedVariant.displayName}'
               title='{$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
-              on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
+              on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
           {/if}
         </div>
       {/if}
@@ -47,7 +49,7 @@
           src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.shinyImage}'
           alt='The shiny sprite for {$selectedTracker.pokemon.displayName}'
           title='Shiny {$selectedTracker.pokemon.displayName}'
-          on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
+          on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
       {/if}
 
       {#if $showNormalForm}
@@ -55,7 +57,7 @@
           src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.image}'
           alt='The sprite for {$selectedTracker.pokemon.displayName}'
           title={$selectedTracker.pokemon.displayName}
-          on:error={event => defaultImage(event, `${base}/images/Default.png`)}/>
+          on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
       {/if}
     </div>
   {/if}
@@ -83,10 +85,14 @@
     border-radius: 50%;
     border: none;
     transition: 0.2s all linear;
+    width: 20px;
+    height: 20px;
   }
 
   .variant:checked {
     background-color: var(--main);
+    width: 26px;
+    height: 26px;
   }
 
   #variants * {

@@ -1,234 +1,234 @@
 [
   {
     "displayName": "Chikorita",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Bayleef",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Meganium",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Cyndaquil",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Quilava",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Typhlosion",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Totodile",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Croconaw",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Feraligatr",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Pidgey",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Pidgeotto",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Pidgeot",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Spearow",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Fearow",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Hoothoot",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Noctowl",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Rattata",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Raticate",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Sentret",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Furret",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Pichu",
-    "icon": "Pikachu.png"
+    "icon": "Pikachu"
   },
   {
     "displayName": "Pikachu"
   },
   {
     "displayName": "Raichu",
-    "icon": "Pikachu.png"
+    "icon": "Pikachu"
   },
   {
     "displayName": "Caterpie",
-    "icon": "Insect.png"
+    "icon": "Insect"
   },
   {
     "displayName": "Metapod",
-    "icon": "Insect.png"
+    "icon": "Insect"
   },
   {
     "displayName": "Butterfree",
-    "icon": "Butterfly.png"
+    "icon": "Butterfly"
   },
   {
     "displayName": "Weedle",
-    "icon": "Insect.png"
+    "icon": "Insect"
   },
   {
     "displayName": "Kakuna",
-    "icon": "Insect.png"
+    "icon": "Insect"
   },
   {
     "displayName": "Beedrill",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Ledyba",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Ledian",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Spinarak",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Ariados",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Geodude"
   },
   {
     "displayName": "Graveler",
-    "icon": "Geodude.png"
+    "icon": "Geodude"
   },
   {
     "displayName": "Golem",
-    "icon": "Geodude.png"
+    "icon": "Geodude"
   },
   {
     "displayName": "Zubat"
   },
   {
     "displayName": "Golbat",
-    "icon": "Zubat.png"
+    "icon": "Zubat"
   },
   {
     "displayName": "Crobat",
-    "icon": "Zubat.png"
+    "icon": "Zubat"
   },
   {
     "displayName": "Cleffa",
-    "icon": "Clefairy.png"
+    "icon": "Clefairy"
   },
   {
     "displayName": "Clefairy"
   },
   {
     "displayName": "Clefable",
-    "icon": "Clefairy.png"
+    "icon": "Clefairy"
   },
   {
     "displayName": "Igglybuff",
-    "icon": "Jigglypuff.png"
+    "icon": "Jigglypuff"
   },
   {
     "displayName": "Jigglypuff"
   },
   {
     "displayName": "Wigglytuff",
-    "icon": "Jigglypuff.png"
+    "icon": "Jigglypuff"
   },
   {
     "displayName": "Togepi",
-    "icon": "Clefairy.png"
+    "icon": "Clefairy"
   },
   {
     "displayName": "Togetic",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Sandshrew",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Sandslash",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Ekans",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Arbok",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Dunsparce",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Mareep",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Flaaffy",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Ampharos",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Wooper",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Quagsire",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Gastly",
-    "icon": "Gengar.png"
+    "icon": "Gengar"
   },
   {
     "displayName": "Haunter",
-    "icon": "Gengar.png"
+    "icon": "Gengar"
   },
   {
     "displayName": "Gengar"
@@ -237,374 +237,426 @@
     "displayName": "Unown",
     "variants": [
       {
-        "displayName": "Unown A"
+        "displayName": "Unown A",
+        "image": "Unown.A",
+        "shinyImage": "Unown.A"
       },
       {
-        "displayName": "Unown B"
+        "displayName": "Unown B",
+        "image": "Unown.B",
+        "shinyImage": "Unown.B"
       },
       {
-        "displayName": "Unown C"
+        "displayName": "Unown C",
+        "image": "Unown.C",
+        "shinyImage": "Unown.C"
       },
       {
-        "displayName": "Unown D"
+        "displayName": "Unown D",
+        "image": "Unown.D",
+        "shinyImage": "Unown.D"
       },
       {
-        "displayName": "Unown E"
+        "displayName": "Unown E",
+        "image": "Unown.E",
+        "shinyImage": "Unown.E"
       },
       {
-        "displayName": "Unown F"
+        "displayName": "Unown F",
+        "image": "Unown.F",
+        "shinyImage": "Unown.F"
       },
       {
-        "displayName": "Unown G"
+        "displayName": "Unown G",
+        "image": "Unown.G",
+        "shinyImage": "Unown.G"
       },
       {
-        "displayName": "Unown H"
+        "displayName": "Unown H",
+        "image": "Unown.H",
+        "shinyImage": "Unown.H"
       },
       {
-        "displayName": "Unown I"
+        "displayName": "Unown I",
+        "image": "Unown.I",
+        "shinyImage": "Unown.I"
       },
       {
-        "displayName": "Unown J"
+        "displayName": "Unown J",
+        "image": "Unown.J",
+        "shinyImage": "Unown.J"
       },
       {
-        "displayName": "Unown K"
+        "displayName": "Unown K",
+        "image": "Unown.K",
+        "shinyImage": "Unown.K"
       },
       {
-        "displayName": "Unown L"
+        "displayName": "Unown L",
+        "image": "Unown.L",
+        "shinyImage": "Unown.L"
       },
       {
-        "displayName": "Unown M"
+        "displayName": "Unown M",
+        "image": "Unown.M",
+        "shinyImage": "Unown.M"
       },
       {
-        "displayName": "Unown N"
+        "displayName": "Unown N",
+        "image": "Unown.N",
+        "shinyImage": "Unown.N"
       },
       {
-        "displayName": "Unown O"
+        "displayName": "Unown O",
+        "image": "Unown.O",
+        "shinyImage": "Unown.O"
       },
       {
-        "displayName": "Unown P"
+        "displayName": "Unown P",
+        "image": "Unown.P",
+        "shinyImage": "Unown.P"
       },
       {
-        "displayName": "Unown Q"
+        "displayName": "Unown Q",
+        "image": "Unown.Q",
+        "shinyImage": "Unown.Q"
       },
       {
-        "displayName": "Unown R"
+        "displayName": "Unown R",
+        "image": "Unown.R",
+        "shinyImage": "Unown.R"
       },
       {
-        "displayName": "Unown S"
+        "displayName": "Unown S",
+        "image": "Unown.S",
+        "shinyImage": "Unown.S"
       },
       {
-        "displayName": "Unown T"
+        "displayName": "Unown T",
+        "image": "Unown.T",
+        "shinyImage": "Unown.T"
       },
       {
-        "displayName": "Unown U"
+        "displayName": "Unown U",
+        "image": "Unown.U",
+        "shinyImage": "Unown.U"
       },
       {
-        "displayName": "Unown V"
+        "displayName": "Unown V",
+        "image": "Unown.V",
+        "shinyImage": "Unown.V"
       },
       {
-        "displayName": "Unown W"
+        "displayName": "Unown W",
+        "image": "Unown.W",
+        "shinyImage": "Unown.W"
       },
       {
-        "displayName": "Unown X"
+        "displayName": "Unown X",
+        "image": "Unown.X",
+        "shinyImage": "Unown.X"
       },
       {
-        "displayName": "Unown Y"
+        "displayName": "Unown Y",
+        "image": "Unown.Y",
+        "shinyImage": "Unown.Y"
       },
       {
-        "displayName": "Unown Z"
+        "displayName": "Unown Z",
+        "image": "Unown.Z",
+        "shinyImage": "Unown.Z"
       }
     ]
   },
   {
     "displayName": "Onix",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Steelix",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Bellsprout",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Weepinbell",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Victreebel",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Hoppip",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Skiploom",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Jumpluff",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Paras",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Parasect",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Poliwag"
   },
   {
     "displayName": "Poliwhirl",
-    "icon": "Poliwag.png"
+    "icon": "Poliwag"
   },
   {
     "displayName": "Poliwrath",
-    "icon": "Poliwag.png"
+    "icon": "Poliwag"
   },
   {
     "displayName": "Politoed",
-    "icon": "Poliwag.png"
+    "icon": "Poliwag"
   },
   {
     "displayName": "Magikarp",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Gyarados"
   },
   {
     "displayName": "Goldeen",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Seaking",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Slowpoke"
   },
   {
     "displayName": "Slowbro",
-    "icon": "Slowpoke.png"
+    "icon": "Slowpoke"
   },
   {
     "displayName": "Slowking",
-    "icon": "Slowpoke.png"
+    "icon": "Slowpoke"
   },
   {
     "displayName": "Oddish"
   },
   {
     "displayName": "Gloom",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Vileplume",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Bellossom",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Drowzee",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Hypno",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Abra",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Kadabra",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Alakazam",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Ditto",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Pineco",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Forretress",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Nidoran♀",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Nidorina",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Nidoqueen",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Nidoran♂",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Nidorino",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Nidoking",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Yanma",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Sunkern",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Sunflora",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Exeggcute",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Exeggutor",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Sudowoodo"
   },
   {
     "displayName": "Wobbuffet",
-    "icon": "Gengar.png"
+    "icon": "Gengar"
   },
   {
     "displayName": "Venonat",
-    "icon": "Insect.png"
+    "icon": "Insect"
   },
   {
     "displayName": "Venomoth",
-    "icon": "Butterfly.png"
+    "icon": "Butterfly"
   },
   {
     "displayName": "Scyther",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Scizor",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Pinsir",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Heracross",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Koffing",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Weezing",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Grimer",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Muk",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Magnemite",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Magneton",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Voltorb",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Electrode",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Aipom",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Snubbull",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Granbull",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Vulpix",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Ninetales",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Growlithe",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Arcanine",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Stantler",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Marill",
-    "icon": "Jigglypuff.png"
+    "icon": "Jigglypuff"
   },
   {
     "displayName": "Azumarill",
-    "icon": "Jigglypuff.png"
+    "icon": "Jigglypuff"
   },
   {
     "displayName": "Diglett"
   },
   {
     "displayName": "Dugtrio",
-    "icon": "Diglett.png"
+    "icon": "Diglett"
   },
   {
     "displayName": "Mankey",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Primeape",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Meowth"
@@ -614,348 +666,348 @@
   },
   {
     "displayName": "Psyduck",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Golduck",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Machop",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Machoke",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Machamp",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Tyrogue",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Hitmonlee",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Hitmonchan",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Hitmontop",
-    "icon": "Wrestler.png"
+    "icon": "Wrestler"
   },
   {
     "displayName": "Girafarig",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Tauros",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Miltank",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Magby",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Magmar",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Smoochum",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Jynx",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Elekid",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Electabuzz",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Mr. Mime",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Smeargle",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Farfetch'd",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Natu",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Xatu",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Qwilfish",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Tentacool"
   },
   {
     "displayName": "Tentacruel",
-    "icon": "Tentacool.png"
+    "icon": "Tentacool"
   },
   {
     "displayName": "Krabby",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Kingler",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Shuckle",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Staryu"
   },
   {
     "displayName": "Starmie",
-    "icon": "Staryu.png"
+    "icon": "Staryu"
   },
   {
     "displayName": "Shellder",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Cloyster",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Corsola",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Remoraid",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Octillery",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Chinchou",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Lanturn",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Seel",
-    "icon": "Aquatic.png"
+    "icon": "Aquatic"
   },
   {
     "displayName": "Dewgong",
-    "icon": "Aquatic.png"
+    "icon": "Aquatic"
   },
   {
     "displayName": "Lickitung",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Tangela",
-    "icon": "Oddish.png"
+    "icon": "Oddish"
   },
   {
     "displayName": "Eevee",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Vaporeon",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Jolteon",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Flareon",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Espeon",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Umbreon",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Horsea",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Seadra",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Kingdra",
-    "icon": "Dragon.png"
+    "icon": "Dragon"
   },
   {
     "displayName": "Gligar",
-    "icon": "Bug.png"
+    "icon": "Bug"
   },
   {
     "displayName": "Delibird",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Swinub",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Piloswine",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Teddiursa",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Ursaring",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Phanpy",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Donphan",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Mantine",
-    "icon": "Fish.png"
+    "icon": "Fish"
   },
   {
     "displayName": "Skarmory",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Doduo",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Dodrio",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Ponyta",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Rapidash",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Cubone",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Marowak",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Kangaskhan",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Rhyhorn",
-    "icon": "Quadruped.png"
+    "icon": "Quadruped"
   },
   {
     "displayName": "Rhydon"
   },
   {
     "displayName": "Murkrow",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Houndour",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Houndoom",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Slugma",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Magcargo",
-    "icon": "Amorphous.png"
+    "icon": "Amorphous"
   },
   {
     "displayName": "Sneasel",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Misdreavus",
-    "icon": "Gengar.png"
+    "icon": "Gengar"
   },
   {
     "displayName": "Porygon",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Porygon2",
-    "icon": "Artificial.png"
+    "icon": "Artificial"
   },
   {
     "displayName": "Chansey",
-    "icon": "Clefairy.png"
+    "icon": "Clefairy"
   },
   {
     "displayName": "Blissey",
-    "icon": "Clefairy.png"
+    "icon": "Clefairy"
   },
   {
     "displayName": "Lapras",
-    "icon": "Aquatic.png"
+    "icon": "Aquatic"
   },
   {
     "displayName": "Omanyte",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Omastar",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Kabuto",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Kabutops",
-    "icon": "Shell.png"
+    "icon": "Shell"
   },
   {
     "displayName": "Aerodactyl",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Snorlax"
@@ -965,81 +1017,81 @@
   },
   {
     "displayName": "Ivysaur",
-    "icon": "Bulbasaur.png"
+    "icon": "Bulbasaur"
   },
   {
     "displayName": "Venusaur",
-    "icon": "Bulbasaur.png"
+    "icon": "Bulbasaur"
   },
   {
     "displayName": "Charmander"
   },
   {
     "displayName": "Charmeleon",
-    "icon": "Charmander.png"
+    "icon": "Charmander"
   },
   {
     "displayName": "Charizard",
-    "icon": "Dragon.png"
+    "icon": "Dragon"
   },
   {
     "displayName": "Squirtle"
   },
   {
     "displayName": "Wartortle",
-    "icon": "Squirtle.png"
+    "icon": "Squirtle"
   },
   {
     "displayName": "Blastoise",
-    "icon": "Squirtle.png"
+    "icon": "Squirtle"
   },
   {
     "displayName": "Articuno",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Zapdos",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Moltres",
-    "icon": "Bird.png"
+    "icon": "Bird"
   },
   {
     "displayName": "Raikou",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Entei",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Suicune",
-    "icon": "Animal.png"
+    "icon": "Animal"
   },
   {
     "displayName": "Dratini",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Dragonair",
-    "icon": "Snake.png"
+    "icon": "Snake"
   },
   {
     "displayName": "Dragonite",
-    "icon": "Dragon.png"
+    "icon": "Dragon"
   },
   {
     "displayName": "Larvitar",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Pupitar",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Tyranitar",
-    "icon": "Rhydon.png"
+    "icon": "Rhydon"
   },
   {
     "displayName": "Lugia"
@@ -1049,14 +1101,14 @@
   },
   {
     "displayName": "Mewtwo",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Mew",
-    "icon": "Human.png"
+    "icon": "Human"
   },
   {
     "displayName": "Celebi",
-    "icon": "Human.png"
+    "icon": "Human"
   }
 ]

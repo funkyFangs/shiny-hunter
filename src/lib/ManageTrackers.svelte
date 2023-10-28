@@ -17,6 +17,8 @@
       selectedTrackerIndex.set(undefined);
     }
   }
+
+  const DEFAULT_ICON = `${base}/icons/Default.gif`;
 </script>
 
 <!-- Tabs -->
@@ -26,9 +28,9 @@
       <label class='tab' class:selected={tracker === $selectedTracker}>
         <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
         <img class='icon'
-          src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
+          src='{tracker.game.iconFolder + '/' + (tracker.pokemon.variants?.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}'
           alt='The icon for {$trackers[index].pokemon.displayName}'
-          on:error={event => defaultImage(event, `${base}/icons/Default.png`)}/>
+          on:error={event => defaultImage(event, DEFAULT_ICON)}/>
         {tracker.pokemon.displayName}
         <button class='close-tab' class:transparent={Device.canHover} on:click={() => deleteTracker(index)}>×</button>
       </label>

@@ -3,12 +3,12 @@ import { derived } from 'svelte/store';
 
 export class Pokemon {
   displayName: string
-  image: string
-  shinyImage: string
-  icon: string
-  variants: Variant[]
+  image?: string
+  shinyImage?: string
+  icon?: string
+  variants?: Variant[]
 
-  constructor(displayName: string, image: string, shinyImage: string, icon: string, variants?: Variant[]) {
+  constructor(displayName: string, image?: string, shinyImage?: string, icon?: string, variants?: Variant[]) {
     this.displayName = displayName;
     this.image = image;
     this.shinyImage = shinyImage;
