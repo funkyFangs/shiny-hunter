@@ -940,7 +940,15 @@
     "displayName": "Sceptyle"
   },
   {
-    "displayName": "Torchic"
+    "displayName": "Torchic",
+    "variants": [
+      {
+        "displayName": "Female"
+      },
+      {
+        "displayName": "Male"
+      }
+    ]
   },
   {
     "displayName": "Combusken"
