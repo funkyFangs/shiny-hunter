@@ -42,7 +42,7 @@
 {/if}
 
 <!-- Selected Tracker -->
-<div id='selected-tracker' style='border-top-left-radius: {$hasTrackers ? '0' : '8'}px;'>
+<div id='selected-tracker' style:border-top-left-radius={$hasTrackers ? '0' : '8px'}>
   {#if $selectedTracker}
     <h2>{$selectedTracker.pokemon.displayName}</h2>
     <h3>{$selectedTracker.game.displayName} - {$selectedTracker.method.displayName}</h3>
@@ -73,10 +73,7 @@
     white-space: nowrap;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
-  }
-
-  .tab * {
-    display: inline-flex;
+    width: calc(100% - 8px);
   }
 
   .tab-input {
