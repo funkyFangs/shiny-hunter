@@ -35,15 +35,15 @@
         .then(response => response.json() as Promise<Pokemon[]>)
         .then(array => array.map(({ displayName, image, shinyImage, icon, variants }) =>
           new Pokemon(displayName,
-            variants?.length ? undefined : `${image || displayName}.${game.imageExtension}`.replace(' ', '_'),
-            variants?.length ? undefined : `${shinyImage || displayName}.shiny.${game.imageExtension}`.replace(' ', '_'),
-            variants?.length ? undefined : `${icon || displayName}.${game.iconExtension}`.replace(' ', '_'),
+            variants?.length ? undefined : `${image || displayName}`.replace(' ', '_'),
+            variants?.length ? undefined : `${shinyImage || displayName}.shiny`.replace(' ', '_'),
+            variants?.length ? undefined : `${icon || displayName}`.replace(' ', '_'),
             variants?.length
               ? variants.map(variant =>
                   new Variant(variant.displayName,
-                    `${variant.image || `${displayName}.${variant.displayName}`}.${game.imageExtension}`.replace(' ', '_'),
-                    `${variant.shinyImage || `${displayName}.${variant.displayName}`}.shiny.${game.imageExtension}`.replace(' ', '_'),
-                    `${variant.icon || displayName}.${game.iconExtension}`.replace(' ', '_')))
+                    `${variant.image || `${displayName}.${variant.displayName}`}`.replace(' ', '_'),
+                    `${variant.shinyImage || `${displayName}.${variant.displayName}`}.shiny`.replace(' ', '_'),
+                    `${variant.icon || displayName}`.replace(' ', '_')))
               : undefined)))
         .then(pokemon => loadedPokemon.set(pokemon));
 

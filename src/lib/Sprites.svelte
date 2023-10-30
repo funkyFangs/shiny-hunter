@@ -10,27 +10,25 @@
 
 <!-- Sprites -->
 {#if $selectedTracker && ($showShinyForm || $showNormalForm)}
-  {#if $selectedTracker.pokemon.variants.length}
+  {#if $selectedTracker.pokemon.variants?.length && $selectedVariant}
     <div id='variants'>
-      {#if $selectedVariant}
-        <div id='sprites'>
-          {#if $showShinyForm}
-            <img class='sprite'
-              src='{$selectedTracker.game.imageFolder}/{$selectedVariant.shinyImage}'
-              alt='The shiny sprite for {$selectedVariant.displayName}'
-              title='Shiny {$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
-              on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
-          {/if}
+      <div id='sprites'>
+        {#if $showShinyForm}
+          <img class='sprite'
+            src='{$selectedTracker.game.imageFolder}/{$selectedVariant.shinyImage}.{$selectedTracker.game.imageExtension}'
+            alt='The shiny sprite for {$selectedVariant.displayName}'
+            title='Shiny {$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
+            on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
+        {/if}
 
-          {#if $showNormalForm}
-            <img class='sprite'
-              src='{$selectedTracker.game.imageFolder}/{$selectedVariant.image}'
-              alt='The sprite for {$selectedVariant.displayName}'
-              title='{$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
-              on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
-          {/if}
-        </div>
-      {/if}
+        {#if $showNormalForm}
+          <img class='sprite'
+            src='{$selectedTracker.game.imageFolder}/{$selectedVariant.image}.{$selectedTracker.game.imageExtension}'
+            alt='The sprite for {$selectedVariant.displayName}'
+            title='{$selectedTracker.pokemon.displayName} ({$selectedVariant.displayName})'
+            on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
+        {/if}
+      </div>
 
       <div id='variant-inputs'>
         {#each $selectedTracker.pokemon.variants as _, index}
@@ -38,15 +36,13 @@
         {/each}
       </div>
 
-      {#if $selectedVariant}
-        <h2>{$selectedVariant.displayName}</h2>
-      {/if}
+      <h2>{$selectedVariant.displayName}</h2>
     </div>
   {:else}
     <div id='sprites'>
       {#if $showShinyForm}
         <img class='sprite'
-          src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.shinyImage}'
+          src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.shinyImage}.{$selectedTracker.game.imageExtension}'
           alt='The shiny sprite for {$selectedTracker.pokemon.displayName}'
           title='Shiny {$selectedTracker.pokemon.displayName}'
           on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>
@@ -54,7 +50,7 @@
 
       {#if $showNormalForm}
         <img class='sprite'
-          src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.image}'
+          src='{$selectedTracker.game.imageFolder}/{$selectedTracker.pokemon.image}.{$selectedTracker.game.imageExtension}'
           alt='The sprite for {$selectedTracker.pokemon.displayName}'
           title={$selectedTracker.pokemon.displayName}
           on:error={event => defaultImage(event, DEFAULT_SPRITE)}/>

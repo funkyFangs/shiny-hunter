@@ -18,7 +18,7 @@ export class Tracker {
     this.method = method;
     this.shinyCharm = shinyCharm;
     
-    if (pokemon.variants.length) {
+    if (pokemon.variants?.length) {
       this.selectedVariant = 0;
     }
   }
