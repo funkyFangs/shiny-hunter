@@ -1,17 +1,17 @@
-<script context='module'>
-  import Toggle from '$lib/utilities/Toggle.svelte';
-  import { localWritable } from './StoreUtilities';
+<script context="module">
+  import Toggle from "$lib/utilities/Toggle.svelte";
+  import { localWritable } from "./StoreUtilities";
 
-  export const showShinyForm = localWritable('showShiny', true);
-  export const showNormalForm = localWritable('showNormal', false);
+  export const showShinyForm = localWritable("showShiny", true);
+  export const showNormalForm = localWritable("showNormal", false);
 </script>
 
 <script>
-  import { Hamburger } from 'svelte-hamburgers';
-  import ThemeToggle from '$lib/utilities/ThemeToggle.svelte';
-  import { browser } from '$app/environment';
+  import { Hamburger } from "svelte-hamburgers";
+  import ThemeToggle from "$lib/utilities/ThemeToggle.svelte";
+  import { browser } from "$app/environment";
 
-  export let open = false
+  export let open = false;
 
   function clearCache() {
     if (localStorage.length) {
@@ -21,17 +21,19 @@
   }
 </script>
 
-<div class='sidebar' class:open>
-  <div class='content'>
-    <slot/>
-    <ThemeToggle/>
-    <Toggle id='showShiny' checked={showShinyForm} label='Shiny Form'/>
-    <Toggle id='showNormal' checked={showNormalForm} label='Normal Form'/>
-    <button id='clear-cache' disabled={!browser} on:click={clearCache}>Clear Cache</button>
+<div class="sidebar" class:open>
+  <div class="content">
+    <slot />
+    <ThemeToggle />
+    <Toggle id="showShiny" checked={showShinyForm} label="Shiny Form" />
+    <Toggle id="showNormal" checked={showNormalForm} label="Normal Form" />
+    <button id="clear-cache" disabled={!browser} on:click={clearCache}
+      >Clear Cache</button
+    >
   </div>
 </div>
 
-<Hamburger bind:open --padding=0px --display=inline/>
+<Hamburger bind:open --padding="0px" --display="inline" />
 
 <style>
   .sidebar {

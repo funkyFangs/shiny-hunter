@@ -1,19 +1,28 @@
-<script lang='ts'>
-  import { base } from '$app/paths';
-  import CreateTracker from '$lib/CreateTracker.svelte';
-  import { trackers, hasTrackers, selectedTrackerIndex, selectedTracker } from '$lib/Tracker';
-  import Counter from '$lib/Counter.svelte';
-  import Sprites from '$lib/Sprites.svelte';
-  import { defaultImage } from '$lib/utilities/SpriteUtilities';
-  import Device from 'svelte-device-info';
+<script lang="ts">
+  import { base } from "$app/paths";
+  import CreateTracker from "$lib/CreateTracker.svelte";
+  import {
+    trackers,
+    hasTrackers,
+    selectedTrackerIndex,
+    selectedTracker,
+  } from "$lib/Tracker";
+  import Counter from "$lib/Counter.svelte";
+  import Sprites from "$lib/Sprites.svelte";
+  import { defaultImage } from "$lib/utilities/SpriteUtilities";
+  import Device from "svelte-device-info";
 
   function deleteTracker(index: number) {
-    trackers.update(trackers => [...trackers.slice(0, index), ...trackers.slice(index + 1)]);
+    trackers.update((trackers) => [
+      ...trackers.slice(0, index),
+      ...trackers.slice(index + 1),
+    ]);
 
     if ($trackers.length > 0) {
-      selectedTrackerIndex.set(index < $trackers.length ? index : Math.max(index - 1, 0));
-    }
-    else {
+      selectedTrackerIndex.set(
+        index < $trackers.length ? index : Math.max(index - 1, 0),
+      );
+    } else {
       selectedTrackerIndex.set(undefined);
     }
   }
@@ -23,36 +32,61 @@
 
 <!-- Tabs -->
 {#if $hasTrackers}
-  <form id='tabs'>
+  <form id="tabs">
     {#each $trackers as tracker, index}
-      <label class='tab' class:selected={tracker === $selectedTracker}>
-        <input class='tab-input' name='tabs' type='radio' value={index} bind:group={$selectedTrackerIndex}/>
-        <img class='icon'
-          src='{tracker.game.iconFolder}/{(tracker.pokemon.variants?.length && tracker.selectedVariant !== undefined ? tracker.pokemon.variants[tracker.selectedVariant].icon : tracker.pokemon.icon)}.{tracker.game.imageExtension}'
-          alt='The icon for {$trackers[index].pokemon.displayName}'
-          on:error={event => defaultImage(event, DEFAULT_ICON)}/>
+      <label class="tab" class:selected={tracker === $selectedTracker}>
+        <input
+          class="tab-input"
+          name="tabs"
+          type="radio"
+          value={index}
+          bind:group={$selectedTrackerIndex}
+        />
+        <img
+          class="icon"
+          src="{tracker.game.iconFolder}/{tracker.pokemon.variants?.length &&
+          tracker.selectedVariant !== undefined
+            ? tracker.pokemon.variants[tracker.selectedVariant].icon
+            : tracker.pokemon.icon}.{tracker.game.imageExtension}"
+          alt="The icon for {$trackers[index].pokemon.displayName}"
+          on:error={(event) => defaultImage(event, DEFAULT_ICON)}
+        />
         {tracker.pokemon.displayName}
-        <button class='close-tab' class:transparent={Device.canHover} on:click={() => deleteTracker(index)}>×</button>
+        <button
+          class="close-tab"
+          class:transparent={Device.canHover}
+          on:click={() => deleteTracker(index)}>×</button
+        >
       </label>
     {/each}
     {#if $selectedTracker}
-      <button id='new-tab' class:transparent={Device.canHover} on:click={() => selectedTrackerIndex.set(undefined)}>+</button>
+      <button
+        id="new-tab"
+        class:transparent={Device.canHover}
+        on:click={() => selectedTrackerIndex.set(undefined)}>+</button
+      >
     {/if}
   </form>
 {/if}
 
 <!-- Selected Tracker -->
-<div id='selected-tracker' style:border-top-left-radius={$hasTrackers ? '0' : '8px'}>
+<div
+  id="selected-tracker"
+  style:border-top-left-radius={$hasTrackers ? "0" : "8px"}
+>
   {#if $selectedTracker}
     <h2>{$selectedTracker.pokemon.displayName}</h2>
-    <h3>{$selectedTracker.game.displayName} - {$selectedTracker.method.displayName}</h3>
+    <h3>
+      {$selectedTracker.game.displayName} - {$selectedTracker.method
+        .displayName}
+    </h3>
     {#if $selectedTracker.shinyCharm}
       <h4>Shiny Charm</h4>
     {/if}
-    <Sprites/>
-    <Counter/>
+    <Sprites />
+    <Counter />
   {:else}
-    <CreateTracker/>
+    <CreateTracker />
   {/if}
 </div>
 

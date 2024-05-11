@@ -1,18 +1,18 @@
-<script lang='ts'>
-  import { writable } from 'svelte/store';
+<script lang="ts">
+  import { writable } from "svelte/store";
 
   export let checked = writable(false);
   export let label: string | undefined = undefined;
   export let id: string;
 </script>
 
-<div class='toggle'>
+<div class="toggle">
   {#if label}
     <label for={id}>{label}</label>
   {/if}
-  <label class='switch' id={id}>
-    <input type='checkbox' bind:checked={$checked}/>
-    <span class='slider round'/>
+  <label class="switch" {id}>
+    <input type="checkbox" bind:checked={$checked} />
+    <span class="slider round" />
   </label>
 </div>
 
@@ -52,13 +52,13 @@
     right: 0;
     bottom: 0;
     background-color: var(--background-dim);
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   .slider:before {
     position: absolute;
-    content: '';
+    content: "";
     height: 26px;
     width: 26px;
     left: 4px;
@@ -67,8 +67,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 26px 26px;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
   }
 
   input:checked + .slider {
@@ -76,7 +76,7 @@
   }
 
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
   }
 
   input:checked + .slider:before {

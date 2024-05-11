@@ -1,22 +1,22 @@
-<script lang='ts'>
-  import ManageTrackers from '$lib/ManageTrackers.svelte';
-  import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
-  import { base } from '$app/paths';
+<script lang="ts">
+  import ManageTrackers from "$lib/ManageTrackers.svelte";
+  import HeaderMenu from "$lib/utilities/HeaderMenu.svelte";
+  import { base } from "$app/paths";
 </script>
 
 <title>Shiny Hunter</title>
 
 <header>
   <HeaderMenu>
-    <a class='navigation selected' href='{base}/'>Home</a>
-    <a class='navigation' href='{base}/about'>About</a>
-    <a class='navigation' href='{base}/credits'>Credits</a>
+    <a class="navigation selected" href="{base}/">Home</a>
+    <a class="navigation" href="{base}/about">About</a>
+    <a class="navigation" href="{base}/credits">Credits</a>
   </HeaderMenu>
   <h1>Shiny Hunter</h1>
 </header>
 
-<div id='trackers'>
-  <ManageTrackers/>
+<div id="trackers">
+  <ManageTrackers />
 </div>
 
 <style>

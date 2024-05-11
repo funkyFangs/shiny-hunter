@@ -1,14 +1,19 @@
 export class Method {
-  displayName: string
-  singularUnit: string
-  pluralUnit: string
-  odds: number[]
+  displayName: string;
+  singularUnit: string;
+  pluralUnit: string;
+  odds: number[];
 
-  constructor(displayName: string, singularUnit: string, pluralUnit: string, odds: number[]) {
-    this.displayName = displayName
-    this.singularUnit = singularUnit
-    this.pluralUnit = pluralUnit
-    this.odds = odds
+  constructor(
+    displayName: string,
+    singularUnit: string,
+    pluralUnit: string,
+    odds: number[],
+  ) {
+    this.displayName = displayName;
+    this.singularUnit = singularUnit;
+    this.pluralUnit = pluralUnit;
+    this.odds = odds;
   }
 }
 

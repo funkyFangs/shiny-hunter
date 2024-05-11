@@ -1,22 +1,23 @@
-<script lang='ts'>
-  import HeaderMenu from '$lib/utilities/HeaderMenu.svelte';
-  import { base } from '$app/paths';
+<script lang="ts">
+  import HeaderMenu from "$lib/utilities/HeaderMenu.svelte";
+  import { base } from "$app/paths";
 </script>
 
 <title>About</title>
 
 <header>
   <HeaderMenu>
-    <a class='navigation' href='{base}/'>Home</a>
-    <a class='navigation selected' href='{base}/about'>About</a>
-    <a class='navigation' href='{base}/credits'>Credits</a>
+    <a class="navigation" href="{base}/">Home</a>
+    <a class="navigation selected" href="{base}/about">About</a>
+    <a class="navigation" href="{base}/credits">Credits</a>
   </HeaderMenu>
   <h1>About</h1>
 </header>
 
-<div id='content'>
+<div id="content">
   <p>
-    This is a passion project initially created to help teach myself Svelte, along with the help of Maxzilla. 
+    This is a passion project initially created to help teach myself Svelte,
+    along with the help of Maxzilla.
   </p>
 
   <h2>Contributors</h2>
@@ -28,7 +29,9 @@
   <h2>Links</h2>
   <nav>
     <ul>
-      <li><a href='https://www.github.com/funkyFangs/shiny-hunter'>GitHub</a></li>
+      <li>
+        <a href="https://www.github.com/funkyFangs/shiny-hunter">GitHub</a>
+      </li>
     </ul>
   </nav>
 </div>
