@@ -1,0 +1,108 @@
+<!--
+@component
+# Description
+`Fraction` is a component which displays a fraction.
+It can also reduce the fraction to simplest form and display the fraction's approximate percentage.
+
+## Fields
+|Field|Description|Default|Required|
+|:-:|-|:-:|:-:|
+|numerator|This is the upper-half of the fraction.|N/A|Yes|
+|denominator|This is the lower-half of the fraction.|N/A|Yes|
+|showPercentage|This determines whether or not the approximate percentage is displayed.|`true`|No|
+|accuracy|This is the number of digits to round to for the approximate percentage.|`3`|No|
+|reduce|This determines whether or not the fraction should be reduced to simplest form.|`true`|No|
+|id|This is the HTML ID for the root element of the component.|`null`|No|
+
+# Examples
+If you wanted to display the fraction 50/100 in simplest form with an approximate percentage, you could declare the following.
+```svelte
+<Fraction
+  numerator={50}
+  denominator={100}
+/>
+```
+
+If you wanted to display the previous example without reducing the fraction to simplest form, you would include the `reduce` field as follows.
+```svelte
+<Fraction
+  numerator={50}
+  denominator={100}
+  reduce={false}
+/>
+```
+
+If you wanted the percentage of the previous example to be rounded to the nearest whole number, you would add the `accuracy` field
+like so.
+```svelte
+<Fraction
+  numerator={50}
+  denominator={100}
+  reduce={false}
+  accuracy={0}
+/>
+```
+
+Finally, if you wanted to hide the percentage for the previous example, you could set the `showPercentage` field as such.
+```svelte
+<Fraction
+  numerator={50}
+  denominator={100}
+  showPercentage={false}
+/>
+```
+-->
+<script lang="ts">
+	function gcd(first: number, second: number) {
+		if (!second) {
+			return first
+		}
+
+		return gcd(second, first % second)
+	}
+
+	export let numerator: number
+	export let denominator: number
+	export let id: string | null = null
+	export let showPercentage: boolean = true
+	export let accuracy: number = 3
+	export let reduce: boolean = true
+
+	$: divisor = reduce ? gcd(numerator, denominator) : 1;
+
+	function getDecimalValue() {
+		return denominator === 0
+			? (numerator < 0 ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY)
+			: numerator / denominator;
+	}
+</script>
+
+<div id={id} class="container">
+	<div class="fraction">
+		<span>{numerator / divisor}</span>
+		<span>{denominator / divisor}</span>
+	</div>
+	{#if showPercentage}
+		<span>(~{(getDecimalValue() * 100).toFixed(accuracy)}%)</span>
+	{/if}
+</div>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+  }
+
+  .fraction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .fraction > span + span {
+    border-top: 1px solid var(--font-color);
+  }
+</style>
