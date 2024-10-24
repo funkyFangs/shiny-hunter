@@ -1,0 +1,285 @@
+/* ============================================================================================ *\
+ *  Global                                                                                     *
+\* ============================================================================================ */
+
+:root {
+  /* Transitions */
+  --transition-duration: 0.2s;
+
+  /* Palette */
+  --primary-darkest: black;
+  --primary-darker: #17252B;
+  --primary-dark: #25353D;
+  --primary-medium: #2F4550;
+  --primary-light: #3F606E;
+  --primary-lighter: #586F7C;
+  --font-color: #F4F4F9;
+  --accent: #B8D8D9;
+
+  /* Positioning */
+  --top-bar-height: 60px;
+  --side-bar-width: 20vw;
+  --gap-length: 15px;
+  --border-radius: 8px;
+  --padding-length: 5px;
+}
+
+body {
+  /* Positioning */
+  margin: 0;
+
+  /* Palette */
+  background-color: var(--primary-lighter);
+}
+
+*:disabled {
+  cursor: not-allowed !important;
+}
+
+/* ============================================================================================ *\
+ *  Fonts                                                                                       *
+\* ============================================================================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+textarea,
+span,
+p,
+button,
+input,
+select,
+li,
+label,
+td,
+th,
+tr {
+  /* Fonts */
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* ============================================================================================ *\
+ *  Text                                                                                        *
+\* ============================================================================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+textarea,
+span,
+p,
+li,
+label,
+td,
+th,
+tr  {
+  /* Palette */
+  color: var(--font-color);
+}
+
+th {
+  font-weight: bold;
+}
+
+/* ============================================================================================ *\
+ *  Buttons                                                                                     *
+\* ============================================================================================ */
+
+button, button.primary-button {
+  /* Transitions */
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: ease-in-out;
+
+  /* Positioning */
+  padding: var(--padding-length);
+
+  /* Decoration */
+  border: none;
+  border-radius: var(--border-radius);
+
+  /* Palette */
+  color: var(--primary-darkest);
+}
+
+button {
+  /* Palette */
+  background-color: var(--font-color);
+}
+
+button.primary-button {
+  /* Palette */
+  background-color: var(--accent);
+}
+
+button:disabled {
+  /* Transitions */
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: ease-in-out;
+
+  /* Palette */
+  color: var(--font-color);
+  background-color: var(--primary-lighter) !important;
+}
+
+button:hover, button.primary-button:hover {
+  /* Transitions */
+  transition-property: background-color;
+  transition-duration: var(--transition-duration);
+  transition-timing-function: ease-in-out;
+
+  /* Decoration */
+  cursor: pointer;
+}
+
+button:hover {
+  /* Palette */
+  background-color: var(--accent);
+}
+
+button.primary-button:hover {
+  /* Palette */
+  background-color: var(--font-color);
+}
+
+button:active, button.primary-button:active {
+  /* Transitions */
+  transition-property: none;
+}
+
+button.primary-button:active {
+  /* Palette */
+  background-color: var(--accent);
+}
+
+button:active {
+  /* Palette */
+  background-color: var(--font-color);
+}
+
+/* ============================================================================================ *\
+ *  Inputs                                                                                      *
+\* ============================================================================================ */
+
+input {
+  /* Positioning */
+  padding: var(--padding-length);
+
+  /* Decoration */
+  border: none;
+  border-radius: var(--border-radius);
+
+  /* Palette */
+  color: var(--primary-darkest);
+  background-color: var(--font-color);
+}
+
+input:disabled {
+  background-color: var(--primary-lighter) !important;
+}
+
+/* ============================================================================================ *\
+ *  Select                                                                                      *
+\* ============================================================================================ */
+
+select {
+  /* Positioning */
+  padding: var(--padding-length);
+
+  /* Decoration */
+  border: none;
+  border-radius: var(--border-radius);
+
+  /* Palette */
+  background-color: var(--font-color);
+}
+
+/* ============================================================================================ *\
+ *  Anchors                                                                                     *
+\* ============================================================================================ */
+
+a {
+  /* Fonts */
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+
+  /* Decoration */
+  text-decoration: none;
+
+  /* Palette */
+  color: var(--font-color);
+}
+
+a:hover, a:hover > * {
+  /* Palette */
+  color: var(--accent);
+}
+
+/* ============================================================================================ *\
+ *  Help                                                                                        *
+\* ============================================================================================ */
+
+.help {
+  /* Cursor */
+  cursor: help;
+}
+
+.help:hover {
+  /* Transition */
+  transition-property: color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+
+  /* Palette */
+  color: var(--accent);
+}
+
+/* ============================================================================================ *\
+ *  Options                                                                                     *
+\* ============================================================================================ */
+
+.blank-option {
+  display: none;
+}
+
+/* ============================================================================================ *\
+ *  Tables                                                                                      *
+\* ============================================================================================ */
+
+table {
+  border-spacing: 0;
+  border-style: hidden;
+  border-collapse: separate;
+  text-align: center;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  table-layout: fixed;
+}
+
+thead > tr {
+  background-color: var(--primary-darker);
+}
+
+tbody > tr:nth-of-type(odd) {
+  background-color: var(--primary-dark);
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: var(--primary-medium);
+}
+
+th {
+  font-weight: bold;
+}
+
+th, td {
+  padding: var(--padding-length);
+}

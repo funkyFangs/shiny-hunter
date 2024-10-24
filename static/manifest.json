@@ -1,0 +1,12 @@
+{
+  "name": "Shiny Hunter",
+  "description": "Shiny Hunter is a progressive web application built for tracking hunts for shiny Pokémon.",
+  "start_url": ".",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "size": "any"
+    }
+  ],
+  "display": "standalone"
+}
