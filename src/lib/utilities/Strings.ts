@@ -17,3 +17,30 @@ export function titleCase(token: string): string {
 			return token.charAt(0).toUpperCase() + token.substring(1)
 	}
 }
+
+const ROMAN_NUMERALS = Object.entries({
+	m: 1000,
+	cm: 900,
+	d: 500,
+	cd: 400,
+	c: 100,
+	xc: 90,
+	l: 50,
+	xl: 40,
+	x: 10,
+	ix: 9,
+	v: 5,
+	iv: 4,
+	i: 1
+})
+
+export function toRomanNumerals(value: number) {
+	let romanNumerals = '';
+	for (const [romanNumeral, romanNumeralValue] of ROMAN_NUMERALS) {
+		while (value >= romanNumeralValue) {
+			romanNumerals += romanNumeral;
+			value -= romanNumeralValue;
+		}
+	}
+	return romanNumerals;
+}

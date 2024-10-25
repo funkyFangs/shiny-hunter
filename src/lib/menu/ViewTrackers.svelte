@@ -5,24 +5,47 @@
 	import type { HuntTracker } from '$lib/api/HuntTracker.js';
 	import type { Generation } from '$lib/api/GenerationResource';
 	import CreateTracker from '$lib/menu/CreateTracker.svelte';
-	import type { Readable, Writable } from 'svelte/store';
+	import type { Writable } from 'svelte/store';
 	import TrackerCounter from '$lib/menu/tracker/counters/TrackerCounter.svelte';
 	import type { SpritePreference } from '$lib/menu/SpritePreference';
 	import SpriteDisplay from '$lib/menu/tracker/sprites/SpriteDisplay.svelte';
 	import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod';
+	import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource';
 
 	export let huntTrackers: Writable<HuntTracker[]>
 	export let selectedTrackerIndex: Writable<number>
-	export let spritePreference: Readable<SpritePreference>
-	export let showNormal: Readable<boolean>
+	export let spritePreference: SpritePreference
+	export let showNormal: boolean
 	export let generations: Generation[] = []
 
-	const sprites = Object.fromEntries(
+	const sprites: {
+		[pokemonSpeciesName: string]: {
+			[pokemonName: string]: {
+				sprites: GenerationalSprites,
+				forms: {
+					[formName: string]: Sprites
+				}
+			}
+		}
+	} = Object.fromEntries(
 		generations.flatMap(generation => generation.pokemonSpecies)
 			.filter(pokemonSpecies => pokemonSpecies.varieties)
 			.map(pokemonSpecies => [
 				pokemonSpecies.name,
-				pokemonSpecies.varieties![0].sprites
+				Object.fromEntries(
+					pokemonSpecies.varieties!.map(pokemon => [
+						pokemon.name,
+						{
+							sprites: pokemon.sprites,
+							forms: Object.fromEntries(
+								pokemon.forms.map(form => [
+									form.name,
+									form.sprites
+								])
+							)
+						}
+					])
+				)
 			])
 	)
 
@@ -47,24 +70,35 @@
 		selectedTrackerIndex.set($huntTrackers.length)
 	}
 
-	function onTrackerCreated(huntTracker: CreatedHuntTracker) {
-		const generation = generations.find(generation => generation.pokemonSpecies.some(pokemonSpecies => pokemonSpecies.name === huntTracker.pokemonSpecies.name))!
-		generation.pokemonSpecies[generation.pokemonSpecies.findIndex(pokemonSpecies => pokemonSpecies.name === huntTracker.pokemonSpecies.name)] = huntTracker.pokemonSpecies
-		sprites[huntTracker.pokemonSpecies.name] = huntTracker.pokemonSpecies.varieties[0].sprites
-
-		console.log(huntTracker)
+	function onTrackerCreated(createdHuntTracker: CreatedHuntTracker) {
+		const generation = generations.find(generation => generation.pokemonSpecies.some(pokemonSpecies => pokemonSpecies.name === createdHuntTracker.pokemonSpecies.name))!
+		generation.pokemonSpecies[generation.pokemonSpecies.findIndex(pokemonSpecies => pokemonSpecies.name === createdHuntTracker.pokemonSpecies.name)] = createdHuntTracker.pokemonSpecies
+		sprites[createdHuntTracker.pokemonSpecies.name] = Object.fromEntries(
+			createdHuntTracker.pokemonSpecies.varieties!.map(pokemon => [
+				pokemon.name,
+				{
+					sprites: pokemon.sprites,
+					forms: Object.fromEntries(
+						pokemon.forms.map(form => [
+							form.name,
+							form.sprites
+						])
+					)
+				}
+			])
+		)
 
 		huntTrackers.update(huntTrackers => [...huntTrackers, {
 			count: 0,
-			method: huntTracker.method,
-			generation: huntTracker.generation,
-			versionGroup: huntTracker.versionGroup,
-			version: huntTracker.version,
-			pokemonSpecies: huntTracker.pokemonSpecies.name,
-			variety: huntTracker.variety?.name,
-			form: huntTracker.form?.name,
-			female: huntTracker?.female,
-			chain: CHAIN_HUNTING_METHODS.has(huntTracker.method)
+			method: createdHuntTracker.method,
+			generation: createdHuntTracker.generation,
+			versionGroup: createdHuntTracker.versionGroup,
+			version: createdHuntTracker.version,
+			pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
+			variety: createdHuntTracker.variety?.name,
+			form: createdHuntTracker.form?.name,
+			female: createdHuntTracker?.female,
+			chain: CHAIN_HUNTING_METHODS.has(createdHuntTracker.method)
 				? {
 					current: 0,
 					max: 0
@@ -74,6 +108,8 @@
 
 		creatingTracker = false
 	}
+
+	$: console.log($huntTrackers)
 </script>
 
 <div id="tabs">
@@ -115,7 +151,15 @@
 				tabindex={index}
 				class:invisible={index !== $selectedTrackerIndex}
 			>
-				<span class="pokemon-name">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
+				<span class="pokemon-name">
+					{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}
+				</span>
+				{#if huntTracker.variety}
+					<span>{huntTracker.variety}</span>
+				{/if}
+				{#if huntTracker.form}
+					<span>{huntTracker.form}</span>
+				{/if}
 				<table>
 					<thead>
 						<tr>
@@ -138,13 +182,10 @@
 				</table>
 
 				<SpriteDisplay
+					{huntTracker}
 					sprites={sprites[huntTracker.pokemonSpecies]}
-					generation={generations[huntTracker.generation - 1].name}
-					versionGroup={huntTracker.versionGroup ?? huntTracker.version}
-					version={huntTracker.version}
-					pokemon={huntTracker.pokemonSpecies}
-					spritePreference={spritePreference}
-					showNormal={$showNormal}
+					{spritePreference}
+					{showNormal}
 				/>
 
 				<TrackerCounter bind:huntTracker/>

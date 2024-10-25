@@ -56,8 +56,8 @@
 
   img.sprite {
     image-rendering: pixelated;
-    max-height: 500px;
-		max-width: 500px;
+    max-height: 350px;
+		max-width: 350px;
 		width: 100%;
     object-fit: contain;
 		border-radius: var(--border-radius);

@@ -1,48 +1,70 @@
 <script lang="ts">
-	import type { GenerationalSprites } from '$lib/api/SpritesResource';
+	import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource';
 	import { getSpriteVersionGroup } from '$lib/api/SpritesResource';
 	import { SpritePreference } from '$lib/menu/SpritePreference';
-	import type { Readable } from 'svelte/store';
 	import Sprite from '$lib/menu/tracker/sprites/Sprite.svelte';
+	import type { HuntTracker } from '$lib/api/HuntTracker';
+	import { toRomanNumerals } from '$lib/utilities/Strings';
 
-	export let sprites: GenerationalSprites
-	export let generation: string
-	export let versionGroup: string
-	export let version: string
-	export let pokemon: string
-	export let spritePreference: Readable<SpritePreference>
+	export let huntTracker: HuntTracker;
+	export let sprites: {
+		[pokemonName: string]: {
+			sprites: GenerationalSprites,
+			forms: {
+				[formName: string]: Sprites
+			}
+		}
+	}
+	export let spritePreference: SpritePreference
 	export let showNormal: boolean = false
-	export let isFemale: boolean = false
 
 	function getSprites(
-		sprites: GenerationalSprites,
-		generation: string,
-		versionGroup: string,
-		version: string,
+		sprites: {
+			[pokemonName: string]: {
+				sprites: GenerationalSprites,
+				forms: {
+					[formName: string]: Sprites
+				}
+			}
+		},
+		huntTracker: HuntTracker,
 		spritePreference: SpritePreference,
-	) {
+	): Sprites {
+		// Get the selected variety if specified or else the first variety
+		const pokemon = huntTracker.variety
+			? sprites[huntTracker.variety]
+			: Object.values(sprites)[0]
+
 		switch (spritePreference) {
 			case SpritePreference.SHOWDOWN:
-				return sprites.other.showdown
+				return pokemon.sprites.other.showdown!
 			case SpritePreference.HOME:
-				return sprites.other.home
+				return pokemon.sprites.other.home!
 			case SpritePreference.GENERATION:
 				{
-					const baseSprites = sprites.versions[generation][getSpriteVersionGroup(version, versionGroup)]
-					return 'animated' in baseSprites ? baseSprites.animated : baseSprites
+					// Get the selected form if specified or else the generational sprites
+					const baseSprites = huntTracker.form
+						? pokemon.forms[huntTracker.form]
+						: pokemon.sprites.versions
+							[`generation-${toRomanNumerals(huntTracker.generation)}`]
+							[getSpriteVersionGroup(huntTracker.version, huntTracker.versionGroup)]
+
+					return 'animated' in baseSprites
+						? baseSprites.animated as Sprites
+						: baseSprites
 				}
 		}
 	}
 
-	$: selectedSprites = getSprites(sprites, generation, versionGroup, version, $spritePreference)!
+	$: selectedSprites = getSprites(sprites, huntTracker, spritePreference)
 </script>
 
 <div>
 	<Sprite
 		sprites={selectedSprites}
-		{pokemon}
+		pokemon={huntTracker.pokemonSpecies}
 		{showNormal}
-		{isFemale}
+		isFemale={huntTracker.female}
 	/>
 </div>
 

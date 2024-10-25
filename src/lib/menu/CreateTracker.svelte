@@ -70,10 +70,14 @@
 						? pokemonSpecies as PokemonSpecies
 						: getPokemonSpecies(pokemonSpecies.name!)
 							.then(newPokemonSpecies => {
+								// Update species registry
 								pokemonSpeciesNameToPokemonSpecies[newPokemonSpecies.name] = newPokemonSpecies
+
+								// Default to first Pokémon if there is only one variety
 								if (newPokemonSpecies.varieties.length === 1) {
 									selectedPokemonVariety.set(newPokemonSpecies.varieties[0])
 								}
+
 								return newPokemonSpecies
 							})
 				}
@@ -133,8 +137,12 @@
 		dispatch('created', {
 			method: $selectedHuntingMethod!,
 			pokemonSpecies: pokemonSpecies,
-			variety: $selectedPokemonVariety ?? undefined,
-			form: $selectedPokemonForm ?? undefined,
+			variety: pokemonSpecies.varieties.length === 1
+				? undefined
+				: $selectedPokemonVariety ?? undefined,
+			form: $selectedPokemonVariety?.forms?.length === 1
+				? undefined
+			  : $selectedPokemonForm ?? undefined,
 			female: pokemonSpecies.hasGenderDifferences ? $selectedGender : undefined,
 			version: $selectedVersion!.name,
 			versionGroup: $selectedVersionGroup!.name === $selectedVersion!.name ? undefined : $selectedVersionGroup!.name,
