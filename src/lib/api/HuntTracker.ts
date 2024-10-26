@@ -4,6 +4,7 @@ import type { Pokemon } from '$lib/api/PokemonResource';
 import type { PokemonForm } from '$lib/api/PokemonFormResource';
 
 export const HUNT_TRACKERS = 'huntTrackers';
+export const HISTORY = 'history';
 export const SELECTED_TRACKER_INDEX = 'selectedTrackerIndex';
 
 export interface HuntTracker {
@@ -13,6 +14,7 @@ export interface HuntTracker {
 		current: number
 		max: number
 	}
+	complete: boolean
 
 	// Shiny Rates
 	method: HuntingMethod
@@ -25,8 +27,8 @@ export interface HuntTracker {
 
 	// Pokemon Details
 	pokemonSpecies: string
-	variety?: string
-	form?: string
+	pokemon?: string
+	pokemonForm?: string
 	female?: boolean
 }
 
@@ -42,7 +44,7 @@ export interface CreatedHuntTracker {
 
 	// Pokemon Details
 	pokemonSpecies: PokemonSpecies
-	variety?: Pokemon
-	form?: PokemonForm
+	pokemon?: Pokemon
+	pokemonForm?: PokemonForm
 	female?: boolean
 }

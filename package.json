@@ -37,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"npm": "^10.9.0",
+		"svelte-device-info": "^1.0.6",
 		"svelte-hamburgers": "^4.2.1",
 		"svelte-loading-spinners": "^0.3.6"
 	}

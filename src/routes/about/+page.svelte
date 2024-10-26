@@ -20,11 +20,13 @@
 		learning web development. Its purpose is to improve upon the mistakes that were previously made
 		as well as create an accessible and convenient tool for avid shiny hunters.
 	</p>
+</section>
 
+<section>
 	<h1>Development</h1>
 	<p>
-		Shiny Hunter was developed by <a href="https://funky-fangs.carrd.co/">funkyFangs</a>. It was built
-		with <a href="https://kit.svelte.dev/">SvelteKit</a> and uses <a href="https://pokeapi.co/">PokéAPI</a>
+		Shiny Hunter was developed by <a href="https://funky-fangs.carrd.co">funkyFangs</a>. It was built
+		with <a href="https://kit.svelte.dev">SvelteKit</a> and uses <a href="https://pokeapi.co">PokéAPI</a>
 		for functionality and display.
 	</p>
 
@@ -32,17 +34,3 @@
 		Check it out on <a href="https://github.com/funkyFangs/shiny-hunter-v2">GitHub</a>.
 	</p>
 </section>
-
-<style>
-	a {
-		color: var(--accent);
-	}
-
-	a:hover {
-		color: var(--font-color);
-	}
-
-	a:active {
-		color: var(--accent);
-	}
-</style>

@@ -1,11 +1,10 @@
-import { HUNT_TRACKERS, type HuntTracker, SELECTED_TRACKER_INDEX } from '$lib/api/HuntTracker';
+import { HISTORY, HUNT_TRACKERS, type HuntTracker, SELECTED_TRACKER_INDEX } from '$lib/api/HuntTracker';
 import { localStorageWritable } from '$lib/storage/StorageWritable';
 import { range } from '$lib/utilities/Arrays';
 import { type Generation, getGenerationResource, MAX_GENERATION } from '$lib/api/GenerationResource';
 import { getVersionGroup } from '$lib/api/VersionGroupResource';
 import { getPokemonSpecies } from '$lib/api/PokemonSpeciesResource';
 import { get } from 'svelte/store';
-import { SPRITE_PREFERENCE_STORE, SpritePreference } from '$lib/menu/SpritePreference';
 
 const GENERATION_NUMBERS = range(1, MAX_GENERATION, true)
 
@@ -50,6 +49,7 @@ export async function load({ fetch }) {
 	return {
 		huntTrackers,
 		selectedTrackerIndex,
-		generations
+		generations,
+		history: localStorageWritable<HuntTracker[]>(HISTORY, [])
 	}
 }

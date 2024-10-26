@@ -1,6 +1,3 @@
-import type { Version } from '$lib/api/VersionResource';
-import type { VersionGroup } from '$lib/api/VersionGroupResource';
-
 export enum HuntingMethod {
 	FULL_ODDS = 'Full Odds',
 	ODD_EGG = 'Odd Egg',
@@ -13,26 +10,26 @@ export enum HuntingMethod {
 	ULTRA_WARP_RIDE = 'Ultra Warp Ride'
 }
 
-export function getHuntingMethods(generationId: number, version: Version, versionGroup: VersionGroup): HuntingMethod | HuntingMethod[] {
-	switch (generationId) {
+export function getSupportedHuntingMethods(generation: number, versionGroup: string, version: string): HuntingMethod[] {
+	switch (generation) {
 		case 2:
 			// The Odd Egg is only available in Crystal
-			if (version.name == 'crystal') {
+			if (version == 'crystal') {
 				return [HuntingMethod.FULL_ODDS, HuntingMethod.ODD_EGG]
 			}
 			else {
-				return HuntingMethod.FULL_ODDS
+				return [HuntingMethod.FULL_ODDS]
 			}
 		case 3:
-			return HuntingMethod.FULL_ODDS
+			return [HuntingMethod.FULL_ODDS]
 		case 4:
 			// Poke Radar is not available in HeartGold & SoulSilver
-			if (versionGroup.name != 'heartgold-soulsilver') {
+			if (versionGroup != 'heartgold-soulsilver') {
 				return [HuntingMethod.FULL_ODDS, HuntingMethod.MASUDA_METHOD, HuntingMethod.POKE_RADAR]
 			}
 			break;
 		case 6:
-			if (versionGroup.name == 'x-y') {
+			if (versionGroup == 'x-y') {
 				return [
 					HuntingMethod.FULL_ODDS,
 					HuntingMethod.MASUDA_METHOD,
@@ -50,7 +47,7 @@ export function getHuntingMethods(generationId: number, version: Version, versio
 				]
 			}
 		case 7:
-			if (versionGroup.name == 'ultra-sun-ultra-moon') {
+			if (versionGroup == 'ultra-sun-ultra-moon') {
 				return [
 					HuntingMethod.FULL_ODDS,
 					HuntingMethod.MASUDA_METHOD,

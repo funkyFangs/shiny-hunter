@@ -5,6 +5,8 @@ import type {
 } from '$lib/api/SpritesResource';
 import { type FetchFunction, getResource, type Identifier } from '$lib/api/PokeAPI';
 import { getPokemonForm, type PokemonForm } from '$lib/api/PokemonFormResource';
+import { delimitedTitleCase } from '$lib/utilities/Strings';
+import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource';
 
 export interface PokemonResource {
 	id: number
@@ -87,4 +89,48 @@ export async function getPokemon(identifier: Identifier, fetchCallback: FetchFun
 				pokemonResource.forms.map(formLinkResource => getPokemonForm(formLinkResource.name, fetchCallback))
 			)
 		}))
+}
+
+export function formatPokemonName(pokemonSpecies: string, pokemon: string) {
+	if (!pokemon.includes('-')) {
+		return formatPokemonSpeciesName(pokemon)
+	}
+	else if (pokemon.match(/-alola(-\w+)*/)) {
+		return `Alolan ${formatPokemonSpeciesName(pokemonSpecies)}`
+	}
+	else if (pokemon.match(/-galar(-\w+)*/)) {
+		return `Galarian ${formatPokemonSpeciesName(pokemonSpecies)}`
+	}
+	else if (pokemon.match(/-hisui(-\w+)*/)) {
+		return `Hisuian ${formatPokemonSpeciesName(pokemonSpecies)}`
+	}
+	else if (pokemon.match(/-paldea(-\w+)*/)) {
+		return `Paldean ${formatPokemonSpeciesName(pokemonSpecies)}`
+	}
+	else {
+		return delimitedTitleCase(pokemon)
+	}
+}
+
+//https://www.serebii.net/games/shiny.shtml
+function getShinyLockPattern(versionGroup: string) {
+	switch (versionGroup) {
+		case 'black-white':
+			return /victini|reshiram|zekrom/
+		case 'black-2-white-2':
+			return /reshiram|zekrom/
+		case 'x-y':
+			return /articuno|zapdos|moltres|mewtwo|xerneas|yveltal|zygarde/
+		case 'omega-ruby-alpha-sapphire':
+			return /kyogre|groudon|rayquaza|deoxys/
+		case 'sun-moon':
+			return /tapu-koko|tapu-lele|tapu-bulu|tapu-fini|cosmog|solgaleo|lunala|nihilego|buzzwole|pheromosa|xurkitree|celesteela|kartana|guzzlord|necrozma/
+		case 'ultra-sun-ultra-moon':
+			return /zygarde|tapu-koko|tapu-lele|tapu-bulu|tapu-fini|cosmog|solgaleo|lunala|necrozma/
+	}
+}
+
+export function isShinyLocked(pokemon: string, versionGroup: string): boolean {
+	const shinyLockPattern = getShinyLockPattern(versionGroup)
+	return shinyLockPattern !== undefined && pokemon.match(shinyLockPattern) !== null
 }

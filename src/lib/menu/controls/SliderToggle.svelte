@@ -1,89 +1,53 @@
 <script lang="ts">
 	export let checked = false;
-	export let id: string | undefined = undefined;
+	export let id: string | undefined = undefined
+	export let offText: string = ''
+	export let offColor: string = 'var(--primary-darker)'
+	export let onText: string = ''
+	export let onColor: string = 'var(--primary-lighter)'
+
+	$: backgroundColor = checked ? onColor : offColor
 </script>
 
-<div class="toggle">
-	<label class="switch" {id}>
-		<input type="checkbox" bind:checked/>
-		<span class="slider round"/>
-	</label>
-</div>
+<label class="toggle" class:checked style="background-color: {backgroundColor}">
+	<input {id} type="checkbox" bind:checked>
+	<span>{checked ? onText : offText}</span>
+</label>
 
 <style>
-  .toggle {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  label {
-    color: var(--primary-medium);
-    position: relative;
-    display: inline-block;
-    height: 60px;
-    margin-right: 16px;
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-    margin: 0;
-  }
-
-  .switch > input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
+	.toggle {
+		width: 3em;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--primary-darker);
-    transition: 0.4s;
-  }
+		background-color: var(--primary-darker);
+		padding: var(--padding-length);
+		border-radius: 1em;
+		display: flex;
+		flex-direction: row;
+		transition: background-color 0.25s ease-out;
+	}
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--font-color);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 26px 26px;
-    transition: 0.4s;
-  }
-
-  input:checked + .slider {
+	.toggle.checked {
     background-color: var(--primary-lighter);
-  }
+	}
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
+	input[type=checkbox] {
+		display: none;
+	}
 
-  input:checked + .slider:before {
-    transform: translateX(26px);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 26px 26px;
-  }
+	span {
+		border-radius: 50%;
+		background-color: var(--font-color);
+		color: var(--primary-darkest);
+		width: 1.5em;
+		height: 1.5em;
+		display: inline-block;
+		transform: translateX(0);
+		transition: 0.25s ease-out;
+		text-align: center;
+		user-select: none;
+	}
 
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
-  }
+	input[type=checkbox]:checked + span {
+		transform: translateX(100%);
+	}
 </style>

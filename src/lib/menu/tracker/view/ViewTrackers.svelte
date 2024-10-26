@@ -4,15 +4,19 @@
 	import { type CreatedHuntTracker } from '$lib/api/HuntTracker.js';
 	import type { HuntTracker } from '$lib/api/HuntTracker.js';
 	import type { Generation } from '$lib/api/GenerationResource';
-	import CreateTracker from '$lib/menu/CreateTracker.svelte';
+	import CreateTracker from '$lib/menu/tracker/create/CreateTracker.svelte';
 	import type { Writable } from 'svelte/store';
 	import TrackerCounter from '$lib/menu/tracker/counters/TrackerCounter.svelte';
 	import type { SpritePreference } from '$lib/menu/SpritePreference';
 	import SpriteDisplay from '$lib/menu/tracker/sprites/SpriteDisplay.svelte';
 	import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod';
 	import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource';
+	import { delimitedTitleCase } from '$lib/utilities/Strings';
+	import { formatPokemonName } from '$lib/api/PokemonResource';
+	import Device from 'svelte-device-info';
 
 	export let huntTrackers: Writable<HuntTracker[]>
+	export let history: Writable<HuntTracker[]>
 	export let selectedTrackerIndex: Writable<number>
 	export let spritePreference: SpritePreference
 	export let showNormal: boolean
@@ -58,8 +62,9 @@
 		}
 	}
 
-	function deleteTracker(index: number) {
+	function deleteTracker(index: number, huntTracker: HuntTracker) {
 		return () => {
+			history.update(history => [...history, huntTracker])
 			huntTrackers.update(huntTrackers => [...huntTrackers.slice(0, index), ...huntTrackers.slice(index + 1)])
 			selectedTrackerIndex.update(selectedTrackerIndex => selectedTrackerIndex - 1)
 		}
@@ -90,26 +95,32 @@
 
 		huntTrackers.update(huntTrackers => [...huntTrackers, {
 			count: 0,
-			method: createdHuntTracker.method,
-			generation: createdHuntTracker.generation,
-			versionGroup: createdHuntTracker.versionGroup,
-			version: createdHuntTracker.version,
-			pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
-			variety: createdHuntTracker.variety?.name,
-			form: createdHuntTracker.form?.name,
-			female: createdHuntTracker?.female,
 			chain: CHAIN_HUNTING_METHODS.has(createdHuntTracker.method)
 				? {
 					current: 0,
 					max: 0
 				}
-				: undefined
+				: undefined,
+			method: createdHuntTracker.method,
+			generation: createdHuntTracker.generation,
+			versionGroup: createdHuntTracker.versionGroup,
+			version: createdHuntTracker.version,
+			pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
+			pokemon: createdHuntTracker.pokemon?.name,
+			pokemonForm: createdHuntTracker.pokemonForm?.name,
+			female: createdHuntTracker.female,
+			complete: false
 		}])
 
 		creatingTracker = false
 	}
 
-	$: console.log($huntTrackers)
+	function completeHunt(index: number, huntTracker: HuntTracker) {
+		return () => {
+			huntTracker.complete = true
+			deleteTracker(index, huntTracker)()
+		}
+	}
 </script>
 
 <div id="tabs">
@@ -124,15 +135,16 @@
 				tabindex={index}
 				aria-selected={index === $selectedTrackerIndex}
 				aria-controls="tracker-{index + 1}"
+				class:hoverable={Device.canHover}
 				on:click={selectTracker(index)}
 			>
 				<span>{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
-				<button class="delete-tracker" on:click={deleteTracker(index)}>&times;</button>
+				<button class="delete-tracker" on:click={deleteTracker(index, huntTracker)} class:hoverable={Device.canHover}>&times;</button>
 			</button>
 		{/each}
 	</div>
 	{#if !creatingTracker}
-		<button id="create-tracker" on:click={createTracker}>&plus;</button>
+		<button id="create-tracker" on:click={createTracker} class:hoverable={Device.canHover}>&plus;</button>
 	{/if}
 </div>
 
@@ -154,11 +166,11 @@
 				<span class="pokemon-name">
 					{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}
 				</span>
-				{#if huntTracker.variety}
-					<span>{huntTracker.variety}</span>
+				{#if huntTracker.pokemon}
+					<span>{formatPokemonName(huntTracker.pokemonSpecies, huntTracker.pokemon)}</span>
 				{/if}
-				{#if huntTracker.form}
-					<span>{huntTracker.form}</span>
+				{#if huntTracker.pokemonForm}
+					<span>{delimitedTitleCase(huntTracker.pokemonForm)}</span>
 				{/if}
 				<table>
 					<thead>
@@ -189,6 +201,8 @@
 				/>
 
 				<TrackerCounter bind:huntTracker/>
+
+				<button on:click={completeHunt(index, huntTracker)}>Shiny Found</button>
 			</div>
 		{/each}
 	{:else}
@@ -222,60 +236,61 @@
   }
 
   [role=tab] {
-    width: 130px;
+		max-width: 130px;
+		width: 100%;
     display: flex;
     flex-direction: row;
     gap: var(--padding-length);
     justify-content: space-between;
     align-items: center;
+		color: var(--font-color);
   }
 
   [role=tab][aria-selected=true] {
     background-color: var(--primary-medium);
-    color: var(--font-color);
   }
 
-  [role=tab][aria-selected=true] > button.delete-tracker:hover {
-    background-color: var(--primary-light);
+  [role=tab][aria-selected=false].hoverable {
+		background: none;
   }
 
-  [role=tab][aria-selected=true] > button.delete-tracker:active:hover {
-    background-color: var(--primary-lighter);
-  }
-
-  [role=tab][aria-selected=false] {
-    background-color: var(--primary-darker);
-    color: var(--font-color);
-  }
-
-  [role=tab][aria-selected=false]:hover {
+  [role=tab][aria-selected=false].hoverable:hover,
+	[role=tab][aria-selected=false]:not(.hoverable) {
     background-color: var(--primary-dark);
-    color: var(--font-color);
   }
 
-  [role=tab][aria-selected=false] > button.delete-tracker:hover {
-    background-color: var(--primary-medium);
-  }
-
-  [role=tab][aria-selected=false] > button.delete-tracker:active:hover {
-    background-color: var(--primary-light);
-  }
-
-  .delete-tracker {
-    background: none;
+  button.delete-tracker {
     color: var(--font-color);
     padding: var(--padding-length) calc(2 * var(--padding-length));
   }
 
-  #create-tracker {
+  button.delete-tracker.hoverable {
     background: none;
+  }
+
+  [role=tab][aria-selected=false] > button.delete-tracker:hover,
+  [role=tab][aria-selected=false] > button.delete-tracker:not(.hoverable) {
+		background-color: var(--primary-medium);
+  }
+
+  [role=tab][aria-selected=true] > button.delete-tracker:not(.hoverable),
+  [role=tab][aria-selected=true] > button.delete-tracker:hover {
+		background-color: var(--primary-light);
+  }
+
+  #create-tracker {
     color: var(--font-color);
     padding: calc(2 * var(--padding-length)) calc(3 * var(--padding-length));
   }
 
-  #create-tracker:hover {
+	#create-tracker.hoverable {
+		background: none;
+	}
+
+	#create-tracker.hoverable:hover,
+	#create-tracker:not(.hoverable) {
     background-color: var(--primary-dark);
-  }
+	}
 
   #create-tracker:active:hover {
     background-color: var(--primary-medium);

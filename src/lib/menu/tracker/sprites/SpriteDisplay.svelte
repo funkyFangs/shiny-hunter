@@ -31,8 +31,8 @@
 		spritePreference: SpritePreference,
 	): Sprites {
 		// Get the selected variety if specified or else the first variety
-		const pokemon = huntTracker.variety
-			? sprites[huntTracker.variety]
+		const pokemon = huntTracker.pokemon
+			? sprites[huntTracker.pokemon]
 			: Object.values(sprites)[0]
 
 		switch (spritePreference) {
@@ -43,8 +43,8 @@
 			case SpritePreference.GENERATION:
 				{
 					// Get the selected form if specified or else the generational sprites
-					const baseSprites = huntTracker.form
-						? pokemon.forms[huntTracker.form]
+					const baseSprites = huntTracker.pokemonForm
+						? pokemon.forms[huntTracker.pokemonForm]
 						: pokemon.sprites.versions
 							[`generation-${toRomanNumerals(huntTracker.generation)}`]
 							[getSpriteVersionGroup(huntTracker.version, huntTracker.versionGroup)]

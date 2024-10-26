@@ -1,54 +1,84 @@
 <script lang="ts">
-	export let title: string;
-	export let id: string;
-	export let direction: 'left' | 'right' = 'left';
+	import { fade } from 'svelte/transition'
+	import Device from 'svelte-device-info'
 
-	let isHovered: boolean = false;
-	let x: number;
-	let y: number;
+	export let title: string
+	export let id: string | undefined = undefined
 
-	$: style = direction == 'left'
-		? `top: calc(${y}px + 20px); left: calc(${x}px - 20vw);`
-		: `top: calc(${y}px + 20px); left: calc(${x}px + 20px)`
+	let isClicked: boolean = false
+	let isHovered: boolean = false
+	let x: number
+	let y: number
+	let width: number
 
-	function mouseOver(event: MouseEvent) {
-		isHovered = true;
-		x = event.pageX;
-		y = event.pageY;
+	function onMouseEnter(event: MouseEvent) {
+		isHovered = true
+		onMouseMove(event)
 	}
 
-	function mouseMove(event: MouseEvent) {
-		x = event.pageX;
-		y = event.pageY;
+	function onMouseMove(event: MouseEvent) {
+		if (!isClicked) {
+			x = event.x
+			y = event.y
+		}
 	}
 
-	function mouseLeave() {
-		isHovered = false;
+	function onMouseLeave() {
+		isHovered = false
 	}
+
+	function onClick() {
+		if (!Device.canHover) {
+			isClicked = !isClicked
+		}
+	}
+
+	function onKeyPress(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			isClicked = false
+			isHovered = false
+		}
+	}
+
+	$: style = `top: ${y + 28}px; left: ${x - width}px`
 </script>
 
-<div
-	role="tooltip"
-	id={id}
-	on:focus={() => {}}
-	on:mouseover={mouseOver}
-	on:mousemove={mouseMove}
-	on:mouseleave={mouseLeave}
+<svelte:window
+	on:keydown={onKeyPress}
+/>
+
+<button
+	on:mouseenter={onMouseEnter}
+	on:mousemove={onMouseMove}
+	on:mouseleave={onMouseLeave}
+	on:click={onClick}
 >
 	<slot/>
-</div>
+</button>
 
-{#if isHovered}
-	<span {style} class="tooltip">{title}</span>
+{#if (isHovered && Device.canHover) || isClicked}
+	<span
+		bind:clientWidth={width}
+		transition:fade={{duration: 250}}
+		role="tooltip"
+		id={id}
+		{style}
+	>{title}</span>
 {/if}
 
 <style>
-	.tooltip {
+	button {
+		background: none;
+		padding: 0;
+	}
+
+	span {
     /* Positioning */
 		position: absolute;
 		padding: 5px;
-		max-width: calc(var(--side-bar-width) - var(--gap-length));
+		max-width: 15em;
 		border-radius: var(--border-radius);
+		text-align: justify;
 
     /* Palette */
 		background: var(--accent);

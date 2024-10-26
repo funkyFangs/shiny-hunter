@@ -16,9 +16,14 @@
   --font-color: #F4F4F9;
   --accent: #B8D8D9;
 
+  --error: #A84432;
+  --info: #4a6af7;
+  --warning: #FCC81C;
+  --success: #38C750;
+
   /* Positioning */
   --top-bar-height: 60px;
-  --side-bar-width: 20vw;
+  --side-bar-width: min(375px, 100vw);
   --gap-length: 15px;
   --border-radius: 8px;
   --padding-length: 5px;
@@ -243,14 +248,6 @@ a:hover, a:hover > * {
 }
 
 /* ============================================================================================ *\
- *  Options                                                                                     *
-\* ============================================================================================ */
-
-.blank-option {
-  display: none;
-}
-
-/* ============================================================================================ *\
  *  Tables                                                                                      *
 \* ============================================================================================ */
 
@@ -282,4 +279,62 @@ th {
 
 th, td {
   padding: var(--padding-length);
+}
+
+/* ============================================================================================ *\
+ *  Functional Palettes                                                                         *
+\* ============================================================================================ */
+
+span.info, span.success, span.warning, span.error {
+  padding: 2px;
+  cursor: help;
+  min-width: 32px;
+  display: inline-block;
+  border-radius: var(--border-radius);
+  font-size: 22px;
+}
+
+span.info {
+  background-color: var(--info);
+}
+
+span.info::before {
+  content: '🛈 ';
+}
+
+span.success {
+  background-color: var(--success);
+}
+
+span.success::before {
+  content: '✓ ';
+}
+
+span.warning {
+  color: var(--primary-darkest);
+  background-color: var(--warning);
+}
+
+span.error {
+  background-color: var(--error);
+}
+
+span.warning:before, .error:before {
+  content: '⚠ ';
+}
+
+/* ============================================================================================ *\
+ *  Anchors                                                                                     *
+\* ============================================================================================ */
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--font-color);
+}
+
+a:active {
+  color: var(--accent);
 }

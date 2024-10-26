@@ -24,14 +24,15 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 -->
 
 <script lang="ts">
-	import Fraction from '$lib/menu/tracker/counters/Fraction.svelte';
+	import Fraction from '$lib/menu/tracker/counters/Odds.svelte';
+	import { sanitizeInteger } from '$lib/utilities/Strings';
 
 	export let count: number = 0
 	export let label: string = 'Count'
 	export let numerator: number = 1
 	export let denominator: number = 8192
 
-	$: count = Number(String(count).replaceAll(/^0+(?=0)|\D/g, ''))
+	$: count = sanitizeInteger(count)
 
 	function incrementValue() {
 		count += 1

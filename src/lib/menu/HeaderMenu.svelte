@@ -29,7 +29,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
 <header>
 	<Hamburger --color="var(--font-color)" bind:open/>
-	<a href="/"><h1 id="title">{title}</h1></a>
+	<a href="/"><h1>{title}</h1></a>
 </header>
 
 {#if open}
@@ -59,7 +59,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 		/* Positioning */
 		position: fixed;
     height: 100%;
-    width: 375px;
+    width: var(--side-bar-width);
     padding: var(--gap-length);
     top: var(--top-bar-height);
 		max-width: 100vw;
@@ -68,8 +68,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     background-color: var(--primary-dark);
   }
 
-  #title {
-    /* Positioning */
-    margin: 0 var(--gap-length) 0 0;
+  header > a {
+		margin: 0 calc(100% - 100vw + var(--gap-length)) 0 0;
   }
 </style>

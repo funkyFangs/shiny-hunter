@@ -4,6 +4,8 @@
 	import PokeRadarCounter from '$lib/menu/tracker/counters/PokeRadarCounter.svelte';
 	import StaticCounter from '$lib/menu/tracker/counters/StaticCounter.svelte';
 	import ConsecutiveFishingCounter from '$lib/menu/tracker/counters/ConsecutiveFishingCounter.svelte';
+	import UltraWarpRideCounter from '$lib/menu/tracker/counters/UltraWarpRideCounter.svelte';
+	import SosBattleCounter from '$lib/menu/tracker/counters/SosBattleCounter.svelte';
 
 	export let huntTracker: HuntTracker
 </script>
@@ -45,6 +47,19 @@
 	{:else}
 		<StaticCounter bind:count={huntTracker.count} label="Encounters" denominator={4096}/>
 	{/if}
+{:else if huntTracker.method === HuntingMethod.SOS_BATTLE && huntTracker.chain}
+	<SosBattleCounter
+		bind:chains={huntTracker.count}
+		bind:currentChainLength={huntTracker.chain.current}
+		bind:maxChainLength={huntTracker.chain.max}
+		bind:shinyCharm={huntTracker.shinyCharm}
+		isSunOrMoon={huntTracker.versionGroup === 'sun-moon'}
+	/>
+{:else if huntTracker.method === HuntingMethod.ULTRA_WARP_RIDE && huntTracker.chain}
+	<UltraWarpRideCounter
+		bind:count={huntTracker.count}
+		bind:furthestDistance={huntTracker.chain.max}
+	/>
 {:else}
 	{#if huntTracker.generation <= 5}
 		<StaticCounter bind:count={huntTracker.count} label="Encounters"/>

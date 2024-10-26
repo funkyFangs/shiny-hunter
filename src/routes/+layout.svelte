@@ -12,7 +12,8 @@
 
 <HeaderMenu title="Shiny Hunter">
 	<ul>
-		<li><span><a data-sveltekit-preload-data="tap" href="/">Trackers</a></span></li>
+		<li><span><a href="/">Trackers</a></span></li>
+		<li><span><a href="/history">History</a></span></li>
 		<li><span><a href="/about">About</a></span></li>
 		<li><span><a href="/credits">Credits</a></span></li>
 		<li>
@@ -54,6 +55,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		align-items: center;
 	}
 
   li + li {

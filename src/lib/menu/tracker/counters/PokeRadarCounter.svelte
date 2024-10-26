@@ -24,7 +24,8 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 ```
 -->
 <script lang="ts">
-	import Fraction from '$lib/menu/tracker/counters/Fraction.svelte';
+	import Fraction from '$lib/menu/tracker/counters/Odds.svelte';
+	import { sanitizeInteger } from '$lib/utilities/Strings';
 
 	export let chains: number = 0
 	export let currentChainLength: number = 0
@@ -32,8 +33,8 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 	export let generation: number
 	export let shinyCharm: boolean = false
 
-	$: chains = Number(String(chains).replaceAll(/^0+(?=0)|\D/g, ''))
-	$: currentChainLength = Number(String(currentChainLength).replaceAll(/^0+(?=0)|\D/g, ''))
+	$: chains = sanitizeInteger(chains)
+	$: currentChainLength = sanitizeInteger(currentChainLength)
 
 	function incrementChain() {
 		currentChainLength += 1

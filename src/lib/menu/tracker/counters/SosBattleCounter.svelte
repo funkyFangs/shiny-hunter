@@ -6,6 +6,7 @@
 	export let currentChainLength: number = 0
 	export let maxChainLength: number = 0
 	export let shinyCharm: boolean = false
+	export let isSunOrMoon: boolean = false
 
 	$: chains = sanitizeInteger(chains)
 	$: currentChainLength = sanitizeInteger(currentChainLength)
@@ -26,9 +27,19 @@
 	 * @see https://mrnbayoh.github.io/pkmn6gen/shiny_calculator/
 	 */
 	function getOdds(chainLength: number) {
-		const recompute = 1 + (shinyCharm ? 2 : 0) + Math.min(chainLength, 20) * 2;
-		const odds = 1 - Math.pow(4095/4096, recompute);
-		return Math.round(1 / odds);
+		const length = isSunOrMoon ? chainLength % 256 : chainLength
+		if (length <= 10) {
+			return shinyCharm ? 1366 : 4096
+		}
+		else if (length <= 20) {
+			return shinyCharm ? 585 : 820
+		}
+		else if (length <= 30) {
+			return shinyCharm ? 373 : 455
+		}
+		else {
+			return shinyCharm ? 273 : 315
+		}
 	}
 
 	$: odds = getOdds(currentChainLength)

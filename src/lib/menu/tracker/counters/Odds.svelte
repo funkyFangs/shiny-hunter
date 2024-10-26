@@ -65,25 +65,36 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
 	export let denominator: number
 	export let id: string | null = null
 	export let showPercentage: boolean = true
+	export let showFraction: boolean = true
 	export let accuracy: number = 3
 	export let reduce: boolean = true
 
 	$: divisor = reduce ? gcd(numerator, denominator) : 1;
 
-	function getDecimalValue() {
+	function getDecimalValue(numerator: number, denominator: number) {
 		return denominator === 0
 			? (numerator < 0 ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY)
 			: numerator / denominator;
 	}
+
+	$: decimalValue = getDecimalValue(numerator, denominator);
 </script>
 
 <div id={id} class="container">
-	<div class="fraction">
-		<span>{numerator / divisor}</span>
-		<span>{denominator / divisor}</span>
-	</div>
+	{#if showFraction}
+		<div class="fraction">
+			<span>{numerator / divisor}</span>
+			<span>{denominator / divisor}</span>
+		</div>
+	{/if}
 	{#if showPercentage}
-		<span>(~{(getDecimalValue() * 100).toFixed(accuracy)}%)</span>
+		<span>
+			{#if showFraction}
+				(~{(decimalValue * 100).toFixed(accuracy)}%)
+			{:else}
+				{(decimalValue * 100).toFixed(accuracy)}%
+			{/if}
+		</span>
 	{/if}
 </div>
 

@@ -44,3 +44,7 @@ export function toRomanNumerals(value: number) {
 	}
 	return romanNumerals;
 }
+
+export function sanitizeInteger(integer: string | number) {
+	return Number(String(integer).replaceAll(/^0+(?=0)|\D/g, ''))
+}

@@ -31,3 +31,5 @@ export function formatVersionName(name: string): string {
 			return delimitedTitleCase(name)
 	}
 }
+
+export const VERSION_BLACKLIST = new Set(['xd', 'colosseum', 'lets-go-eevee', 'lets-go-pikachu'])
