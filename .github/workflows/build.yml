@@ -1,12 +1,12 @@
 name: Build Project
 
 on:
-  push:
-    branches: 'main'
+  - push
+  - workflow_call
 
 jobs:
-  runs-on: ubuntu-latest
   build:
+    runs-on: ubuntu-latest
     steps:
       - name: Check
         uses: ./.github/workflows/check.yml

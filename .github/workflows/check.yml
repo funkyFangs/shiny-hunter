@@ -2,6 +2,7 @@ name: Check Validity of Project
 
 on:
   - push
+  - worklow_call
 
 jobs:
   check:

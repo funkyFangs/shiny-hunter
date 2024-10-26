@@ -1,2 +1,2 @@
 npx vitest run
-npm run format
+npm run lint
