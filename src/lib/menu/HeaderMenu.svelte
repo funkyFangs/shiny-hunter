@@ -21,6 +21,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 <script lang="ts">
   import { fly } from 'svelte/transition'
   import { Hamburger } from 'svelte-hamburgers'
+  import { base } from '$app/paths'
 
   export let title: string
 
@@ -29,7 +30,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
 <header>
   <Hamburger --color="var(--font-color)" bind:open />
-  <a href="/"><h1>{title}</h1></a>
+  <a href="{base}/"><h1>{title}</h1></a>
 </header>
 
 {#if open}

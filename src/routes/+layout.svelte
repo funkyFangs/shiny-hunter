@@ -5,6 +5,7 @@
   import { Circle2 } from 'svelte-loading-spinners'
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import SliderToggle from '$lib/menu/controls/SliderToggle.svelte'
+  import { base } from '$app/paths'
 
   export let data
   const { spritePreference, showNormal } = data
@@ -12,10 +13,10 @@
 
 <HeaderMenu title="Shiny Hunter">
   <ul>
-    <li><span><a href="/">Trackers</a></span></li>
-    <li><span><a href="/history">History</a></span></li>
-    <li><span><a href="/about">About</a></span></li>
-    <li><span><a href="/credits">Credits</a></span></li>
+    <li><span><a href="{base}/">Trackers</a></span></li>
+    <li><span><a href="{base}/history">History</a></span></li>
+    <li><span><a href="{base}/about">About</a></span></li>
+    <li><span><a href="{base}/credits">Credits</a></span></li>
     <li>
       <label for="sprite-preference">Sprite Preference</label>
       <select id="sprite-preference" bind:value={$spritePreference}>
