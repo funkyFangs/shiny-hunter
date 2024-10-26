@@ -1,13 +1,13 @@
-import type { PageLoad } from '../../.svelte-kit/types/src/routes/$types';
-import { localStorageWritable } from '$lib/storage/StorageWritable';
-import { SPRITE_PREFERENCE_STORE, SpritePreference } from '$lib/menu/SpritePreference';
+import type { PageLoad } from '../../.svelte-kit/types/src/routes/$types'
+import { localStorageWritable } from '$lib/storage/StorageWritable'
+import { SPRITE_PREFERENCE_STORE, SpritePreference } from '$lib/menu/SpritePreference'
 
-export const prerender = true;
-export const ssr = false;
+export const prerender = true
+export const ssr = false
 
 export const load: PageLoad = () => {
-	return {
-		spritePreference: localStorageWritable(SPRITE_PREFERENCE_STORE, SpritePreference.SHOWDOWN),
-		showNormal: localStorageWritable('showNormal', false)
-	}
+  return {
+    spritePreference: localStorageWritable(SPRITE_PREFERENCE_STORE, SpritePreference.SHOWDOWN),
+    showNormal: localStorageWritable('showNormal', false)
+  }
 }

@@ -19,23 +19,23 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 ```
 -->
 <script lang="ts">
-	import { fly } from 'svelte/transition'
-	import { Hamburger } from 'svelte-hamburgers';
+  import { fly } from 'svelte/transition'
+  import { Hamburger } from 'svelte-hamburgers'
 
-	export let title: string
+  export let title: string
 
-	let open: boolean
+  let open: boolean
 </script>
 
 <header>
-	<Hamburger --color="var(--font-color)" bind:open/>
-	<a href="/"><h1>{title}</h1></a>
+  <Hamburger --color="var(--font-color)" bind:open />
+  <a href="/"><h1>{title}</h1></a>
 </header>
 
 {#if open}
-	<nav transition:fly={{x: '-100%'}}>
-		<slot/>
-	</nav>
+  <nav transition:fly={{ x: '-100%' }}>
+    <slot />
+  </nav>
 {/if}
 
 <style>
@@ -56,19 +56,19 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   }
 
   nav {
-		/* Positioning */
-		position: fixed;
+    /* Positioning */
+    position: fixed;
     height: 100%;
     width: var(--side-bar-width);
     padding: var(--gap-length);
     top: var(--top-bar-height);
-		max-width: 100vw;
+    max-width: 100vw;
 
-		/* Palette */
+    /* Palette */
     background-color: var(--primary-dark);
   }
 
   header > a {
-		margin: 0 calc(100% - 100vw + var(--gap-length)) 0 0;
+    margin: 0 calc(100% - 100vw + var(--gap-length)) 0 0;
   }
 </style>

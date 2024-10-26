@@ -1,4 +1,4 @@
 export interface LinkResource {
-	name: string
-	url: string
+  name: string
+  url: string
 }

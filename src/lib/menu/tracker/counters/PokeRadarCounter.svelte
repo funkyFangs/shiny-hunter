@@ -24,66 +24,66 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 ```
 -->
 <script lang="ts">
-	import Fraction from '$lib/menu/tracker/counters/Odds.svelte';
-	import { sanitizeInteger } from '$lib/utilities/Strings';
+  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import { sanitizeInteger } from '$lib/utilities/Strings'
 
-	export let chains: number = 0
-	export let currentChainLength: number = 0
-	export let maxChainLength: number = 0
-	export let generation: number
-	export let shinyCharm: boolean = false
+  export let chains: number = 0
+  export let currentChainLength: number = 0
+  export let maxChainLength: number = 0
+  export let generation: number
+  export let shinyCharm: boolean = false
 
-	$: chains = sanitizeInteger(chains)
-	$: currentChainLength = sanitizeInteger(currentChainLength)
+  $: chains = sanitizeInteger(chains)
+  $: currentChainLength = sanitizeInteger(currentChainLength)
 
-	function incrementChain() {
-		currentChainLength += 1
-		maxChainLength = Math.max(currentChainLength, maxChainLength)
-	}
+  function incrementChain() {
+    currentChainLength += 1
+    maxChainLength = Math.max(currentChainLength, maxChainLength)
+  }
 
-	function resetChain() {
-		currentChainLength = 0
-		chains += 1
-	}
+  function resetChain() {
+    currentChainLength = 0
+    chains += 1
+  }
 
-	/**
-	 * Computes the probability of finding a shiny Pokémon given a chain length
-	 * @param chainLength the length of the chain
-	 * @see https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9_Radar#Shiny_probability
-	 */
-	function getOdds(chainLength: number) {
-		let odds = Math.ceil(65535 / (8200 - Math.min(chainLength, 40) * 200))
-		if (generation >= 6) {
-			odds *= 2
-		}
-		if (shinyCharm) {
-			odds *= 2
-		}
-		return odds
-	}
+  /**
+   * Computes the probability of finding a shiny Pokémon given a chain length
+   * @param chainLength the length of the chain
+   * @see https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9_Radar#Shiny_probability
+   */
+  function getOdds(chainLength: number) {
+    let odds = Math.ceil(65535 / (8200 - Math.min(chainLength, 40) * 200))
+    if (generation >= 6) {
+      odds *= 2
+    }
+    if (shinyCharm) {
+      odds *= 2
+    }
+    return odds
+  }
 
-	$: odds = getOdds(currentChainLength)
+  $: odds = getOdds(currentChainLength)
 </script>
 
 <div id="counter">
-	<button on:click={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
-	<table>
-		<thead>
-			<tr>
-				<th><label for="chain-length">Chain Length</label></th>
-				<th><label for="chains">Number of Chains</label></th>
-				<th><label for="odds">Odds</label></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input id="chain-length" bind:value={currentChainLength}/></td>
-				<td><input id="chains" bind:value={chains}/></td>
-				<td><Fraction id="odds" numerator={odds} denominator={65536}/></td>
-			</tr>
-		</tbody>
-	</table>
-	<button on:click={incrementChain}>&plus;</button>
+  <button on:click={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
+  <table>
+    <thead>
+      <tr>
+        <th><label for="chain-length">Chain Length</label></th>
+        <th><label for="chains">Number of Chains</label></th>
+        <th><label for="odds">Odds</label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="chain-length" bind:value={currentChainLength} /></td>
+        <td><input id="chains" bind:value={chains} /></td>
+        <td><Fraction id="odds" numerator={odds} denominator={65536} /></td>
+      </tr>
+    </tbody>
+  </table>
+  <button on:click={incrementChain}>&plus;</button>
 </div>
 
 <style>
@@ -95,24 +95,24 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
     color: var(--font-color);
     font-size: 1.1em;
     padding: 0;
-		max-width: 60px;
+    max-width: 60px;
   }
 
-	input:focus {
-		background-color: var(--primary-light);
-	}
+  input:focus {
+    background-color: var(--primary-light);
+  }
 
-	#counter {
-		display: flex;
-		flex-direction: row;
-		gap: 5px;
-		align-items: center;
-		justify-content: center;
-		max-width: calc(100vw - 4 * var(--gap-length))
-	}
+  #counter {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    max-width: calc(100vw - 4 * var(--gap-length));
+  }
 
-	#counter > button {
+  #counter > button {
     height: 87px;
-		font-size: 1.5em;
-	}
+    font-size: 1.5em;
+  }
 </style>

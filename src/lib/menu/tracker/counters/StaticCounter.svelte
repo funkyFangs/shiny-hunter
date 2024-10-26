@@ -24,74 +24,74 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 -->
 
 <script lang="ts">
-	import Fraction from '$lib/menu/tracker/counters/Odds.svelte';
-	import { sanitizeInteger } from '$lib/utilities/Strings';
+  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import { sanitizeInteger } from '$lib/utilities/Strings'
 
-	export let count: number = 0
-	export let label: string = 'Count'
-	export let numerator: number = 1
-	export let denominator: number = 8192
+  export let count: number = 0
+  export let label: string = 'Count'
+  export let numerator: number = 1
+  export let denominator: number = 8192
 
-	$: count = sanitizeInteger(count)
+  $: count = sanitizeInteger(count)
 
-	function incrementValue() {
-		count += 1
-	}
+  function incrementValue() {
+    count += 1
+  }
 
-	function resetValue() {
-		count = 0
-	}
+  function resetValue() {
+    count = 0
+  }
 </script>
 
 <div id="counter">
-	<button on:click={resetValue} disabled={count === 0}>&#10227;</button>
-	<table>
-		<thead>
-			<tr>
-				<th><label for="count">{label}</label></th>
-				<th><label for="odds">Odds</label></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input id="count" bind:value={count}/></td>
-				<td><Fraction id="odds" bind:numerator bind:denominator/></td>
-			</tr>
-		</tbody>
-	</table>
-	<button on:click={incrementValue}>&plus;</button>
+  <button on:click={resetValue} disabled={count === 0}>&#10227;</button>
+  <table>
+    <thead>
+      <tr>
+        <th><label for="count">{label}</label></th>
+        <th><label for="odds">Odds</label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="count" bind:value={count} /></td>
+        <td><Fraction id="odds" bind:numerator bind:denominator /></td>
+      </tr>
+    </tbody>
+  </table>
+  <button on:click={incrementValue}>&plus;</button>
 </div>
 
 <style>
-	#counter {
-		display: flex;
-		flex-direction: row;
-		gap: 5px;
-		align-items: center;
-		justify-content: center;
-	}
+  #counter {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
 
   #counter > button {
     height: 87px;
     font-size: 1.5em;
   }
 
-	input {
-		text-align: center;
-		border: none;
-		background: none;
-		font-weight: bold;
-		color: var(--font-color);
-		font-size: 1.1em;
-		max-width: 90px;
-		padding: 0;
-	}
+  input {
+    text-align: center;
+    border: none;
+    background: none;
+    font-weight: bold;
+    color: var(--font-color);
+    font-size: 1.1em;
+    max-width: 90px;
+    padding: 0;
+  }
 
   input:focus {
     background-color: var(--primary-light);
   }
 
-	label {
-		font-weight: bold;
-	}
+  label {
+    font-weight: bold;
+  }
 </style>

@@ -8,18 +8,18 @@
 
   /* Palette */
   --primary-darkest: black;
-  --primary-darker: #17252B;
-  --primary-dark: #25353D;
-  --primary-medium: #2F4550;
-  --primary-light: #3F606E;
-  --primary-lighter: #586F7C;
-  --font-color: #F4F4F9;
-  --accent: #B8D8D9;
+  --primary-darker: #17252b;
+  --primary-dark: #25353d;
+  --primary-medium: #2f4550;
+  --primary-light: #3f606e;
+  --primary-lighter: #586f7c;
+  --font-color: #f4f4f9;
+  --accent: #b8d8d9;
 
-  --error: #A84432;
+  --error: #a84432;
   --info: #4a6af7;
-  --warning: #FCC81C;
-  --success: #38C750;
+  --warning: #fcc81c;
+  --success: #38c750;
 
   /* Positioning */
   --top-bar-height: 60px;
@@ -63,7 +63,7 @@ td,
 th,
 tr {
   /* Fonts */
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-optical-sizing: auto;
 }
 
@@ -84,7 +84,7 @@ li,
 label,
 td,
 th,
-tr  {
+tr {
   /* Palette */
   color: var(--font-color);
 }
@@ -97,7 +97,8 @@ th {
  *  Buttons                                                                                     *
 \* ============================================================================================ */
 
-button, button.primary-button {
+button,
+button.primary-button {
   /* Transitions */
   transition-property: background-color;
   transition-duration: var(--transition-duration);
@@ -135,7 +136,8 @@ button:disabled {
   background-color: var(--primary-lighter) !important;
 }
 
-button:hover, button.primary-button:hover {
+button:hover,
+button.primary-button:hover {
   /* Transitions */
   transition-property: background-color;
   transition-duration: var(--transition-duration);
@@ -155,7 +157,8 @@ button.primary-button:hover {
   background-color: var(--font-color);
 }
 
-button:active, button.primary-button:active {
+button:active,
+button.primary-button:active {
   /* Transitions */
   transition-property: none;
 }
@@ -213,7 +216,7 @@ select {
 
 a {
   /* Fonts */
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-optical-sizing: auto;
 
   /* Decoration */
@@ -223,7 +226,8 @@ a {
   color: var(--font-color);
 }
 
-a:hover, a:hover > * {
+a:hover,
+a:hover > * {
   /* Palette */
   color: var(--accent);
 }
@@ -277,7 +281,8 @@ th {
   font-weight: bold;
 }
 
-th, td {
+th,
+td {
   padding: var(--padding-length);
 }
 
@@ -285,7 +290,10 @@ th, td {
  *  Functional Palettes                                                                         *
 \* ============================================================================================ */
 
-span.info, span.success, span.warning, span.error {
+span.info,
+span.success,
+span.warning,
+span.error {
   padding: 2px;
   cursor: help;
   min-width: 32px;
@@ -319,7 +327,8 @@ span.error {
   background-color: var(--error);
 }
 
-span.warning:before, .error:before {
+span.warning:before,
+.error:before {
   content: '⚠ ';
 }
 
