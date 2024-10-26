@@ -8,10 +8,10 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "test": "vitest",
+    "test": "npx vitest run",
+    "test:watch": "npx vitest watch",
     "lint": "npx prettier --check . && npx eslint .",
     "format": "npx prettier --write . && npx eslint . --fix",
-    "format:staged": "npx prettier --write . && npx eslint --fix .",
     "prepare": "husky"
   },
   "devDependencies": {
