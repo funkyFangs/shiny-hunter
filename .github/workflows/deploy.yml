@@ -5,8 +5,8 @@ on:
     branches: 'main'
 
 jobs:
-  check:
-    name: Check
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,12 +22,6 @@ jobs:
       - name: Test
         run: npm run test
       - name: Build
-        run: npm run build
-  build:
-    needs: check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: npm run build
@@ -36,6 +30,7 @@ jobs:
         with:
           path: 'build/'
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     permissions:
