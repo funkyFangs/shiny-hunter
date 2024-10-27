@@ -35,7 +35,9 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
 {#if open}
   <nav transition:fly={{ x: '-100%' }}>
-    <slot />
+    <div>
+      <slot />
+    </div>
   </nav>
 {/if}
 
@@ -61,9 +63,9 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     position: fixed;
     height: 100%;
     width: var(--side-bar-width);
+    max-width: 100vw;
     padding: var(--gap-length);
     top: var(--top-bar-height);
-    max-width: 100vw;
 
     /* Palette */
     background-color: var(--primary-dark);
