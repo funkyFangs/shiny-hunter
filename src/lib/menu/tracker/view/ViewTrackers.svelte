@@ -59,13 +59,17 @@
   }
 
   function deleteTracker(index: number, huntTracker: HuntTracker) {
-    return () => {
-      history.update((history) => [...history, huntTracker])
-      huntTrackers.update((huntTrackers) => [
-        ...huntTrackers.slice(0, index),
-        ...huntTrackers.slice(index + 1)
-      ])
-      selectedTrackerIndex.update((selectedTrackerIndex) => Math.max(selectedTrackerIndex - 1, 0))
+    history.update((history) => [...history, huntTracker])
+    huntTrackers.update((huntTrackers) => [
+      ...huntTrackers.slice(0, index),
+      ...huntTrackers.slice(index + 1)
+    ])
+    selectedTrackerIndex.update((selectedTrackerIndex) => Math.max(selectedTrackerIndex - 1, 0))
+  }
+
+  function closeTracker(index: number, huntTracker: HuntTracker) {
+    if (confirm('Are you sure you want to close this shiny hunt?')) {
+      deleteTracker(index, huntTracker)
     }
   }
 
@@ -124,7 +128,7 @@
     return () => {
       if (confirm('Are you sure you want to finish your shiny hunt?')) {
         huntTracker.complete = true
-        deleteTracker(index, huntTracker)()
+        deleteTracker(index, huntTracker)
       }
     }
   }
@@ -143,7 +147,7 @@
       }
       case 'Delete': {
         const index = $selectedTrackerIndex
-        deleteTracker(index, $huntTrackers[index])()
+        closeTracker(index, $huntTrackers[index])
       }
     }
   }
@@ -154,24 +158,19 @@
 <div id="tabs">
   <div role="tablist" aria-label="Hunt Tracker Tabs">
     {#each $huntTrackers as huntTracker, index}
-      <div
+      <button
         id="tab-{index + 1}"
         role="tab"
-        tabindex={2 * index}
+        tabindex={index === $selectedTrackerIndex ? 0 : -1}
         aria-selected={index === $selectedTrackerIndex}
         aria-controls="tracker-{index + 1}"
         class:hoverable={Device.canHover}
         on:click={selectTracker(index)}
-        on:keydown={onTabKeyPress}
+        on:keydown={(event) => onTabKeyPress(event)}
         bind:this={tabs[index]}
       >
         <span>{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
-        <button
-          class="delete-tracker"
-          on:click={deleteTracker(index, huntTracker)}
-          class:hoverable={Device.canHover}>&times;</button
-        >
-      </div>
+      </button>
     {/each}
   </div>
   {#if !creatingTracker}
@@ -190,7 +189,6 @@
         id="tracker-{index + 1}"
         role="tabpanel"
         aria-labelledby="tab-{index + 1}"
-        tabindex={2 * index + 1}
         class:invisible={index !== $selectedTrackerIndex}
       >
         <span class="pokemon-name">
@@ -295,25 +293,6 @@
   [role='tab'][aria-selected='false'].hoverable:hover,
   [role='tab'][aria-selected='false']:not(.hoverable) {
     background-color: var(--primary-dark);
-  }
-
-  button.delete-tracker {
-    color: var(--font-color);
-    padding: var(--padding-length) calc(2 * var(--padding-length));
-  }
-
-  button.delete-tracker.hoverable {
-    background: none;
-  }
-
-  [role='tab'][aria-selected='false'] > button.delete-tracker:hover,
-  [role='tab'][aria-selected='false'] > button.delete-tracker:not(.hoverable) {
-    background-color: var(--primary-medium);
-  }
-
-  [role='tab'][aria-selected='true'] > button.delete-tracker:not(.hoverable),
-  [role='tab'][aria-selected='true'] > button.delete-tracker:hover {
-    background-color: var(--primary-light);
   }
 
   #create-tracker {
