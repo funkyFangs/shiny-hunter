@@ -122,8 +122,10 @@
 
   function completeHunt(index: number, huntTracker: HuntTracker) {
     return () => {
-      huntTracker.complete = true
-      deleteTracker(index, huntTracker)()
+      if (confirm('Are you sure you want to finish your shiny hunt?')) {
+        huntTracker.complete = true
+        deleteTracker(index, huntTracker)()
+      }
     }
   }
 
@@ -230,7 +232,11 @@
 
         <TrackerCounter bind:huntTracker />
 
-        <button on:click={completeHunt(index, huntTracker)}>Shiny Found</button>
+        <div>
+          <button class="primary-button" on:click={completeHunt(index, huntTracker)}
+            >Shiny Found</button
+          >
+        </div>
       </div>
     {/each}
   {:else}
@@ -347,5 +353,10 @@
   .pokemon-name {
     font-weight: bold;
     font-size: 2em;
+  }
+
+  .primary-button {
+    font-size: 1.5em;
+    font-weight: bold;
   }
 </style>
