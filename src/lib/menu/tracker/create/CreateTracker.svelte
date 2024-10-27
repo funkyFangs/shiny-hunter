@@ -2,8 +2,6 @@
   import { type Version } from '$lib/api/VersionResource'
   import { type Generation } from '$lib/api/GenerationResource'
   import { type HuntingMethod } from '$lib/api/HuntingMethod'
-  import { createEventDispatcher } from 'svelte'
-  import type { CreatedHuntTracker } from '$lib/api/HuntTracker'
   import { type PokemonSpecies } from '$lib/api/PokemonSpeciesResource'
   import { type Pokemon } from '$lib/api/PokemonResource'
   import type { PokemonForm } from '$lib/api/PokemonFormResource'
@@ -12,57 +10,63 @@
   import SelectPokemon from '$lib/menu/tracker/create/SelectPokemon.svelte'
   import SelectHuntingMethod from '$lib/menu/tracker/create/SelectHuntingMethod.svelte'
   import SliderToggle from '$lib/menu/controls/SliderToggle.svelte'
-
-  const dispatch = createEventDispatcher<{ created: CreatedHuntTracker }>()
+  import type { CreatedHuntTracker } from '$lib/api/HuntTracker'
 
   /* ============================================================================================ *\
 	 *  Inputs																																											*
 	\* ============================================================================================ */
 
-  export let generations: Generation[]
+  let {
+    generations,
+    created
+  }: {
+    generations: Generation[]
+    created: (tracker: CreatedHuntTracker) => void
+  } = $props()
 
   /* ============================================================================================ *\
 	 *  Version																																											*
 	\* ============================================================================================ */
 
-  let selectedVersion: Version | undefined
-  let selectedVersionGroup: VersionGroup | undefined
-  let selectedGeneration: Generation | undefined
+  let selectedVersion: Version | undefined = $state()
+  let selectedVersionGroup: VersionGroup | undefined = $state()
+  let selectedGeneration: Generation | undefined = $state()
 
   /* ============================================================================================ *\
 	 *  Pokemon       																																							*
 	\* ============================================================================================ */
 
-  let selectedPokemonSpecies: PokemonSpecies | undefined
-  let selectedPokemon: Pokemon | undefined
-  let selectedPokemonForm: PokemonForm | undefined
-  let isFemale: boolean = false
+  let selectedPokemonSpecies: PokemonSpecies | undefined = $state()
+  let selectedPokemon: Pokemon | undefined = $state()
+  let selectedPokemonForm: PokemonForm | undefined = $state()
+  let isFemale: boolean = $state(false)
 
   /* ============================================================================================ *\
 	 *  Hunting Method																																							*
 	\* ============================================================================================ */
 
-  let selectedHuntingMethod: HuntingMethod | undefined
+  let selectedHuntingMethod: HuntingMethod | undefined = $state()
 
   /* ============================================================================================ *\
 	 *  Shiny Charm																																									*
 	\* ============================================================================================ */
 
-  let shinyCharm: boolean = false
+  let shinyCharm: boolean = $state(false)
 
   /* ============================================================================================ *\
 	 *  Form  																																											*
 	\* ============================================================================================ */
 
-  $: readyToSubmit =
+  const readyToSubmit = $derived(
     selectedVersion &&
-    selectedPokemonSpecies &&
-    selectedPokemon &&
-    selectedPokemonForm &&
-    selectedHuntingMethod
+      selectedPokemonSpecies &&
+      selectedPokemon &&
+      selectedPokemonForm &&
+      selectedHuntingMethod
+  )
 
-  async function onSubmit() {
-    dispatch('created', {
+  function onSubmit() {
+    created({
       method: selectedHuntingMethod!,
       pokemonSpecies: selectedPokemonSpecies!,
       pokemon:
@@ -86,8 +90,8 @@
     <SelectVersion
       {generations}
       bind:selectedVersion
-      bind:selectedVersionGroup
-      bind:selectedGeneration
+      selectVersionGroup={(versionGroup) => (selectedVersionGroup = versionGroup)}
+      selectGeneration={(generation) => (selectedGeneration = generation)}
     />
 
     {#if selectedGeneration && selectedGeneration.id >= 5}
@@ -114,7 +118,7 @@
     />
   </div>
 
-  <button id="submit" class="primary-button" disabled={!readyToSubmit} on:click={onSubmit}
+  <button id="submit" class="primary-button" disabled={!readyToSubmit} onclick={onSubmit}
     >Create Hunt Tracker</button
   >
 </div>

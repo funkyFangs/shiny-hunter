@@ -120,7 +120,7 @@
       id="shiny-lock-warning"
       title="This Pokemon is shiny-locked in Pokemon {formatVersionName(selectedVersion.name)}."
     >
-      <span class="warning" />
+      <span class="warning"></span>
     </ToolTip>
   {/if}
 </div>

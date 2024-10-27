@@ -65,7 +65,7 @@
         ...huntTrackers.slice(0, index),
         ...huntTrackers.slice(index + 1)
       ])
-      selectedTrackerIndex.update((selectedTrackerIndex) => selectedTrackerIndex - 1)
+      selectedTrackerIndex.update((selectedTrackerIndex) => Math.max(selectedTrackerIndex - 1, 0))
     }
   }
 
@@ -126,19 +126,42 @@
       deleteTracker(index, huntTracker)()
     }
   }
+
+  function onTabKeyPress(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowRight':
+        selectedTrackerIndex.update((index) => (index + 1) % $huntTrackers.length)
+        tabs[$selectedTrackerIndex]?.focus()
+        break
+      case 'ArrowLeft': {
+        const length = $huntTrackers.length
+        selectedTrackerIndex.update((index) => (((index - 1) % length) + length) % length)
+        tabs[$selectedTrackerIndex]?.focus()
+        break
+      }
+      case 'Delete': {
+        const index = $selectedTrackerIndex
+        deleteTracker(index, $huntTrackers[index])()
+      }
+    }
+  }
+
+  let tabs: HTMLElement[] = []
 </script>
 
 <div id="tabs">
   <div role="tablist" aria-label="Hunt Tracker Tabs">
     {#each $huntTrackers as huntTracker, index}
-      <button
+      <div
         id="tab-{index + 1}"
         role="tab"
-        tabindex={index}
+        tabindex={2 * index}
         aria-selected={index === $selectedTrackerIndex}
         aria-controls="tracker-{index + 1}"
         class:hoverable={Device.canHover}
         on:click={selectTracker(index)}
+        on:keydown={onTabKeyPress}
+        bind:this={tabs[index]}
       >
         <span>{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
         <button
@@ -146,7 +169,7 @@
           on:click={deleteTracker(index, huntTracker)}
           class:hoverable={Device.canHover}>&times;</button
         >
-      </button>
+      </div>
     {/each}
   </div>
   {#if !creatingTracker}
@@ -158,14 +181,14 @@
 
 <div id="tracker-view">
   {#if creatingTracker}
-    <CreateTracker {generations} on:created={(event) => onTrackerCreated(event.detail)} />
+    <CreateTracker {generations} created={onTrackerCreated} />
   {:else if $huntTrackers.length > 0}
     {#each $huntTrackers as huntTracker, index}
       <div
         id="tracker-{index + 1}"
         role="tabpanel"
         aria-labelledby="tab-{index + 1}"
-        tabindex={index}
+        tabindex={2 * index + 1}
         class:invisible={index !== $selectedTrackerIndex}
       >
         <span class="pokemon-name">
@@ -250,6 +273,9 @@
     justify-content: space-between;
     align-items: center;
     color: var(--font-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding-length);
+    cursor: pointer;
   }
 
   [role='tab'][aria-selected='true'] {

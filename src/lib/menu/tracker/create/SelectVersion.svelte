@@ -7,23 +7,17 @@
   import { formatVersionName, type Version, VERSION_BLACKLIST } from '$lib/api/VersionResource'
   import type { VersionGroup } from '$lib/api/VersionGroupResource'
 
-  /* ============================================================================================ *\
-	 *  Inputs																																											*
-	\* ============================================================================================ */
-
-  export let generations: Generation[]
-
-  /* ============================================================================================ *\
-	 *  Outputs																																											*
-	\* ============================================================================================ */
-
-  export let selectedVersion: Version | undefined
-  export let selectedVersionGroup: VersionGroup | undefined
-  export let selectedGeneration: Generation | undefined
-
-  /* ============================================================================================ *\
-	 *  Behavior																																										*
-	\* ============================================================================================ */
+  let {
+    generations,
+    selectedVersion = $bindable<Version | undefined>(),
+    selectVersionGroup,
+    selectGeneration
+  }: {
+    generations: Generation[]
+    selectedVersion?: Version
+    selectVersionGroup: (versionGroup: VersionGroup | undefined) => void
+    selectGeneration: (generation: Generation | undefined) => void
+  } = $props()
 
   const versionToGeneration = Object.fromEntries(
     generations.flatMap((generation) =>
@@ -40,10 +34,10 @@
       )
   )
 
-  $: if (selectedVersion) {
-    selectedVersionGroup = versionToVersionGroup[selectedVersion.name]
-    selectedGeneration = versionToGeneration[selectedVersion.name]
-  }
+  $effect(() => {
+    selectVersionGroup(selectedVersion ? versionToVersionGroup[selectedVersion.name] : undefined)
+    selectGeneration(selectedVersion ? versionToGeneration[selectedVersion.name] : undefined)
+  })
 </script>
 
 <label for="version">Version</label>

@@ -25,7 +25,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
   export let title: string
 
-  let open: boolean
+  let open: boolean = false
 </script>
 
 <header>
