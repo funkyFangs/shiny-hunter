@@ -1,7 +1,7 @@
 import type { LinkResource } from '$lib/api/LinkResource'
 import type { PokedexNumberResource } from '$lib/api/PokedexNumberResource'
 import type { VarietyResource } from '$lib/api/VarietyResource'
-import { type FetchFunction, getResourceWithCache, type Identifier } from '$lib/api/PokeAPI'
+import { type FetchFunction, getResource, type Identifier } from '$lib/api/PokeAPI'
 import { getPokemon, type Pokemon } from '$lib/api/PokemonResource'
 import { delimitedTitleCase } from '$lib/utilities/Strings'
 
@@ -23,15 +23,13 @@ export interface PokemonSpecies {
 }
 
 export const POKEMON_SPECIES_ENDPOINT = 'pokemon-species'
-export const POKEMON_SPECIES_CACHE = 'pokemonSpecies'
 
 export async function getPokemonSpecies(
   identifier: Identifier,
   fetchCallback: FetchFunction = fetch
 ): Promise<PokemonSpecies> {
-  return getResourceWithCache<PokemonSpeciesResource>(
+  return getResource<PokemonSpeciesResource>(
     POKEMON_SPECIES_ENDPOINT,
-    POKEMON_SPECIES_CACHE,
     identifier,
     fetchCallback
   ).then(async (pokemonSpeciesResource) => ({
