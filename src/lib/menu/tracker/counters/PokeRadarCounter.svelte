@@ -25,16 +25,20 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 -->
 <script lang="ts">
   import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
-  import { sanitizeInteger } from '$lib/utilities/Strings'
 
-  export let chains: number = 0
-  export let currentChainLength: number = 0
-  export let maxChainLength: number = 0
-  export let generation: number
-  export let shinyCharm: boolean = false
-
-  $: chains = sanitizeInteger(chains)
-  $: currentChainLength = sanitizeInteger(currentChainLength)
+  let {
+    chains = $bindable(0),
+    currentChainLength = $bindable(0),
+    maxChainLength = $bindable(0),
+    generation = $bindable(),
+    shinyCharm = $bindable(false)
+  }: {
+    chains: number
+    currentChainLength: number
+    maxChainLength: number
+    generation: number
+    shinyCharm: boolean
+  } = $props()
 
   function incrementChain() {
     currentChainLength += 1
@@ -62,28 +66,30 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
     return odds
   }
 
-  $: odds = getOdds(currentChainLength)
+  let odds = $derived(getOdds(currentChainLength))
 </script>
 
 <div id="counter">
-  <button on:click={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
+  <button onclick={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
   <table>
     <thead>
       <tr>
         <th><label for="chain-length">Chain Length</label></th>
         <th><label for="chains">Number of Chains</label></th>
+        <th><label for="longest-chain">Longest Chain</label></th>
         <th><label for="odds">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input id="chain-length" bind:value={currentChainLength} /></td>
-        <td><input id="chains" bind:value={chains} /></td>
+        <td><input type="number" min="0" id="chain-length" bind:value={currentChainLength} /></td>
+        <td><input type="number" min="0" id="chains" bind:value={chains} /></td>
+        <td><input type="number" min="0" id="longest-chain" bind:value={maxChainLength} /></td>
         <td><Fraction id="odds" numerator={odds} denominator={65536} /></td>
       </tr>
     </tbody>
   </table>
-  <button on:click={incrementChain}>&plus;</button>
+  <button onclick={incrementChain}>&plus;</button>
 </div>
 
 <style>
@@ -114,5 +120,16 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
   #counter > button {
     height: 87px;
     font-size: 1.5em;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 </style>

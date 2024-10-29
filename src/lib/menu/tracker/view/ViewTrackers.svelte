@@ -11,9 +11,8 @@
   import SpriteDisplay from '$lib/menu/tracker/sprites/SpriteDisplay.svelte'
   import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
   import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
-  import { delimitedTitleCase } from '$lib/utilities/Strings'
-  import { formatPokemonName } from '$lib/api/PokemonResource'
   import Device from 'svelte-device-info'
+  import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
 
   export let huntTrackers: Writable<HuntTracker[]>
   export let history: Writable<HuntTracker[]>
@@ -67,7 +66,7 @@
     selectedTrackerIndex.update((selectedTrackerIndex) => Math.max(selectedTrackerIndex - 1, 0))
   }
 
-  function closeTracker(index: number, huntTracker: HuntTracker) {
+  function closeTracker(index: number, huntTracker: HuntTracker = $huntTrackers[index]) {
     if (confirm('Are you sure you want to close this shiny hunt?')) {
       deleteTracker(index, huntTracker)
     }
@@ -184,6 +183,11 @@
   {#if creatingTracker}
     <CreateTracker {generations} created={onTrackerCreated} />
   {:else if $huntTrackers.length > 0}
+    <button
+      id="delete-tracker"
+      on:click={() => closeTracker($selectedTrackerIndex)}
+      class:hoverable={Device.canHover}>🗑</button
+    >
     {#each $huntTrackers as huntTracker, index}
       <div
         id="tracker-{index + 1}"
@@ -191,15 +195,8 @@
         aria-labelledby="tab-{index + 1}"
         class:invisible={index !== $selectedTrackerIndex}
       >
-        <span class="pokemon-name">
-          {formatPokemonSpeciesName(huntTracker.pokemonSpecies)}
-        </span>
-        {#if huntTracker.pokemon}
-          <span>{formatPokemonName(huntTracker.pokemonSpecies, huntTracker.pokemon)}</span>
-        {/if}
-        {#if huntTracker.pokemonForm}
-          <span>{delimitedTitleCase(huntTracker.pokemonForm)}</span>
-        {/if}
+        <PokemonDetails {huntTracker} />
+
         <table>
           <thead>
             <tr>
@@ -316,8 +313,7 @@
   [role='tabpanel'] {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    justify-content: center;
+    gap: var(--padding-length);
   }
 
   [role='tabpanel'] > * {
@@ -329,13 +325,29 @@
     display: none;
   }
 
-  .pokemon-name {
-    font-weight: bold;
-    font-size: 2em;
-  }
-
   .primary-button {
     font-size: 1.5em;
     font-weight: bold;
+  }
+
+  #delete-tracker {
+    background: none;
+    position: fixed;
+    padding: 0;
+    color: var(--font-color);
+    font-size: 1.5em;
+    width: 34px;
+    text-align: center;
+    @media (width > 1530px) {
+      right: calc((100vw - 1500px) / 2 + var(--gap-length));
+    }
+    @media (width <= 1530px) {
+      right: calc(2 * var(--gap-length));
+    }
+  }
+
+  #delete-tracker.hoverable:hover,
+  #delete-tracker:not(.hoverable) {
+    background-color: var(--primary-dark);
   }
 </style>

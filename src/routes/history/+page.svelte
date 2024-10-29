@@ -53,7 +53,7 @@
         <th>Form</th>
         <th>Gender</th>
         <th>Count</th>
-        <th>Status</th>
+        <th>Maximum</th>
       </tr>
     </thead>
     <tbody>

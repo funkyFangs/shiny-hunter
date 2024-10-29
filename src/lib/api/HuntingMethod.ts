@@ -90,5 +90,6 @@ export function getToolTip(huntingMethod: HuntingMethod) {
 export const CHAIN_HUNTING_METHODS = new Set([
   HuntingMethod.POKE_RADAR,
   HuntingMethod.CONSECUTIVE_FISHING,
-  HuntingMethod.SOS_BATTLE
+  HuntingMethod.SOS_BATTLE,
+  HuntingMethod.ULTRA_WARP_RIDE
 ])
