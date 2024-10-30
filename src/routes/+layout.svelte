@@ -91,10 +91,7 @@
   main {
     padding: calc(var(--top-bar-height) + var(--gap-length)) var(--gap-length);
     margin: auto;
-
-    @media (width > 500px) {
-      max-width: 1500px;
-    }
+    max-width: 1500px;
   }
 
   main > div {

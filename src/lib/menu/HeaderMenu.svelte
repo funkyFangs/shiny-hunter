@@ -52,6 +52,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 2;
 
     /* Palette */
     background-color: var(--primary-darkest);

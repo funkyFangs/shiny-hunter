@@ -13,6 +13,7 @@
   import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
   import Device from 'svelte-device-info'
   import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
+  import Kebab from '$lib/menu/controls/Kebab.svelte'
 
   export let huntTrackers: Writable<HuntTracker[]>
   export let history: Writable<HuntTracker[]>
@@ -152,6 +153,8 @@
   }
 
   let tabs: HTMLElement[] = []
+
+  let kebabMenuOpen = false
 </script>
 
 <div id="tabs">
@@ -181,13 +184,18 @@
 
 <div id="tracker-view">
   {#if creatingTracker}
-    <CreateTracker {generations} created={onTrackerCreated} />
+    <div>
+      <CreateTracker {generations} created={onTrackerCreated} />
+    </div>
   {:else if $huntTrackers.length > 0}
-    <button
-      id="delete-tracker"
-      on:click={() => closeTracker($selectedTrackerIndex)}
-      class:hoverable={Device.canHover}>🗑</button
-    >
+    <div id="tracker-menu-container">
+      <Kebab bind:open={kebabMenuOpen} title="Tracker Menu" ariaControls="tracker-menu" />
+      {#if kebabMenuOpen}
+        <div id="tracker-menu">
+          <button on:click={() => closeTracker($selectedTrackerIndex)}>Close Tracker</button>
+        </div>
+      {/if}
+    </div>
     {#each $huntTrackers as huntTracker, index}
       <div
         id="tracker-{index + 1}"
@@ -244,7 +252,13 @@
     background-color: var(--primary-medium);
     padding: var(--gap-length);
     border-radius: 0 0 var(--border-radius) var(--border-radius);
-    height: 100%;
+    display: grid;
+    grid-auto-columns: min-content auto min-content;
+  }
+
+  #tracker-view > * {
+    grid-column: 1 / 4;
+    grid-row: 1;
   }
 
   #tabs {
@@ -330,24 +344,18 @@
     font-weight: bold;
   }
 
-  #delete-tracker {
-    background: none;
-    position: fixed;
-    padding: 0;
-    color: var(--font-color);
-    font-size: 1.5em;
-    width: 34px;
-    text-align: center;
-    @media (width > 1530px) {
-      right: calc((100vw - 1500px) / 2 + var(--gap-length));
-    }
-    @media (width <= 1530px) {
-      right: calc(2 * var(--gap-length));
-    }
+  #tracker-menu-container {
+    grid-column: 3 / 4;
+    grid-row: 1;
+    z-index: 1;
   }
 
-  #delete-tracker.hoverable:hover,
-  #delete-tracker:not(.hoverable) {
-    background-color: var(--primary-dark);
+  #tracker-menu {
+    position: fixed;
+    padding: var(--padding-length);
+    background: var(--font-color);
+    color: var(--primary-darkest);
+    border-radius: var(--border-radius);
+    right: calc((100vw - min(100vw, 1500px + 2 * var(--gap-length))) / 2 + 2 * var(--gap-length));
   }
 </style>
