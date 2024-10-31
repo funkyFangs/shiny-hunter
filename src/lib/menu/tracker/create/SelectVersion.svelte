@@ -9,11 +9,13 @@
 
   let {
     generations,
+    id = 'version',
     selectedVersion = $bindable<Version | undefined>(),
     selectVersionGroup,
     selectGeneration
   }: {
     generations: Generation[]
+    id?: string
     selectedVersion?: Version
     selectVersionGroup: (versionGroup: VersionGroup | undefined) => void
     selectGeneration: (generation: Generation | undefined) => void
@@ -40,9 +42,8 @@
   })
 </script>
 
-<label for="version">Version</label>
 <div class="entry">
-  <select id="version" required bind:value={selectedVersion}>
+  <select {id} required bind:value={selectedVersion}>
     {#each generations.filter((generation) => generation.id >= MIN_GENERATION) as generation}
       <optgroup label={formatGenerationName(generation.name)}>
         {#each generation.versionGroups
@@ -59,10 +60,5 @@
   select {
     height: 36px;
     text-align: center;
-  }
-
-  label {
-    font-weight: bold;
-    font-size: 15pt;
   }
 </style>

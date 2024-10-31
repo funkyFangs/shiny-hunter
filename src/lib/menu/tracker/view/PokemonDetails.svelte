@@ -4,25 +4,42 @@
   import { delimitedTitleCase } from '$lib/utilities/Strings.js'
   import type { HuntTracker } from '$lib/api/HuntTracker'
 
-  let { huntTracker = $bindable() }: { huntTracker: HuntTracker } = $props()
+  let {
+    huntTracker = $bindable(),
+    id = 'pokemon-details'
+  }: {
+    huntTracker: HuntTracker
+    id?: string
+  } = $props()
 </script>
 
-<section>
-  <h1 class="pokemon-species">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</h1>
+<div {id}>
+  <span class="pokemon-species">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
   {#if huntTracker.pokemon}
-    <h2 class="pokemon">{formatPokemonName(huntTracker.pokemonSpecies, huntTracker.pokemon)}</h2>
+    <span class="pokemon">{formatPokemonName(huntTracker.pokemonSpecies, huntTracker.pokemon)}</span
+    >
   {/if}
   {#if huntTracker.pokemonForm}
-    <h2 class="pokemon-form">{delimitedTitleCase(huntTracker.pokemonForm)}</h2>
+    <span class="pokemon-form">{delimitedTitleCase(huntTracker.pokemonForm)}</span>
   {/if}
-</section>
+</div>
 
 <style>
-  section {
+  div {
     display: flex;
     flex-direction: column;
     gap: var(--gap-length);
     align-items: center;
     justify-content: center;
+  }
+
+  .pokemon-species {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .pokemon,
+  .pokemon-form {
+    font-size: 20px;
   }
 </style>

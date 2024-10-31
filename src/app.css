@@ -89,10 +89,6 @@ tr {
   color: var(--font-color);
 }
 
-th {
-  font-weight: bold;
-}
-
 /* ============================================================================================ *\
  *  Buttons                                                                                     *
 \* ============================================================================================ */
@@ -277,10 +273,6 @@ tbody > tr:nth-of-type(even) {
   background-color: var(--primary-medium);
 }
 
-th {
-  font-weight: bold;
-}
-
 th,
 td {
   padding: var(--padding-length);
@@ -307,7 +299,7 @@ span.info {
 }
 
 span.info::before {
-  content: '🛈 ';
+  content: 'i ';
 }
 
 span.success {

@@ -9,9 +9,10 @@
 	 *  Inputs																																											*
 	\* ============================================================================================ */
 
-  export let selectedGeneration: Generation | undefined
-  export let selectedVersionGroup: VersionGroup | undefined
-  export let selectedVersion: Version | undefined
+  export let selectedGeneration: Generation
+  export let selectedVersionGroup: VersionGroup
+  export let selectedVersion: Version
+  export let id: string = 'hunting-method'
 
   /* ============================================================================================ *\
 	 *  Outputs																																											*
@@ -23,17 +24,11 @@
 	 *  Behavior																																										*
 	\* ============================================================================================ */
 
-  function getHuntingMethods(
-    generation?: Generation,
-    versionGroup?: VersionGroup,
-    version?: Version
-  ): HuntingMethod[] | undefined {
-    return generation && versionGroup && version
-      ? getSupportedHuntingMethods(generation.id, versionGroup.name, version.name)
-      : undefined
-  }
-
-  $: huntingMethods = getHuntingMethods(selectedGeneration, selectedVersionGroup, selectedVersion)
+  $: huntingMethods = getSupportedHuntingMethods(
+    selectedGeneration.id,
+    selectedVersionGroup.name,
+    selectedVersion.name
+  )
   $: if (
     huntingMethods &&
     selectedHuntingMethod &&
@@ -43,15 +38,9 @@
   }
 </script>
 
-<label for="hunting-method">Hunting Method</label>
 <div id="hunting-method-entry">
   {#if huntingMethods}
-    <select
-      id="hunting-method"
-      bind:value={selectedHuntingMethod}
-      disabled={huntingMethods.length === 1}
-      required
-    >
+    <select {id} bind:value={selectedHuntingMethod} disabled={huntingMethods.length === 1} required>
       {#each huntingMethods as huntingMethod}
         <option value={huntingMethod}>{huntingMethod}</option>
       {/each}
@@ -70,16 +59,12 @@
     display: flex;
     flex-direction: row;
     gap: var(--padding-length);
+    justify-content: center;
     align-items: center;
   }
 
   select {
     height: 36px;
     text-align: center;
-  }
-
-  label {
-    font-weight: bold;
-    font-size: 15pt;
   }
 </style>
