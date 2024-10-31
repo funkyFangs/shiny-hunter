@@ -96,12 +96,6 @@
 
 <div id="create-tracker">
   <table>
-    <thead>
-      <tr>
-        <th scope="col">Field</th>
-        <th scope="col">Value</th>
-      </tr>
-    </thead>
     <tbody>
       <tr>
         <th scope="row"><label for="version">Version</label></th>
@@ -218,10 +212,6 @@
     height: 38px;
     font-weight: bold;
     font-size: 15pt;
-  }
-
-  thead > tr > th {
-    font-size: 1.25em;
   }
 
   td {
