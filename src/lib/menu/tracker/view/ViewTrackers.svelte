@@ -117,10 +117,12 @@
               max: 0
             }
           : undefined,
+        complete: false,
         method: createdHuntTracker.method,
         generation: createdHuntTracker.generation,
         versionGroup: createdHuntTracker.versionGroup,
         version: createdHuntTracker.version,
+        shinyCharm: createdHuntTracker.shinyCharm,
         pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
         pokemon:
           createdHuntTracker.pokemon?.name === createdHuntTracker.pokemonSpecies.name
@@ -130,8 +132,7 @@
           createdHuntTracker.pokemonForm?.name === createdHuntTracker.pokemon?.name
             ? undefined
             : createdHuntTracker.pokemonForm?.name,
-        female: createdHuntTracker.female,
-        complete: false
+        female: createdHuntTracker.female
       }
     ])
 
