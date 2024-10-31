@@ -24,10 +24,10 @@
   button {
     background: none;
     transition: 0.25s ease-out;
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: var(--font-color);
-    padding: var(--padding-length);
-    width: calc(45.6px + 2 * var(--padding-length));
+    padding: 0;
+    width: 37px;
   }
 
   button.open {

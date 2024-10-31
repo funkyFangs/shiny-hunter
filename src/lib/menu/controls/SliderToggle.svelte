@@ -28,6 +28,11 @@
 
   .toggle.checked {
     background-color: var(--primary-lighter);
+    justify-content: right;
+  }
+
+  .toggle:not(.checked) {
+    justify-content: left;
   }
 
   input[type='checkbox'] {
@@ -41,13 +46,7 @@
     width: 1.5em;
     height: 1.5em;
     display: inline-block;
-    transform: translateX(0);
-    transition: 0.25s ease-out;
     text-align: center;
     user-select: none;
-  }
-
-  input[type='checkbox']:checked + span {
-    transform: translateX(100%);
   }
 </style>

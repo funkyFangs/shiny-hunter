@@ -68,8 +68,16 @@
   }
 
   function closeTracker(index: number, huntTracker: HuntTracker = $huntTrackers[index]) {
-    if (confirm('Are you sure you want to close this shiny hunt?')) {
+    const confirmed = confirm('Are you sure you want to close this shiny hunt?')
+    if (confirmed) {
       deleteTracker(index, huntTracker)
+    }
+    return confirmed
+  }
+
+  function closeTrackerFromMenu() {
+    if (closeTracker($selectedTrackerIndex)) {
+      kebabMenuOpen = false
     }
   }
 
@@ -114,8 +122,14 @@
         versionGroup: createdHuntTracker.versionGroup,
         version: createdHuntTracker.version,
         pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
-        pokemon: createdHuntTracker.pokemon?.name,
-        pokemonForm: createdHuntTracker.pokemonForm?.name,
+        pokemon:
+          createdHuntTracker.pokemon?.name === createdHuntTracker.pokemonSpecies.name
+            ? undefined
+            : createdHuntTracker.pokemon?.name,
+        pokemonForm:
+          createdHuntTracker.pokemonForm?.name === createdHuntTracker.pokemon?.name
+            ? undefined
+            : createdHuntTracker.pokemonForm?.name,
         female: createdHuntTracker.female,
         complete: false
       }
@@ -153,7 +167,6 @@
   }
 
   let tabs: HTMLElement[] = []
-
   let kebabMenuOpen = false
 </script>
 
@@ -192,7 +205,7 @@
       <Kebab bind:open={kebabMenuOpen} title="Tracker Menu" ariaControls="tracker-menu" />
       {#if kebabMenuOpen}
         <div id="tracker-menu">
-          <button on:click={() => closeTracker($selectedTrackerIndex)}>Close Tracker</button>
+          <button on:click={closeTrackerFromMenu}>Close Tracker</button>
         </div>
       {/if}
     </div>
@@ -265,7 +278,7 @@
     background-color: var(--primary-darker);
     padding: var(--padding-length);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
-    height: 38px;
+    min-height: 28px;
   }
 
   [role='tablist'] {
@@ -308,7 +321,6 @@
 
   #create-tracker {
     color: var(--font-color);
-    padding: calc(2 * var(--padding-length)) calc(3 * var(--padding-length));
   }
 
   #create-tracker.hoverable {
