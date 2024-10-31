@@ -20,6 +20,6 @@
     }
   ],
   "categories": ["games"],
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "display": "standalone"
 }
