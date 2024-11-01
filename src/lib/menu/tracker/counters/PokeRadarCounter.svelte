@@ -41,7 +41,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
   } = $props()
 
   function incrementChain() {
-    currentChainLength += 1
+    ++currentChainLength
     maxChainLength = Math.max(currentChainLength, maxChainLength)
   }
 
@@ -76,7 +76,6 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
       <tr>
         <th><label for="chain-length">Chain Length</label></th>
         <th><label for="chains">Number of Chains</label></th>
-        <th><label for="longest-chain">Longest Chain</label></th>
         <th><label for="odds">Odds</label></th>
       </tr>
     </thead>
@@ -84,12 +83,11 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
       <tr>
         <td><input type="number" min="0" id="chain-length" bind:value={currentChainLength} /></td>
         <td><input type="number" min="0" id="chains" bind:value={chains} /></td>
-        <td><input type="number" min="0" id="longest-chain" bind:value={maxChainLength} /></td>
         <td><Fraction id="odds" numerator={odds} denominator={65536} /></td>
       </tr>
     </tbody>
   </table>
-  <button onclick={incrementChain}>&plus;</button>
+  <button onclick={() => incrementChain()}>&plus;</button>
 </div>
 
 <style>

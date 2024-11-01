@@ -33,18 +33,9 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   export let denominator: number = 8192
 
   $: count = sanitizeInteger(count)
-
-  function incrementValue() {
-    count += 1
-  }
-
-  function resetValue() {
-    count = 0
-  }
 </script>
 
 <div id="counter">
-  <button on:click={resetValue} disabled={count === 0}>&#10227;</button>
   <table>
     <thead>
       <tr>
@@ -54,12 +45,12 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     </thead>
     <tbody>
       <tr>
-        <td><input id="count" bind:value={count} /></td>
+        <td><input id="count" type="number" min="0" bind:value={count} /></td>
         <td><Fraction id="odds" bind:numerator bind:denominator /></td>
       </tr>
     </tbody>
   </table>
-  <button on:click={incrementValue}>&plus;</button>
+  <button on:click={() => (count += 1)}>&plus;</button>
 </div>
 
 <style>
@@ -93,5 +84,16 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 
   label {
     font-weight: bold;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 </style>

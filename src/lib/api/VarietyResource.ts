@@ -23,7 +23,8 @@ export const VARIETY_BLACKLIST = new Set([
   'pikachu-alola-cap',
   'pikachu-partner-cap',
   'pikachu-starter',
-  'pikachu-world-cap'
+  'pikachu-world-cap',
+  'rockruff-own-tempo'
 ])
 
 export function isVarietySupported(

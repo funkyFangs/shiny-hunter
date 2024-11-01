@@ -59,7 +59,6 @@
         <th><label for="rarity">Rarity</label></th>
         <th><label for="distance">Distance</label></th>
         <th><label for="count">Count</label></th>
-        <th><label for="furthest-distance">Furthest Distance</label></th>
         <th><label for="odds">Odds</label></th>
       </tr>
     </thead>
@@ -74,9 +73,8 @@
             <option value={3}>3</option>
           </select>
         </td>
-        <td><input id="distance" bind:value={distance} /></td>
-        <td><input id="count" bind:value={count} /></td>
-        <td><input id="furthest-distance" bind:value={furthestDistance} /></td>
+        <td><input id="distance" type="number" min="0" bind:value={distance} /></td>
+        <td><input id="count" type="number" min="0" bind:value={count} /></td>
         <td>
           {#if odds !== undefined}
             <Fraction
@@ -103,6 +101,7 @@
     font-weight: bold;
     color: var(--font-color);
     height: 28px;
+    background: none;
   }
 
   input {
@@ -115,14 +114,12 @@
     max-width: 60px;
   }
 
-  #distance,
-  #furthest-distance {
+  #distance {
     max-width: 75px;
   }
 
   #count:focus,
   #distance,
-  #furthest-distance,
   select {
     background-color: var(--primary-light);
     color: var(--font-color);
@@ -140,5 +137,16 @@
   #counter > button {
     height: 70px;
     font-size: 1.5em;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 </style>
