@@ -46,8 +46,8 @@
     </thead>
     <tbody>
       <tr>
-        <td><input id="chain-length" bind:value={currentChainLength} /></td>
-        <td><input id="chains" bind:value={chains} /></td>
+        <td><input id="chain-length" type="number" min="0" bind:value={currentChainLength} /></td>
+        <td><input id="chains" type="number" min="0" bind:value={chains} /></td>
         <td><Fraction id="odds" numerator={1} denominator={odds} /></td>
       </tr>
     </tbody>
@@ -82,5 +82,16 @@
   #counter > button {
     height: 87px;
     font-size: 1.5em;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
   }
 </style>

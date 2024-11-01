@@ -359,7 +359,7 @@
 
   #tracker-menu-container {
     grid-column: 3 / 4;
-    grid-row: 1;
+    height: 37px;
     z-index: 1;
   }
 
