@@ -57,11 +57,11 @@
     <table id="records">
       <thead>
         <tr>
-          <th>Version</th>
-          <th>Method</th>
-          <th>Pokemon</th>
-          <th>Form</th>
-          <th>Count</th>
+          <th scope="col">Version</th>
+          <th scope="col">Method</th>
+          <th scope="col">Pokemon</th>
+          <th scope="col">Form</th>
+          <th scope="col">Count</th>
         </tr>
       </thead>
       <tbody>
@@ -144,6 +144,7 @@
 
   #records > tbody > tr {
     transition: background-color 0.125s;
+    cursor: pointer;
   }
 
   #records > tbody > tr:hover {

@@ -24,7 +24,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 ```
 -->
 <script lang="ts">
-  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import Odds from '$lib/menu/tracker/counters/Odds.svelte'
 
   let {
     chains = $bindable(0),
@@ -69,21 +69,21 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
   let odds = $derived(getOdds(currentChainLength))
 </script>
 
-<div id="counter">
+<div class="counter">
   <button onclick={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
   <table>
     <thead>
       <tr>
-        <th><label for="chain-length">Chain Length</label></th>
-        <th><label for="chains">Number of Chains</label></th>
-        <th><label for="odds">Odds</label></th>
+        <th scope="col">Chain Length</th>
+        <th scope="col">Number of Chains</th>
+        <th scope="col">Odds</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><input type="number" min="0" id="chain-length" bind:value={currentChainLength} /></td>
-        <td><input type="number" min="0" id="chains" bind:value={chains} /></td>
-        <td><Fraction id="odds" numerator={odds} denominator={65536} /></td>
+        <td><input type="number" min="0" bind:value={chains} /></td>
+        <td><Odds inputs="chain-length" numerator={odds} denominator={65536} /></td>
       </tr>
     </tbody>
   </table>
@@ -106,7 +106,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
     background-color: var(--primary-light);
   }
 
-  #counter {
+  .counter {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -115,7 +115,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
     max-width: calc(100vw - 4 * var(--gap-length));
   }
 
-  #counter > button {
+  .counter > button {
     height: 87px;
     font-size: 1.5em;
   }

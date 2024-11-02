@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
   export let count: number = 0
@@ -56,10 +56,10 @@
   <table>
     <thead>
       <tr>
-        <th><label for="rarity">Rarity</label></th>
-        <th><label for="distance">Distance</label></th>
-        <th><label for="count">Count</label></th>
-        <th><label for="odds">Odds</label></th>
+        <th scope="col">Rarity</th>
+        <th scope="col">Distance</th>
+        <th scope="col">Count</th>
+        <th scope="col">Odds</th>
       </tr>
     </thead>
     <tbody>
@@ -73,12 +73,12 @@
             <option value={3}>3</option>
           </select>
         </td>
-        <td><input id="distance" type="number" min="0" bind:value={distance} /></td>
-        <td><input id="count" type="number" min="0" bind:value={count} /></td>
+        <td><input type="number" min="0" id="distance" bind:value={distance} /></td>
+        <td><input type="number" min="0" id="count" bind:value={count} /></td>
         <td>
           {#if odds !== undefined}
-            <Fraction
-              id="odds"
+            <Odds
+              inputs={['distance', 'count']}
               numerator={odds}
               denominator={100}
               showFraction={false}

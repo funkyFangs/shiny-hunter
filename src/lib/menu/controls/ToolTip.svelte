@@ -46,6 +46,7 @@
 <svelte:window on:keydown={onKeyPress} />
 
 <button
+  type="button"
   on:mouseenter={onMouseEnter}
   on:mousemove={onMouseMove}
   on:mouseleave={onMouseLeave}

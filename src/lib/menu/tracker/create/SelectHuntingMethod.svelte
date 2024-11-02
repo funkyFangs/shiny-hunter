@@ -59,7 +59,7 @@
     display: flex;
     flex-direction: row;
     gap: var(--padding-length);
-    justify-content: center;
+    justify-content: left;
     align-items: center;
   }
 
