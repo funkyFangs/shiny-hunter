@@ -22,29 +22,36 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   import { fly } from 'svelte/transition'
   import { Hamburger } from 'svelte-hamburgers'
   import { base } from '$app/paths'
+  import type { Snippet } from 'svelte'
 
-  export let title: string
+  let {
+    title,
+    items = []
+  }: {
+    title: string
+    items: Snippet[]
+  } = $props()
 
-  let open: boolean = false
+  let open = $state(false)
 </script>
 
 <header>
   <Hamburger --color="var(--font-color)" bind:open />
-  <a href="{base}/"><h1>{title}</h1></a>
+  <a href="{base}/">{title}</a>
 </header>
 
-{#if open}
-  <nav transition:fly={{ x: '-100%' }}>
-    <div>
-      <slot />
-    </div>
-  </nav>
+{#if open && items.length}
+  <menu transition:fly={{ x: '-100%' }}>
+    {#each items as item}
+      <li>{@render item()}</li>
+    {/each}
+  </menu>
 {/if}
 
 <style>
   header {
     /* Positioning */
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: var(--top-bar-height);
     top: 0;
@@ -59,7 +66,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.3);
   }
 
-  nav {
+  menu {
     /* Positioning */
     position: fixed;
     height: 100%;
@@ -67,12 +74,27 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     max-width: 100vw;
     padding: var(--gap-length);
     top: var(--top-bar-height);
+    margin: 0;
+    z-index: 2;
+
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-length);
 
     /* Palette */
     background-color: var(--primary-dark);
   }
 
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   header > a {
     margin: 0 calc(100% - 100vw + var(--gap-length)) 0 0;
+    font-size: 2rem;
   }
 </style>

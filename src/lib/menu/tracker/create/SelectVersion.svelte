@@ -42,23 +42,22 @@
   })
 </script>
 
-<div class="entry">
-  <select {id} required bind:value={selectedVersion}>
-    {#each generations.filter((generation) => generation.id >= MIN_GENERATION) as generation}
-      <optgroup label={formatGenerationName(generation.name)}>
-        {#each generation.versionGroups
-          .flatMap((versionGroup) => versionGroup.versions)
-          .filter((version) => !VERSION_BLACKLIST.has(version.name)) as version}
-          <option value={version}>{formatVersionName(version.name)}</option>
-        {/each}
-      </optgroup>
-    {/each}
-  </select>
-</div>
+<select {id} required bind:value={selectedVersion}>
+  {#each generations.filter((generation) => generation.id >= MIN_GENERATION) as generation}
+    <optgroup label={formatGenerationName(generation.name)}>
+      {#each generation.versionGroups
+        .flatMap((versionGroup) => versionGroup.versions)
+        .filter((version) => !VERSION_BLACKLIST.has(version.name)) as version}
+        <option value={version}>{formatVersionName(version.name)}</option>
+      {/each}
+    </optgroup>
+  {/each}
+</select>
 
 <style>
   select {
     height: 36px;
     text-align: center;
+    width: fit-content;
   }
 </style>

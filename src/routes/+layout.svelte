@@ -6,9 +6,29 @@
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import SliderToggle from '$lib/menu/controls/SliderToggle.svelte'
   import { base } from '$app/paths'
+  import FooterMenu from '$lib/menu/FooterMenu.svelte'
 
-  export let data
+  let { data, children } = $props()
   const { spritePreference, showNormal } = data
+
+  const links = [
+    {
+      href: `${base}/`,
+      content: 'Trackers'
+    },
+    {
+      href: `${base}/history`,
+      content: 'History'
+    },
+    {
+      href: `${base}/about`,
+      content: 'About'
+    },
+    {
+      href: `${base}/credits`,
+      content: 'Credits'
+    }
+  ]
 
   function clearCache() {
     const confirmed = confirm(
@@ -21,31 +41,30 @@
   }
 </script>
 
-<HeaderMenu title="Shiny Hunter">
-  <div id="navigation">
-    <ul>
-      <li><span><a href="{base}/">Trackers</a></span></li>
-      <li><span><a href="{base}/history">History</a></span></li>
-      <li><span><a href="{base}/about">About</a></span></li>
-      <li><span><a href="{base}/credits">Credits</a></span></li>
-      <li>
-        <label for="sprite-preference">Sprite Preference</label>
-        <select id="sprite-preference" bind:value={$spritePreference}>
-          {#each Object.values(SpritePreference) as spritePreference}
-            <option value={spritePreference}>{spritePreference}</option>
-          {/each}
-        </select>
-      </li>
-      <li>
-        <label for="show-normal">Show Normal Sprites</label>
-        <SliderToggle bind:checked={$showNormal} id="show-normal" />
-      </li>
-    </ul>
-    <button class="primary-button" disabled={localStorage.length === 0} onclick={clearCache}
-      >Clear Cache</button
-    >
-  </div>
-</HeaderMenu>
+{#snippet spritePreferenceSnippet()}
+  <label for="sprite-preference">Sprite Preference</label>
+  <select id="sprite-preference" bind:value={$spritePreference}>
+    {#each Object.values(SpritePreference) as spritePreference}
+      <option value={spritePreference}>{spritePreference}</option>
+    {/each}
+  </select>
+{/snippet}
+
+{#snippet showNormalSnippet()}
+  <label for="show-normal">Show Normal Sprites</label>
+  <SliderToggle bind:checked={$showNormal} id="show-normal" />
+{/snippet}
+
+{#snippet clearCacheSnippet()}
+  <button class="primary-button" disabled={localStorage.length === 0} onclick={clearCache}
+    >Clear Cache</button
+  >
+{/snippet}
+
+<HeaderMenu
+  title="Shiny Hunter"
+  items={[spritePreferenceSnippet, showNormalSnippet, clearCacheSnippet]}
+/>
 
 <main>
   {#if $navigating}
@@ -53,45 +72,25 @@
       <Circle2 colorOuter="red" colorCenter="black" colorInner="white" size="100" unit="px" />
     </div>
   {:else}
-    <slot />
+    {@render children()}
   {/if}
 </main>
 
+<FooterMenu {links} />
+
 <style>
-  ul {
-    /* Positioning */
-    margin: 0;
-    padding: 0;
-
-    /* Decoration */
-    list-style-type: none;
-  }
-
-  li {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  li + li {
-    /* Positioning */
-    margin-top: var(--gap-length);
-  }
-
-  span,
   select,
   label,
   button {
     /* Fonts */
     font-size: 150%;
-    font-weight: bold;
   }
 
   main {
     padding: calc(var(--top-bar-height) + var(--gap-length)) var(--gap-length);
     margin: auto;
     max-width: 1500px;
+    max-height: calc(100vh - 2 * var(--top-bar-height));
   }
 
   main > div {
@@ -99,11 +98,5 @@
     position: absolute;
     top: calc(50vh - 50px);
     left: calc(50vw - 50px);
-  }
-
-  #navigation {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-length);
   }
 </style>

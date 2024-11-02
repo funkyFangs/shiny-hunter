@@ -14,7 +14,6 @@
   import SelectPokemon from '$lib/menu/tracker/create/SelectPokemon.svelte'
   import SelectPokemonForm from '$lib/menu/tracker/create/SelectPokemonForm.svelte'
   import { getSupportedPokemon } from '$lib/api/VarietyResource'
-  import { fade } from 'svelte/transition'
 
   /* ============================================================================================ *\
 	 *  Inputs																																											*
@@ -94,116 +93,93 @@
   }
 </script>
 
-<div id="create-tracker">
-  <table>
-    <tbody>
-      <tr>
-        <th scope="row"><label for="version">Version</label></th>
-        <td>
-          <SelectVersion
-            {generations}
-            bind:selectedVersion
-            selectVersionGroup={(versionGroup) => (selectedVersionGroup = versionGroup)}
-            selectGeneration={(generation) => (selectedGeneration = generation)}
-          />
-        </td>
-      </tr>
+<form id="create-tracker" onsubmit={onSubmit}>
+  <label for="version">Version</label>
+  <SelectVersion
+    id="version"
+    {generations}
+    bind:selectedVersion
+    selectVersionGroup={(versionGroup) => (selectedVersionGroup = versionGroup)}
+    selectGeneration={(generation) => (selectedGeneration = generation)}
+  />
 
-      {#if selectedGeneration && selectedGeneration.id >= 5}
-        <tr transition:fade>
-          <th scope="row"><label for="shiny-charm">Shiny Charm</label></th>
-          <td><SliderToggle id="shiny-charm" bind:checked={shinyCharm} /></td>
-        </tr>
+  {#if selectedGeneration && selectedGeneration.id >= 5}
+    <label for="shiny-charm">Shiny Charm</label>
+    <SliderToggle id="shiny-charm" bind:checked={shinyCharm} />
+  {/if}
+
+  {#if selectedVersion && selectedVersionGroup && selectedGeneration}
+    <label for="hunting-method">Hunting Method</label>
+    <SelectHuntingMethod
+      id="hunting-method"
+      {selectedVersion}
+      {selectedVersionGroup}
+      {selectedGeneration}
+      bind:selectedHuntingMethod
+    />
+
+    <label for="pokemon-species">Pokemon Species</label>
+    <SelectPokemonSpecies
+      id="pokemon-species"
+      {generations}
+      generation={selectedGeneration}
+      bind:selectedPokemonSpecies
+    />
+
+    {#if selectedPokemonSpecies}
+      {#if selectedPokemonSpecies.hasGenderDifferences && selectedGeneration.id > 2}
+        <label for="gender">Gender</label>
+        <SliderToggle
+          id="gender"
+          offText="♂"
+          offColor="#5BCEFA"
+          onText="♀"
+          onColor="#F5A9B8"
+          bind:checked={isFemale}
+        />
       {/if}
 
-      {#if selectedVersion && selectedVersionGroup && selectedGeneration}
-        <tr transition:fade>
-          <th scope="row"><label for="hunting-method">Hunting Method</label></th>
-          <td>
-            <SelectHuntingMethod
-              {selectedVersion}
-              {selectedVersionGroup}
-              {selectedGeneration}
-              bind:selectedHuntingMethod
-            />
-          </td>
-        </tr>
-
-        <tr transition:fade>
-          <th scope="row"><label for="pokemon-species">Pokemon Species</label></th>
-          <td>
-            <SelectPokemonSpecies
-              {generations}
-              generation={selectedGeneration}
-              bind:selectedPokemonSpecies
-            />
-          </td>
-        </tr>
-
-        {#if selectedPokemonSpecies}
-          {#if selectedPokemonSpecies.hasGenderDifferences && selectedGeneration.id > 2}
-            <tr transition:fade>
-              <th scope="row"><label for="gender">Gender</label></th>
-              <td>
-                <SliderToggle
-                  id="gender"
-                  offText="♂"
-                  offColor="#5BCEFA"
-                  onText="♀"
-                  onColor="#F5A9B8"
-                  bind:checked={isFemale}
-                />
-              </td>
-            </tr>
-          {/if}
-
-          {#if getSupportedPokemon(selectedPokemonSpecies, selectedGeneration, selectedVersionGroup).length > 1}
-            <tr transition:fade>
-              <th scope="row"><label for="pokemon">Pokemon</label></th>
-              <td>
-                <SelectPokemon
-                  pokemonSpecies={selectedPokemonSpecies}
-                  generation={selectedGeneration}
-                  versionGroup={selectedVersionGroup}
-                  bind:selectedPokemon
-                />
-              </td>
-            </tr>
-          {/if}
-
-          {#if selectedPokemon && selectedPokemon.forms.length > 1}
-            <tr transition:fade>
-              <th scope="row"><label for="pokemon-form">Pokemon Form</label></th>
-              <td>
-                <SelectPokemonForm {selectedPokemon} bind:selectedPokemonForm />
-              </td>
-            </tr>
-          {/if}
-        {/if}
+      {#if getSupportedPokemon(selectedPokemonSpecies, selectedGeneration, selectedVersionGroup).length > 1}
+        <label for="pokemon">Pokemon</label>
+        <SelectPokemon
+          id="pokemon"
+          pokemonSpecies={selectedPokemonSpecies}
+          generation={selectedGeneration}
+          versionGroup={selectedVersionGroup}
+          bind:selectedPokemon
+        />
       {/if}
-    </tbody>
-  </table>
 
-  <button id="submit" class="primary-button" disabled={!readyToSubmit} onclick={onSubmit}
+      {#if selectedPokemon && selectedPokemon.forms.length > 1}
+        <label for="pokemon-form">Pokemon Form</label>
+        <SelectPokemonForm id="pokemon-form" {selectedPokemon} bind:selectedPokemonForm />
+      {/if}
+    {/if}
+  {/if}
+
+  <button form="create-tracker" id="submit" class="primary-button" disabled={!readyToSubmit}
     >Create Hunt Tracker</button
   >
-</div>
+</form>
 
 <style>
   #create-tracker {
     /* Positioning */
-    display: flex;
-    padding: var(--gap-length);
-    justify-content: center;
-    align-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--gap-length);
+    align-items: center;
 
-    /* Decoration */
     border-radius: var(--border-radius);
+    padding: var(--gap-length);
 
     /* Palette */
-    background-color: var(--primary-medium);
-    flex-direction: column;
+    background-color: var(--primary-dark);
+  }
+
+  label {
+    text-align: right;
+    font-size: 1.2rem;
   }
 
   #submit {
@@ -212,12 +188,6 @@
     height: 38px;
     font-weight: bold;
     font-size: 15pt;
-  }
-
-  td {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    grid-column: 1 / 3;
   }
 </style>

@@ -139,9 +139,11 @@
     creatingTracker = false
   }
 
-  function completeHunt(index: number, huntTracker: HuntTracker) {
+  function completeHunt() {
     return () => {
       if (confirm('Are you sure you want to finish your shiny hunt?')) {
+        const index = $selectedTrackerIndex
+        const huntTracker = $huntTrackers[index]
         huntTracker.complete = true
         deleteTracker(index, huntTracker)
       }
@@ -196,20 +198,28 @@
   {/if}
 </div>
 
-<div id="tracker-view">
+<div id="tracker-view" class:creating={creatingTracker}>
   {#if creatingTracker}
     <div>
       <CreateTracker {generations} created={onTrackerCreated} />
     </div>
   {:else if $huntTrackers.length > 0}
-    <div id="tracker-menu-container">
-      <Kebab bind:open={kebabMenuOpen} title="Tracker Menu" ariaControls="tracker-menu" />
-      {#if kebabMenuOpen}
-        <div id="tracker-menu">
-          <button on:click={closeTrackerFromMenu}>Close Tracker</button>
-        </div>
-      {/if}
+    {#snippet closeTrackerSnippet()}
+      <button class="tracker-menu-control" on:click={closeTrackerFromMenu}>Close Tracker</button>
+    {/snippet}
+    {#snippet completeHuntSnippet()}
+      <button class="tracker-menu-control" on:click={completeHunt}>Complete Hunt</button>
+    {/snippet}
+
+    <div id="tracker-menu">
+      <Kebab
+        bind:open={kebabMenuOpen}
+        title="Tracker Menu"
+        ariaControls="tracker-menu"
+        menu={[closeTrackerSnippet, completeHuntSnippet]}
+      />
     </div>
+
     {#each $huntTrackers as huntTracker, index}
       <div
         id="tracker-{index + 1}"
@@ -222,10 +232,10 @@
         <table>
           <thead>
             <tr>
-              <th>Game</th>
-              <th>Method</th>
+              <th scope="col">Game</th>
+              <th scope="col">Method</th>
               {#if huntTracker.generation >= 5}
-                <th>Shiny Charm</th>
+                <th scope="col">Shiny Charm</th>
               {/if}
             </tr>
           </thead>
@@ -234,7 +244,7 @@
               <td><span>{formatVersionName(huntTracker.version)}</span></td>
               <td><span>{huntTracker.method}</span></td>
               {#if huntTracker.generation >= 5}
-                <th>{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</th>
+                <td>{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</td>
               {/if}
             </tr>
           </tbody>
@@ -248,12 +258,6 @@
         />
 
         <TrackerCounter bind:huntTracker />
-
-        <div>
-          <button class="primary-button" on:click={completeHunt(index, huntTracker)}
-            >Shiny Found</button
-          >
-        </div>
       </div>
     {/each}
   {:else}
@@ -352,23 +356,16 @@
     display: none;
   }
 
-  .primary-button {
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-
-  #tracker-menu-container {
+  #tracker-menu {
     grid-column: 3 / 4;
     height: 37px;
     z-index: 1;
   }
 
-  #tracker-menu {
-    position: fixed;
-    padding: var(--padding-length);
-    background: var(--font-color);
-    color: var(--primary-darkest);
-    border-radius: var(--border-radius);
-    right: calc((100vw - min(100vw, 1500px + 2 * var(--gap-length))) / 2 + 2 * var(--gap-length));
+  .tracker-menu-control {
+    background: none;
+    width: 100%;
+    padding: var(--gap-length);
+    text-align: left;
   }
 </style>

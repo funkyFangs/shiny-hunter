@@ -30,5 +30,6 @@
   select {
     height: 36px;
     text-align: center;
+    width: fit-content;
   }
 </style>

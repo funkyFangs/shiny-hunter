@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
   export let chains: number = 0
@@ -42,21 +42,21 @@
   $: odds = getOdds(currentChainLength)
 </script>
 
-<div id="counter">
+<div class="counter">
   <button on:click={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
   <table>
     <thead>
       <tr>
-        <th><label for="chain-length">Chain Length</label></th>
-        <th><label for="chains">Number of Chains</label></th>
-        <th><label for="odds">Odds</label></th>
+        <th scope="col">Chain Length</th>
+        <th scope="col">Number of Chains</th>
+        <th scope="col">Odds</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><input id="chain-length" type="number" min="0" bind:value={currentChainLength} /></td>
-        <td><input id="chains" type="number" min="0" bind:value={chains} /></td>
-        <td><Fraction id="odds" numerator={1} denominator={odds} /></td>
+        <td><input type="number" min="0" bind:value={chains} /></td>
+        <td><Odds inputs="chain-length" numerator={1} denominator={odds} /></td>
       </tr>
     </tbody>
   </table>
@@ -79,7 +79,7 @@
     background-color: var(--primary-light);
   }
 
-  #counter {
+  .counter {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -87,7 +87,7 @@
     justify-content: center;
   }
 
-  #counter > button {
+  .counter > button {
     height: 87px;
     font-size: 1.5em;
   }

@@ -64,6 +64,7 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
   export let numerator: number
   export let denominator: number
   export let id: string | null = null
+  export let inputs: string[] | string = []
   export let showPercentage: boolean = true
   export let showFraction: boolean = true
   export let accuracy: number = 3
@@ -82,7 +83,7 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
   $: decimalValue = getDecimalValue(numerator, denominator)
 </script>
 
-<div {id} class="container">
+<output {id} for={Array.isArray(inputs) ? inputs.join(' ') : inputs}>
   {#if showFraction}
     <div class="fraction">
       <span>{numerator / divisor}</span>
@@ -98,10 +99,10 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
       {/if}
     </span>
   {/if}
-</div>
+</output>
 
 <style>
-  .container {
+  output {
     display: flex;
     flex-direction: row;
     align-items: center;

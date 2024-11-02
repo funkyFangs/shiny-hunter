@@ -19,7 +19,9 @@
       "sizes": "32x32"
     }
   ],
-  "categories": ["games"],
-  "orientation": "portrait-primary",
+  "background_color": "#586f7c",
+  "theme_color": "#2f4550",
+  "categories": ["games", "utilities"],
+  "orientation": "portrait",
   "display": "standalone"
 }

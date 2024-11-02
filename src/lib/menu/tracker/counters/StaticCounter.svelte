@@ -24,7 +24,7 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 -->
 
 <script lang="ts">
-  import Fraction from '$lib/menu/tracker/counters/Odds.svelte'
+  import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
   export let count: number = 0
@@ -39,14 +39,14 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   <table>
     <thead>
       <tr>
-        <th><label for="count">{label}</label></th>
-        <th><label for="odds">Odds</label></th>
+        <th scope="col">{label}</th>
+        <th scope="col">Odds</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input id="count" type="number" min="0" bind:value={count} /></td>
-        <td><Fraction id="odds" bind:numerator bind:denominator /></td>
+        <td><input type="number" min="0" bind:value={count} /></td>
+        <td><Odds bind:numerator bind:denominator /></td>
       </tr>
     </tbody>
   </table>
@@ -80,10 +80,6 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 
   input:focus {
     background-color: var(--primary-light);
-  }
-
-  label {
-    font-weight: bold;
   }
 
   input::-webkit-outer-spin-button,
