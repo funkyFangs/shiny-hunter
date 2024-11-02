@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Sprites } from '$lib/api/SpritesResource'
   import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource.js'
+  import { base } from '$app/paths'
 
   export let sprites: Sprites
   export let pokemon: string
@@ -15,11 +16,17 @@
   $: normalAlt = isFemale
     ? `The sprite for female ${formatPokemonSpeciesName(pokemon)}`
     : `The sprite for ${formatPokemonSpeciesName(pokemon)}`
+
+  function onError(event: Event) {
+    const target = event.target as HTMLImageElement
+    target.src = `${base}/assets/unknown.gif`
+  }
 </script>
 
 <div class="sprite-root">
   <div class="sprite-container">
     <img
+      on:error={onError}
       id="shiny-{pokemon}-sprite"
       class="sprite"
       src={shinySprite}
