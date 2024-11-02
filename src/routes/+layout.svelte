@@ -86,6 +86,10 @@
     font-size: 150%;
   }
 
+  button.primary-button {
+    width: 100%;
+  }
+
   main {
     padding: calc(var(--top-bar-height) + var(--gap-length)) var(--gap-length);
     margin: auto;
