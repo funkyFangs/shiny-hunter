@@ -9,6 +9,8 @@ export interface VarietyResource {
 }
 
 export const VARIETY_BLACKLIST = new Set([
+  'greninja-ash',
+  'greninja-battle-bond',
   'pikachu-rock-star',
   'pikachu-belle',
   'pikachu-pop-star',
@@ -22,8 +24,8 @@ export const VARIETY_BLACKLIST = new Set([
   'pikachu-kalos-cap',
   'pikachu-alola-cap',
   'pikachu-partner-cap',
-  'pikachu-starter',
   'pikachu-world-cap',
+  'pichu-spiky-eared',
   'rockruff-own-tempo'
 ])
 
@@ -35,8 +37,9 @@ export function isVarietySupported(
   // Negate the union of all unsupported cases
   return !(
     VARIETY_BLACKLIST.has(variety) ||
-    variety.endsWith('-mega') ||
+    variety.match(/-mega(-[xy])?$/) ||
     variety.endsWith('-gmax') ||
+    variety.endsWith('starter') ||
     // Platinum & onwards
     (variety === 'shaymin-sky' && generation === 4 && versionGroup !== 'platinum') ||
     (variety === 'giratina-origin' && generation === 4 && versionGroup !== 'platinum') ||
@@ -47,8 +50,7 @@ export function isVarietySupported(
       versionGroup !== 'black-2-white-2') ||
     (variety.endsWith('-resolute') && generation === 5 && versionGroup !== 'black-2-white-2') ||
     // ORAS & onwards
-    (variety.endsWith('-primal') &&
-      (generation < 6 || (generation === 6 && versionGroup !== 'omegaruby-alphasapphire'))) ||
+    variety.endsWith('-primal') ||
     (variety.endsWith('-unbound') &&
       generation === 6 &&
       versionGroup !== 'omegaruby-alphasapphire') ||
@@ -56,6 +58,7 @@ export function isVarietySupported(
     variety.endsWith('-power-construct') ||
     (variety.match(/^zygarde-(10|complete$)/) && generation < 6) ||
     (variety.includes('-alola') && generation < 7) ||
+    variety.match(/-totem(-\w+)*$/) ||
     // USUM & onwards
     (variety.endsWith('-dusk') && generation === 7 && versionGroup !== 'ultra-sun-ultra-moon') ||
     (variety.match(/^necrozma-(dusk|dawn|ultra)$/) &&
