@@ -6,14 +6,23 @@
     title = $bindable('Kebab menu'),
     ariaLabel = $bindable(title),
     ariaControls = $bindable(''),
-    menu = []
+    menuControls = []
   }: {
     open?: boolean
     title?: string
     ariaLabel?: string
     ariaControls?: string
-    menu: Snippet[]
+    menuControls: Snippet[]
   } = $props()
+
+  // Close menu on focus out
+  let menu = $state<HTMLMenuElement>()
+  function onFocusOut(event: FocusEvent) {
+    const focusedElement = event.relatedTarget! as Element
+    if (menu && !menu.contains(focusedElement)) {
+      open = false
+    }
+  }
 </script>
 
 <button
@@ -21,12 +30,13 @@
   onclick={() => (open = !open)}
   {title}
   aria-label={ariaLabel}
-  aria-controls={ariaControls}><span>⋮</span></button
+  aria-controls={ariaControls}
+  onfocusout={onFocusOut}>⋮</button
 >
 
-{#if open && menu.length}
-  <menu>
-    {#each menu as control}
+{#if open && menuControls.length}
+  <menu bind:this={menu}>
+    {#each menuControls as control}
       <li>{@render control()}</li>
     {/each}
   </menu>
@@ -45,18 +55,14 @@
     background-color: var(--primary-dark);
   }
 
-  button > span {
+  button {
     transition: 0.25s ease-out;
     font-size: 1.6rem;
     color: var(--font-color);
   }
 
-  button.open > span {
-    transform: rotate(90deg);
-  }
-
   menu {
-    margin: 0;
+    margin: var(--padding-length) 0 0 0;
     transform: translateX(calc(-100% + 37px));
     position: fixed;
     padding: 0;

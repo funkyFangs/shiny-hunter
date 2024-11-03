@@ -127,7 +127,7 @@
     />
 
     {#if selectedPokemonSpecies}
-      {#if selectedPokemonSpecies.hasGenderDifferences && selectedGeneration.id > 2}
+      {#if selectedPokemonSpecies.hasGenderDifferences && selectedGeneration.id > 3}
         <label for="gender">Gender</label>
         <SliderToggle
           id="gender"

@@ -140,13 +140,11 @@
   }
 
   function completeHunt() {
-    return () => {
-      if (confirm('Are you sure you want to finish your shiny hunt?')) {
-        const index = $selectedTrackerIndex
-        const huntTracker = $huntTrackers[index]
-        huntTracker.complete = true
-        deleteTracker(index, huntTracker)
-      }
+    if (confirm('Are you sure you want to finish your shiny hunt?')) {
+      const index = $selectedTrackerIndex
+      const huntTracker = $huntTrackers[index]
+      huntTracker.complete = true
+      deleteTracker(index, huntTracker)
     }
   }
 
@@ -216,7 +214,7 @@
         bind:open={kebabMenuOpen}
         title="Tracker Menu"
         ariaControls="tracker-menu"
-        menu={[closeTrackerSnippet, completeHuntSnippet]}
+        menuControls={[closeTrackerSnippet, completeHuntSnippet]}
       />
     </div>
 

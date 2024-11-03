@@ -7,6 +7,7 @@
   import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
   import { fade } from 'svelte/transition'
   import { HuntingMethod } from '$lib/api/HuntingMethod'
+  import Kebab from '$lib/menu/controls/Kebab.svelte'
 
   let { data } = $props()
   const history = data.history
@@ -46,7 +47,24 @@
     }
   }
 
-  let selectedRecord = $state<HuntTracker>()
+  let selectedRecordIndex = $state(-1)
+  let selectedRecord = $derived($history[selectedRecordIndex])
+  let menuOpen = $state(false)
+
+  function selectRecord(index: number) {
+    selectedRecordIndex = index === selectedRecordIndex ? -1 : index
+  }
+
+  function deleteRecord() {
+    if (confirm('Are you sure you want to delete this record? This action is permanent.')) {
+      history.update((records) => [
+        ...records.slice(0, selectedRecordIndex),
+        ...records.slice(selectedRecordIndex + 1)
+      ])
+      selectedRecordIndex = -1
+    }
+    menuOpen = false
+  }
 </script>
 
 <h1>History</h1>
@@ -65,8 +83,8 @@
         </tr>
       </thead>
       <tbody>
-        {#each $history as record}
-          <tr onclick={() => (selectedRecord = record)}>
+        {#each $history as record, index}
+          <tr onclick={() => selectRecord(index)} aria-selected={index === selectedRecordIndex}>
             <td>
               <span>{formatVersionName(record.version)}</span>
             </td>
@@ -89,8 +107,19 @@
 
     {#if selectedRecord}
       <div id="record-details" transition:fade={{ duration: 250 }}>
-        <PokemonDetails huntTracker={selectedRecord} />
-        <table>
+        {#snippet deleteRecordSnippet()}
+          <button class="record-menu-control" onclick={deleteRecord}>Delete Record</button>
+        {/snippet}
+
+        <div id="record-menu">
+          <Kebab bind:open={menuOpen} menuControls={[deleteRecordSnippet]} />
+        </div>
+
+        <div id="pokemon-details">
+          <PokemonDetails huntTracker={selectedRecord} />
+        </div>
+
+        <table id="record-table">
           <tbody>
             <tr>
               <th scope="row">Generation</th>
@@ -107,6 +136,10 @@
             <tr>
               <th scope="row">Status</th>
               <td>{selectedRecord.complete ? 'Found' : 'Not Found'}</td>
+            </tr>
+            <tr>
+              <th scope="row">Count</th>
+              <td>{selectedRecord.count}</td>
             </tr>
             {#if selectedRecord.shinyCharm !== undefined}
               <tr>
@@ -147,7 +180,8 @@
     cursor: pointer;
   }
 
-  #records > tbody > tr:hover {
+  #records > tbody > tr:hover,
+  tr[aria-selected='true'] {
     background-color: var(--primary-light);
   }
 
@@ -155,10 +189,38 @@
     padding: var(--gap-length);
     background-color: var(--primary-darker);
     border-radius: var(--border-radius);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    row-gap: var(--gap-length);
     align-items: center;
-    gap: var(--padding-length);
+  }
+
+  #record-menu {
+    grid-column: 3 / 4;
+  }
+
+  #pokemon-details,
+  #record-table {
+    grid-column: 1 / 4;
+  }
+
+  #record-menu,
+  #pokemon-details {
+    grid-row: 1;
+  }
+
+  #record-menu {
+    z-index: 1;
+  }
+
+  #record-menu {
+    grid-row: 1;
+  }
+
+  .record-menu-control {
+    background: none;
+    width: 100%;
+    padding: var(--gap-length);
+    text-align: left;
   }
 </style>
