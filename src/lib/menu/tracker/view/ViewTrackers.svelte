@@ -190,8 +190,11 @@
     {/each}
   </div>
   {#if !creatingTracker}
-    <button id="create-tracker" on:click={createTracker} class:hoverable={Device.canHover}
-      >&plus;</button
+    <button
+      id="create-tracker"
+      on:click={createTracker}
+      class:hoverable={Device.canHover}
+      aria-label="Create New Tracker">&plus;</button
     >
   {/if}
 </div>

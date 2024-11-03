@@ -4,7 +4,7 @@
   import HeaderMenu from '$lib/menu/HeaderMenu.svelte'
   import { Circle2 } from 'svelte-loading-spinners'
   import { SpritePreference } from '$lib/menu/SpritePreference'
-  import SliderToggle from '$lib/menu/controls/SliderToggle.svelte'
+  import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
   import { base } from '$app/paths'
   import FooterMenu from '$lib/menu/FooterMenu.svelte'
 
@@ -52,7 +52,7 @@
 
 {#snippet showNormalSnippet()}
   <label for="show-normal">Show Normal Sprites</label>
-  <SliderToggle bind:checked={$showNormal} id="show-normal" />
+  <SliderSwitch bind:checked={$showNormal} id="show-normal" />
 {/snippet}
 
 {#snippet clearCacheSnippet()}

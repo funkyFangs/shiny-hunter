@@ -8,7 +8,7 @@
   import SelectVersion from '$lib/menu/tracker/create/SelectVersion.svelte'
   import type { VersionGroup } from '$lib/api/VersionGroupResource'
   import SelectHuntingMethod from '$lib/menu/tracker/create/SelectHuntingMethod.svelte'
-  import SliderToggle from '$lib/menu/controls/SliderToggle.svelte'
+  import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
   import type { CreatedHuntTracker } from '$lib/api/HuntTracker'
   import SelectPokemonSpecies from '$lib/menu/tracker/create/SelectPokemonSpecies.svelte'
   import SelectPokemon from '$lib/menu/tracker/create/SelectPokemon.svelte'
@@ -105,7 +105,7 @@
 
   {#if selectedGeneration && selectedGeneration.id >= 5}
     <label for="shiny-charm">Shiny Charm</label>
-    <SliderToggle id="shiny-charm" bind:checked={shinyCharm} />
+    <SliderSwitch id="shiny-charm" bind:checked={shinyCharm} />
   {/if}
 
   {#if selectedVersion && selectedVersionGroup && selectedGeneration}
@@ -129,7 +129,7 @@
     {#if selectedPokemonSpecies}
       {#if selectedPokemonSpecies.hasGenderDifferences && selectedGeneration.id > 3}
         <label for="gender">Gender</label>
-        <SliderToggle
+        <SliderSwitch
           id="gender"
           offText="♂"
           offColor="#5BCEFA"

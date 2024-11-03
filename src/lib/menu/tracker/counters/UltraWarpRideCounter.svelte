@@ -91,7 +91,9 @@
       </tr>
     </tbody>
   </table>
-  <button on:click={increment} disabled={odds === undefined}>&plus;</button>
+  <button on:click={increment} disabled={odds === undefined} aria-label="Increment Counter"
+    >&plus;</button
+  >
 </div>
 
 <style>

@@ -9,34 +9,36 @@
   $: backgroundColor = checked ? onColor : offColor
 </script>
 
-<label class="toggle" class:checked style="background-color: {backgroundColor}">
-  <input {id} type="checkbox" bind:checked />
+<button
+  {id}
+  type="button"
+  role="switch"
+  aria-checked={checked}
+  onclick={() => (checked = !checked)}
+  class:checked
+  style="background-color: {backgroundColor}"
+>
   <span>{checked ? onText : offText}</span>
-</label>
+</button>
 
 <style>
-  .toggle {
-    width: 3em;
+  [role='switch'] {
+    width: 3rem;
     cursor: pointer;
     background-color: var(--primary-darker);
     padding: var(--padding-length);
-    border-radius: 1em;
+    border-radius: 1rem;
     display: flex;
     flex-direction: row;
     transition: background-color 0.25s ease-out;
   }
 
-  .toggle.checked {
-    background-color: var(--primary-lighter);
+  [role='switch'][aria-checked='true'] {
     justify-content: right;
   }
 
-  .toggle:not(.checked) {
+  [role='switch'][aria-checked='false'] {
     justify-content: left;
-  }
-
-  input[type='checkbox'] {
-    display: none;
   }
 
   span {
