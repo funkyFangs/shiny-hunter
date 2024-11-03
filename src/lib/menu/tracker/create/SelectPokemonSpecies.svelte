@@ -52,6 +52,7 @@
   required
   type="search"
   list="pokemon-species-list"
+  aria-autocomplete="list"
   bind:value={$selectedPokemonSpeciesName}
 />
 

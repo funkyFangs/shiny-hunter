@@ -20,7 +20,7 @@
   })
 </script>
 
-<select bind:value={selectedPokemonForm} {id}>
+<select bind:value={selectedPokemonForm} {id} required>
   {#each selectedPokemon.forms as pokemonForm}
     <option value={pokemonForm}>{delimitedTitleCase(pokemonForm.name)}</option>
   {/each}

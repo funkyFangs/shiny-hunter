@@ -50,7 +50,7 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
       </tr>
     </tbody>
   </table>
-  <button on:click={() => (count += 1)}>&plus;</button>
+  <button on:click={() => (count += 1)} aria-label="Increment Counter">&plus;</button>
 </div>
 
 <style>

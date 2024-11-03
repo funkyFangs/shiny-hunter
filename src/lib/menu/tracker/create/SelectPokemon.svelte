@@ -22,7 +22,7 @@
   const supportedPokemon = getSupportedPokemon(pokemonSpecies, generation, versionGroup)
 </script>
 
-<select {id} bind:value={selectedPokemon} disabled={supportedPokemon.length === 1}>
+<select {id} bind:value={selectedPokemon} disabled={supportedPokemon.length === 1} required>
   {#each supportedPokemon as pokemon}
     <option value={pokemon}>{formatPokemonName(pokemonSpecies.name, pokemon.name)}</option>
   {/each}

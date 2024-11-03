@@ -70,7 +70,9 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
 </script>
 
 <div class="counter">
-  <button onclick={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
+  <button onclick={resetChain} disabled={currentChainLength === 0} aria-label="Reset Chain"
+    >&#10227;</button
+  >
   <table>
     <thead>
       <tr>
@@ -87,7 +89,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
       </tr>
     </tbody>
   </table>
-  <button onclick={() => incrementChain()}>&plus;</button>
+  <button onclick={() => incrementChain()} aria-label="Increment Chain">&plus;</button>
 </div>
 
 <style>

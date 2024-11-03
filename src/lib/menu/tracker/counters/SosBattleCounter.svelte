@@ -43,7 +43,9 @@
 </script>
 
 <div class="counter">
-  <button on:click={resetChain} disabled={currentChainLength === 0}>&#10227;</button>
+  <button on:click={resetChain} disabled={currentChainLength === 0} aria-label="Reset Chain"
+    >&#10227;</button
+  >
   <table>
     <thead>
       <tr>
@@ -60,7 +62,7 @@
       </tr>
     </tbody>
   </table>
-  <button on:click={incrementChain}>&plus;</button>
+  <button on:click={incrementChain} aria-label="Increment Chain">&plus;</button>
 </div>
 
 <style>

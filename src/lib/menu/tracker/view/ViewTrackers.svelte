@@ -140,13 +140,11 @@
   }
 
   function completeHunt() {
-    return () => {
-      if (confirm('Are you sure you want to finish your shiny hunt?')) {
-        const index = $selectedTrackerIndex
-        const huntTracker = $huntTrackers[index]
-        huntTracker.complete = true
-        deleteTracker(index, huntTracker)
-      }
+    if (confirm('Are you sure you want to finish your shiny hunt?')) {
+      const index = $selectedTrackerIndex
+      const huntTracker = $huntTrackers[index]
+      huntTracker.complete = true
+      deleteTracker(index, huntTracker)
     }
   }
 
@@ -192,8 +190,11 @@
     {/each}
   </div>
   {#if !creatingTracker}
-    <button id="create-tracker" on:click={createTracker} class:hoverable={Device.canHover}
-      >&plus;</button
+    <button
+      id="create-tracker"
+      on:click={createTracker}
+      class:hoverable={Device.canHover}
+      aria-label="Create New Tracker">&plus;</button
     >
   {/if}
 </div>
@@ -216,7 +217,7 @@
         bind:open={kebabMenuOpen}
         title="Tracker Menu"
         ariaControls="tracker-menu"
-        menu={[closeTrackerSnippet, completeHuntSnippet]}
+        menuControls={[closeTrackerSnippet, completeHuntSnippet]}
       />
     </div>
 
