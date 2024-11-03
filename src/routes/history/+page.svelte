@@ -11,6 +11,7 @@
 
   let { data } = $props()
   const history = data.history
+  const emptyField = '-'
 
   function getPokemon(record: HuntTracker) {
     return record.pokemon
@@ -19,7 +20,7 @@
   }
 
   function getPokemonForm(record: HuntTracker) {
-    return record.pokemonForm ? delimitedTitleCase(record.pokemonForm) : '-'
+    return record.pokemonForm ? delimitedTitleCase(record.pokemonForm) : emptyField
   }
 
   function getMaxChainHeader(record: HuntTracker) {
@@ -30,6 +31,8 @@
         return 'Longest Chain'
       case HuntingMethod.ULTRA_WARP_RIDE:
         return 'Furthest Distance'
+      default:
+        return emptyField
     }
   }
 
@@ -44,6 +47,8 @@
         return max === 1 ? '1 Ally' : `${max} Allies`
       case HuntingMethod.ULTRA_WARP_RIDE:
         return max === 1 ? '1 Light Year' : `${max} Light Years`
+      default:
+        return emptyField
     }
   }
 
