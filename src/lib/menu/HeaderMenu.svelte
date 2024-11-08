@@ -21,7 +21,6 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 <script lang="ts">
   import { fly } from 'svelte/transition'
   import { Hamburger } from 'svelte-hamburgers'
-  import { base } from '$app/paths'
   import type { Snippet } from 'svelte'
 
   let {
@@ -37,7 +36,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
 <header>
   <Hamburger --color="var(--font-color)" bind:open />
-  <a href="{base}/">{title}</a>
+  <h1 id="title">{title}</h1>
 </header>
 
 {#if open && items.length}
@@ -93,8 +92,8 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     align-items: center;
   }
 
-  header > a {
-    margin: 0 calc(100% - 100vw + var(--gap-length)) 0 0;
-    font-size: 2rem;
+  #title {
+    margin: 0 var(--gap-length) 0 0;
+    font-weight: normal;
   }
 </style>

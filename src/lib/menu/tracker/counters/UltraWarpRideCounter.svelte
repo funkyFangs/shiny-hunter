@@ -2,6 +2,7 @@
   import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
+  export let index: number
   export let count: number = 0
   export let furthestDistance: number = 0
 
@@ -56,16 +57,16 @@
   <table>
     <thead>
       <tr>
-        <th scope="col">Rarity</th>
-        <th scope="col">Distance</th>
-        <th scope="col">Count</th>
-        <th scope="col">Odds</th>
+        <th scope="col"><label for="rarity-{index}">Rarity</label></th>
+        <th scope="col"><label for="distance-{index}">Distance</label></th>
+        <th scope="col"><label for="count-{index}">Count</label></th>
+        <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <select bind:value={rarity}>
+          <select id="rarity-{index}" bind:value={rarity}>
             <option value={null} hidden selected></option>
             <option value={0}>0</option>
             <option value={1}>1</option>
@@ -73,19 +74,30 @@
             <option value={3}>3</option>
           </select>
         </td>
-        <td><input type="number" min="0" id="distance" bind:value={distance} /></td>
-        <td><input type="number" min="0" id="count" bind:value={count} /></td>
+        <td
+          ><input
+            id="distance-{index}"
+            class="distance"
+            type="number"
+            min="0"
+            bind:value={distance}
+          /></td
+        >
+        <td><input id="count-{index}" class="count" type="number" min="0" bind:value={count} /></td>
         <td>
           {#if odds !== undefined}
             <Odds
-              inputs={['distance', 'count']}
+              id="odds-{index}"
+              inputs={[`distance-${index}`, `count-${index}`]}
               numerator={odds}
               denominator={100}
               showFraction={false}
               accuracy={0}
             />
           {:else}
-            <span>-</span>
+            <span id="odds-{index}" aria-label="The undefined odds for finding a shiny Pokémon"
+              >-</span
+            >
           {/if}
         </td>
       </tr>
@@ -111,17 +123,17 @@
     padding: 0;
   }
 
-  #count {
+  .count {
     background: none;
     max-width: 60px;
   }
 
-  #distance {
+  .distance {
     max-width: 75px;
   }
 
-  #count:focus,
-  #distance,
+  .count:focus-visible,
+  .distance,
   select {
     background-color: var(--primary-light);
     color: var(--font-color);
