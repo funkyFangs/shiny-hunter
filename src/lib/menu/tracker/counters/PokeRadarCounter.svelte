@@ -27,12 +27,14 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
   import Odds from '$lib/menu/tracker/counters/Odds.svelte'
 
   let {
+    index,
     chains = $bindable(0),
     currentChainLength = $bindable(0),
     maxChainLength = $bindable(0),
     generation = $bindable(),
     shinyCharm = $bindable(false)
   }: {
+    index: number
     chains: number
     currentChainLength: number
     maxChainLength: number
@@ -76,16 +78,25 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
   <table>
     <thead>
       <tr>
-        <th scope="col">Chain Length</th>
-        <th scope="col">Number of Chains</th>
-        <th scope="col">Odds</th>
+        <th scope="col"><label for="chain-length-{index}">Chain Length</label></th>
+        <th scope="col"><label for="chains-{index}">Chains</label></th>
+        <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input type="number" min="0" id="chain-length" bind:value={currentChainLength} /></td>
-        <td><input type="number" min="0" bind:value={chains} /></td>
-        <td><Odds inputs="chain-length" numerator={odds} denominator={65536} /></td>
+        <td
+          ><input
+            type="number"
+            min="0"
+            id="chain-length-{index}"
+            bind:value={currentChainLength}
+          /></td
+        >
+        <td><input type="number" min="0" id="chains-{index}" bind:value={chains} /></td>
+        <td
+          ><Odds id="odds-{index}" inputs="chain-length" numerator={odds} denominator={65536} /></td
+        >
       </tr>
     </tbody>
   </table>
@@ -104,7 +115,7 @@ If you wanted to track a Poké Radar hunt in Pokémon X with the shiny charm equ
     max-width: 60px;
   }
 
-  input:focus {
+  input:focus-visible {
     background-color: var(--primary-light);
   }
 

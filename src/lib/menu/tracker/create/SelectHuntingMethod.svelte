@@ -49,7 +49,7 @@
 
   {#if selectedHuntingMethod}
     <ToolTip title={getToolTip(selectedHuntingMethod)}>
-      <span class="info"></span>
+      <span class="info">i</span>
     </ToolTip>
   {/if}
 </div>

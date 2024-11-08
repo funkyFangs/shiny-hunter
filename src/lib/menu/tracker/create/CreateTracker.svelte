@@ -118,7 +118,7 @@
       bind:selectedHuntingMethod
     />
 
-    <label for="pokemon-species">Pokemon Species</label>
+    <label for="pokemon-species">Pokémon Species</label>
     <SelectPokemonSpecies
       id="pokemon-species"
       {generations}
@@ -140,7 +140,7 @@
       {/if}
 
       {#if getSupportedPokemon(selectedPokemonSpecies, selectedGeneration, selectedVersionGroup).length > 1}
-        <label for="pokemon">Pokemon</label>
+        <label for="pokemon">Pokémon</label>
         <SelectPokemon
           id="pokemon"
           pokemonSpecies={selectedPokemonSpecies}
@@ -151,7 +151,7 @@
       {/if}
 
       {#if selectedPokemon && selectedPokemon.forms.length > 1}
-        <label for="pokemon-form">Pokemon Form</label>
+        <label for="pokemon-form">Pokémon Form</label>
         <SelectPokemonForm id="pokemon-form" {selectedPokemon} bind:selectedPokemonForm />
       {/if}
     {/if}

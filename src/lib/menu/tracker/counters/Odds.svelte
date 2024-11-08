@@ -85,13 +85,13 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
 
 <output {id} for={Array.isArray(inputs) ? inputs.join(' ') : inputs}>
   {#if showFraction}
-    <div class="fraction">
-      <span>{numerator / divisor}</span>
-      <span>{denominator / divisor}</span>
+    <div aria-label="The likelihood of finding a shiny Pokémon as a fraction" class="fraction">
+      <span aria-label="The numerator of the fraction">{numerator / divisor}</span>
+      <span aria-label="The denominator of the fraction">{denominator / divisor}</span>
     </div>
   {/if}
   {#if showPercentage}
-    <span>
+    <span aria-label="The likelihood of finding a shiny Pokémon as a percentage">
       {#if showFraction}
         (~{(decimalValue * 100).toFixed(accuracy)}%)
       {:else}

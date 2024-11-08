@@ -5,7 +5,7 @@ export enum HuntingMethod {
   POKE_RADAR = 'Poké Radar',
   FRIEND_SAFARI = 'Friend Safari',
   CONSECUTIVE_FISHING = 'Consecutive Fishing',
-  HIDDEN_POKEMON = 'Hidden Pokemon',
+  HIDDEN_POKEMON = 'Hidden Pokémon',
   SOS_BATTLE = 'SOS Battle',
   ULTRA_WARP_RIDE = 'Ultra Warp Ride'
 }

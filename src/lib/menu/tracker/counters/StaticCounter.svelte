@@ -27,6 +27,7 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
+  export let index: number
   export let count: number = 0
   export let label: string = 'Count'
   export let numerator: number = 1
@@ -39,18 +40,18 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   <table>
     <thead>
       <tr>
-        <th scope="col">{label}</th>
-        <th scope="col">Odds</th>
+        <th scope="col"><label for="count-{index}">{label}</label></th>
+        <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input type="number" min="0" bind:value={count} /></td>
-        <td><Odds bind:numerator bind:denominator /></td>
+        <td><input type="number" min="0" id="count-{index}" bind:value={count} /></td>
+        <td><Odds id="odds-{index}" bind:numerator bind:denominator /></td>
       </tr>
     </tbody>
   </table>
-  <button on:click={() => (count += 1)} aria-label="Increment Counter">&plus;</button>
+  <button on:click={() => (count += 1)} aria-label="Increment {label}">&plus;</button>
 </div>
 
 <style>
@@ -78,7 +79,7 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     padding: 0;
   }
 
-  input:focus {
+  input:focus-visible {
     background-color: var(--primary-light);
   }
 

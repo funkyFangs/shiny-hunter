@@ -2,6 +2,7 @@
   import Odds from '$lib/menu/tracker/counters/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
+  export let index: number
   export let chains: number = 0
   export let currentChainLength: number = 0
   export let maxChainLength: number = 0
@@ -41,16 +42,30 @@
   <table>
     <thead>
       <tr>
-        <th scope="col">Chain Length</th>
-        <th scope="col">Number of Chains</th>
-        <th scope="col">Odds</th>
+        <th scope="col"><label for="chain-length-{index}">Chain Length</label></th>
+        <th scope="col"><label for="chains-{index}">Chains</label></th>
+        <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input id="current-chain" type="number" min="0" bind:value={currentChainLength} /></td>
-        <td><input type="number" min="0" bind:value={chains} /></td>
-        <td><Odds inputs="current-chain" numerator={1} denominator={odds} /></td>
+        <td
+          ><input
+            id="chain-length-{index}"
+            type="number"
+            min="0"
+            bind:value={currentChainLength}
+          /></td
+        >
+        <td><input id="chains-{index}" type="number" min="0" bind:value={chains} /></td>
+        <td
+          ><Odds
+            id="odds-{index}"
+            inputs="chain-length-{index}"
+            numerator={1}
+            denominator={odds}
+          /></td
+        >
       </tr>
     </tbody>
   </table>
@@ -69,7 +84,7 @@
     max-width: 60px;
   }
 
-  input:focus {
+  input:focus-visible {
     background-color: var(--primary-light);
   }
 

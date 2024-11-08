@@ -298,16 +298,8 @@ span.info {
   background-color: var(--info);
 }
 
-span.info::before {
-  content: 'i ';
-}
-
 span.success {
   background-color: var(--success);
-}
-
-span.success::before {
-  content: '✓ ';
 }
 
 span.warning {
@@ -317,11 +309,6 @@ span.warning {
 
 span.error {
   background-color: var(--error);
-}
-
-span.warning:before,
-.error:before {
-  content: '⚠ ';
 }
 
 /* ============================================================================================ *\

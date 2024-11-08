@@ -8,7 +8,7 @@
   import type { Writable } from 'svelte/store'
   import TrackerCounter from '$lib/menu/tracker/counters/TrackerCounter.svelte'
   import type { SpritePreference } from '$lib/menu/SpritePreference'
-  import SpriteDisplay from '$lib/menu/tracker/sprites/SpriteDisplay.svelte'
+  import SpriteDisplay from '$lib/menu/tracker/view/SpriteDisplay.svelte'
   import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
   import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
   import Device from 'svelte-device-info'
@@ -145,6 +145,7 @@
       const huntTracker = $huntTrackers[index]
       huntTracker.complete = true
       deleteTracker(index, huntTracker)
+      kebabMenuOpen = false
     }
   }
 
@@ -216,6 +217,7 @@
       <Kebab
         bind:open={kebabMenuOpen}
         title="Tracker Menu"
+        ariaLabel="The button to open a menu of controls for managing this hunt tracker"
         ariaControls="tracker-menu"
         menuControls={[closeTrackerSnippet, completeHuntSnippet]}
       />
@@ -233,32 +235,37 @@
         <table>
           <thead>
             <tr>
-              <th scope="col">Game</th>
-              <th scope="col">Method</th>
+              <th scope="col"><label for="game-{index}">Game</label></th>
+              <th scope="col"><label for="method-{index}">Method</label></th>
               {#if huntTracker.generation >= 5}
-                <th scope="col">Shiny Charm</th>
+                <th scope="col"><label for="shiny-charm-{index}">Shiny Charm</label></th>
               {/if}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span>{formatVersionName(huntTracker.version)}</span></td>
-              <td><span>{huntTracker.method}</span></td>
+              <td><span id="game-{index}">{formatVersionName(huntTracker.version)}</span></td>
+              <td><span id="method-{index}">{huntTracker.method}</span></td>
               {#if huntTracker.generation >= 5}
-                <td>{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</td>
+                <td
+                  ><span id="shiny-charm-{index}"
+                    >{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</span
+                  ></td
+                >
               {/if}
             </tr>
           </tbody>
         </table>
 
         <SpriteDisplay
+          {index}
           {huntTracker}
           sprites={sprites[huntTracker.pokemonSpecies]}
           {spritePreference}
           {showNormal}
         />
 
-        <TrackerCounter bind:huntTracker />
+        <TrackerCounter {index} bind:huntTracker />
       </div>
     {/each}
   {:else}

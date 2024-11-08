@@ -27,8 +27,6 @@
 
 <button
   type="button"
-  role="switch"
-  aria-checked={open}
   class:open
   onclick={() => (open = !open)}
   {title}
