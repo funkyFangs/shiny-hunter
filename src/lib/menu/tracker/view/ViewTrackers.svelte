@@ -151,14 +151,33 @@
 
   function onTabKeyPress(event: KeyboardEvent) {
     switch (event.key) {
-      case 'ArrowRight':
-        selectedTrackerIndex.update((index) => (index + 1) % $huntTrackers.length)
-        tabs[$selectedTrackerIndex]?.focus()
+      case 'ArrowRight': {
+        const nextIndex = ($selectedTrackerIndex + 1) % tabs.length
+        selectedTrackerIndex.set(nextIndex)
+        tabs[nextIndex]?.focus()
         break
+      }
       case 'ArrowLeft': {
-        const length = $huntTrackers.length
-        selectedTrackerIndex.update((index) => (((index - 1) % length) + length) % length)
-        tabs[$selectedTrackerIndex]?.focus()
+        const length = tabs.length
+        const nextIndex = ((($selectedTrackerIndex - 1) % length) + length) % length
+        selectedTrackerIndex.set(nextIndex)
+        tabs[nextIndex]?.focus()
+        break
+      }
+      case 'Home': {
+        const index = 0
+        if ($selectedTrackerIndex !== index) {
+          selectedTrackerIndex.set(index)
+          tabs[index]?.focus()
+        }
+        break
+      }
+      case 'End': {
+        const index = tabs.length - 1
+        if ($selectedTrackerIndex !== index) {
+          selectedTrackerIndex.set(index)
+          tabs[index]?.focus()
+        }
         break
       }
       case 'Delete': {
