@@ -168,26 +168,99 @@
     }
   }
 
+  function onTabDragStart(event: DragEvent, target: number) {
+    const dataTransfer = event.dataTransfer!
+
+    dataTransfer.setData('text/plain', target.toString())
+    dataTransfer.dropEffect = 'move'
+  }
+
+  function onTabDragOver(event: DragEvent) {
+    event.preventDefault()
+  }
+
+  function onTabDrop(event: DragEvent) {
+    event.preventDefault()
+
+    const clientX = event.x
+    const leftIndex = tabs
+      .map((tab) => tab.getBoundingClientRect())
+      .findLastIndex((box) => box.x + box.width / 2 <= clientX)
+    const startIndex = parseInt(event.dataTransfer!.getData('text/plain'))
+    const lastIndex = tabs.length - 1
+
+    const selectedHuntTracker = $huntTrackers[$selectedTrackerIndex]
+
+    if (startIndex !== leftIndex && startIndex !== leftIndex + 1) {
+      huntTrackers.update((huntTrackers) => {
+        // Moving to beginning
+        if (leftIndex === -1) {
+          return [
+            huntTrackers[startIndex],
+            ...huntTrackers.slice(0, startIndex),
+            ...huntTrackers.slice(startIndex + 1)
+          ]
+        }
+        // Moving to end
+        else if (leftIndex === lastIndex) {
+          return [
+            ...huntTrackers.slice(0, startIndex),
+            ...huntTrackers.slice(startIndex + 1),
+            huntTrackers[startIndex]
+          ]
+        }
+        // Moving to the left
+        else if (startIndex < leftIndex) {
+          return [
+            ...huntTrackers.slice(0, startIndex),
+            ...huntTrackers.slice(startIndex + 1, leftIndex + 1),
+            huntTrackers[startIndex],
+            ...huntTrackers.slice(leftIndex + 1)
+          ]
+        }
+        // Moving to the right
+        else {
+          return [
+            ...huntTrackers.slice(0, leftIndex + 1),
+            huntTrackers[startIndex],
+            ...huntTrackers.slice(leftIndex + 1, startIndex),
+            ...huntTrackers.slice(startIndex + 1)
+          ]
+        }
+      })
+
+      selectedTrackerIndex.set($huntTrackers.indexOf(selectedHuntTracker))
+    }
+  }
+
   let tabs: HTMLElement[] = []
   let kebabMenuOpen = false
 </script>
 
 <div id="tabs">
-  <div role="tablist" aria-label="Hunt Tracker Tabs">
+  <div
+    role="tablist"
+    aria-label="Hunt Tracker Tabs"
+    tabindex={-1}
+    on:dragover={onTabDragOver}
+    on:drop={onTabDrop}
+  >
     {#each $huntTrackers as huntTracker, index}
-      <button
+      <div
         id="tab-{index + 1}"
-        role="tab"
         tabindex={index === $selectedTrackerIndex ? 0 : -1}
+        role="tab"
         aria-selected={index === $selectedTrackerIndex}
         aria-controls="tracker-{index + 1}"
+        draggable="true"
         class:hoverable={Device.canHover}
         on:click={selectTracker(index)}
-        on:keydown={(event) => onTabKeyPress(event)}
+        on:keydown={onTabKeyPress}
+        on:dragstart={(event) => onTabDragStart(event, index)}
         bind:this={tabs[index]}
       >
         <span>{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
-      </button>
+      </div>
     {/each}
   </div>
   {#if !creatingTracker}
