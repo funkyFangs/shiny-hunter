@@ -14,6 +14,7 @@
   import Device from 'svelte-device-info'
   import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
   import Kebab from '$lib/menu/controls/Kebab.svelte'
+  import { focusTab, moveHuntTracker } from '$lib/menu/tracker/view/ViewTrackers'
 
   export let huntTrackers: Writable<HuntTracker[]>
   export let history: Writable<HuntTracker[]>
@@ -150,40 +151,32 @@
   }
 
   function onTabKeyPress(event: KeyboardEvent) {
+    const currentSelectedTrackerIndex = $selectedTrackerIndex
     switch (event.key) {
-      case 'ArrowRight': {
-        const nextIndex = ($selectedTrackerIndex + 1) % tabs.length
-        selectedTrackerIndex.set(nextIndex)
-        tabs[nextIndex]?.focus()
+      case 'ArrowRight':
+        focusTab((currentSelectedTrackerIndex + 1) % tabs.length, selectedTrackerIndex, tabs)
         break
-      }
       case 'ArrowLeft': {
         const length = tabs.length
-        const nextIndex = ((($selectedTrackerIndex - 1) % length) + length) % length
-        selectedTrackerIndex.set(nextIndex)
-        tabs[nextIndex]?.focus()
+        focusTab(
+          (((currentSelectedTrackerIndex - 1) % length) + length) % length,
+          selectedTrackerIndex,
+          tabs
+        )
         break
       }
-      case 'Home': {
-        const index = 0
-        if ($selectedTrackerIndex !== index) {
-          selectedTrackerIndex.set(index)
-          tabs[index]?.focus()
+      case 'Home':
+        if (currentSelectedTrackerIndex !== 0) {
+          focusTab(0, selectedTrackerIndex, tabs)
         }
         break
-      }
-      case 'End': {
-        const index = tabs.length - 1
-        if ($selectedTrackerIndex !== index) {
-          selectedTrackerIndex.set(index)
-          tabs[index]?.focus()
+      case 'End':
+        if (currentSelectedTrackerIndex !== tabs.length - 1) {
+          focusTab(tabs.length - 1, selectedTrackerIndex, tabs)
         }
         break
-      }
-      case 'Delete': {
-        const index = $selectedTrackerIndex
-        closeTracker(index, $huntTrackers[index])
-      }
+      case 'Delete':
+        closeTracker(currentSelectedTrackerIndex)
     }
   }
 
@@ -211,43 +204,9 @@
     const selectedHuntTracker = $huntTrackers[$selectedTrackerIndex]
 
     if (startIndex !== leftIndex && startIndex !== leftIndex + 1) {
-      huntTrackers.update((huntTrackers) => {
-        // Moving to beginning
-        if (leftIndex === -1) {
-          return [
-            huntTrackers[startIndex],
-            ...huntTrackers.slice(0, startIndex),
-            ...huntTrackers.slice(startIndex + 1)
-          ]
-        }
-        // Moving to end
-        else if (leftIndex === lastIndex) {
-          return [
-            ...huntTrackers.slice(0, startIndex),
-            ...huntTrackers.slice(startIndex + 1),
-            huntTrackers[startIndex]
-          ]
-        }
-        // Moving to the left
-        else if (startIndex < leftIndex) {
-          return [
-            ...huntTrackers.slice(0, startIndex),
-            ...huntTrackers.slice(startIndex + 1, leftIndex + 1),
-            huntTrackers[startIndex],
-            ...huntTrackers.slice(leftIndex + 1)
-          ]
-        }
-        // Moving to the right
-        else {
-          return [
-            ...huntTrackers.slice(0, leftIndex + 1),
-            huntTrackers[startIndex],
-            ...huntTrackers.slice(leftIndex + 1, startIndex),
-            ...huntTrackers.slice(startIndex + 1)
-          ]
-        }
-      })
-
+      huntTrackers.update((huntTrackers) =>
+        moveHuntTracker(huntTrackers, leftIndex, startIndex, lastIndex)
+      )
       selectedTrackerIndex.set($huntTrackers.indexOf(selectedHuntTracker))
     }
   }
@@ -278,7 +237,7 @@
         on:dragstart={(event) => onTabDragStart(event, index)}
         bind:this={tabs[index]}
       >
-        <span>{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
+        <span class="unselectable">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
       </div>
     {/each}
   </div>
@@ -287,7 +246,8 @@
       id="create-tracker"
       on:click={createTracker}
       class:hoverable={Device.canHover}
-      aria-label="Create New Tracker">&plus;</button
+      aria-label="Create New Tracker"
+      class="unselectable">&plus;</button
     >
   {/if}
 </div>
@@ -400,11 +360,6 @@
   [role='tab'] {
     max-width: 130px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: var(--padding-length);
-    justify-content: space-between;
-    align-items: center;
     color: var(--font-color);
     border-radius: var(--border-radius);
     padding: var(--padding-length);
@@ -467,5 +422,9 @@
     width: 100%;
     padding: var(--gap-length);
     text-align: left;
+  }
+
+  .unselectable {
+    user-select: none;
   }
 </style>
