@@ -19,8 +19,8 @@
       "sizes": "32x32"
     }
   ],
-  "background_color": "#586f7c",
-  "theme_color": "#2f4550",
+  "background_color": "#4875c6",
+  "theme_color": "#1f2123",
   "categories": ["games", "utilities"],
   "orientation": "portrait",
   "display": "standalone"
