@@ -1,6 +1,6 @@
 <script>
   import { navigating } from '$app/stores'
-  import '../app.css'
+  import '../app.less'
   import HeaderMenu from '$lib/menu/HeaderMenu.svelte'
   import { Circle2 } from 'svelte-loading-spinners'
   import { SpritePreference } from '$lib/menu/SpritePreference'
@@ -42,7 +42,7 @@
 </script>
 
 {#snippet spritePreferenceSnippet()}
-  <label for="sprite-preference">Sprite Preference</label>
+  <label class="unselectable" for="sprite-preference">Sprite Preference</label>
   <select id="sprite-preference" bind:value={$spritePreference}>
     {#each Object.values(SpritePreference) as spritePreference}
       <option value={spritePreference}>{spritePreference}</option>
@@ -51,14 +51,12 @@
 {/snippet}
 
 {#snippet showNormalSnippet()}
-  <label for="show-normal">Show Normal Sprites</label>
+  <label class="unselectable" for="show-normal">Show Normal Sprites</label>
   <SliderSwitch bind:checked={$showNormal} id="show-normal" />
 {/snippet}
 
 {#snippet clearCacheSnippet()}
-  <button class="primary-button" disabled={localStorage.length === 0} onclick={clearCache}
-    >Clear Cache</button
-  >
+  <button disabled={localStorage.length === 0} onclick={clearCache}>Clear Cache</button>
 {/snippet}
 
 <HeaderMenu
@@ -78,7 +76,10 @@
 
 <FooterMenu {links} />
 
-<style>
+<style lang="less">
+  @import '../style/palette';
+  @import '../style/positioning';
+
   select,
   label,
   button {
@@ -86,15 +87,26 @@
     font-size: 150%;
   }
 
-  button.primary-button {
+  button {
     width: 100%;
+    background-color: @shark;
+    color: contrast($background-color);
+    transition-property: color;
+  }
+
+  button:hover {
+    color: @riptide;
+  }
+
+  button:active {
+    color: contrast(@shark);
   }
 
   main {
-    padding: calc(var(--top-bar-height) + var(--gap-length)) var(--gap-length);
+    padding: calc(@top-bar-height + @gap-length) @gap-length;
     margin: auto;
     max-width: 1500px;
-    max-height: calc(100vh - 2 * var(--top-bar-height));
+    max-height: calc(100vh - 2 * @top-bar-height);
   }
 
   main > div {
@@ -102,5 +114,19 @@
     position: absolute;
     top: calc(50vh - 50px);
     left: calc(50vw - 50px);
+  }
+
+  #sprite-preference {
+    background-color: @shark;
+    color: contrast($background-color);
+    transition-property: color;
+  }
+
+  #sprite-preference:hover {
+    color: @riptide;
+  }
+
+  #sprite-preference:active {
+    color: white;
   }
 </style>

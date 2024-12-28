@@ -54,7 +54,10 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   <button on:click={() => (count += 1)} aria-label="Increment {label}">&plus;</button>
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   #counter {
     display: flex;
     flex-direction: row;
@@ -63,9 +66,26 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     justify-content: center;
   }
 
-  #counter > button {
+  input:hover {
+    background-color: @darker-indigo;
+    color: contrast($background-color);
+  }
+
+  button {
     height: 87px;
     font-size: 1.5em;
+    background-color: @indigo;
+    color: contrast($background-color);
+  }
+
+  button:hover {
+    background-color: lighten(@indigo, 5%);
+    color: contrast($background-color);
+  }
+
+  button:active {
+    background-color: lighten(@indigo, 10%);
+    color: contrast($background-color);
   }
 
   input {
@@ -73,14 +93,15 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     border: none;
     background: none;
     font-weight: bold;
-    color: var(--font-color);
+    color: white;
     font-size: 1.1em;
     max-width: 90px;
     padding: 0;
   }
 
   input:focus-visible {
-    background-color: var(--primary-light);
+    background-color: @indigo;
+    color: contrast($background-color);
   }
 
   input::-webkit-outer-spin-button,

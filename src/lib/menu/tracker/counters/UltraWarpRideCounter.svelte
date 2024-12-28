@@ -108,12 +108,15 @@
   >
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   input,
   select {
     text-align: center;
     font-weight: bold;
-    color: var(--font-color);
+    color: contrast(@darkest-indigo);
     height: 28px;
     background: none;
   }
@@ -123,6 +126,11 @@
     padding: 0;
   }
 
+  input:hover {
+    background-color: @darker-indigo;
+    color: contrast($background-color);
+  }
+
   .count {
     background: none;
     max-width: 60px;
@@ -130,13 +138,7 @@
 
   .distance {
     max-width: 75px;
-  }
-
-  .count:focus-visible,
-  .distance,
-  select {
-    background-color: var(--primary-light);
-    color: var(--font-color);
+    background: none;
   }
 
   #counter {
@@ -145,12 +147,39 @@
     gap: 5px;
     align-items: center;
     justify-content: center;
-    max-width: calc(100vw - 4 * var(--gap-length));
+    max-width: calc(100vw - 4 * @gap-length);
   }
 
-  #counter > button {
+  button {
     height: 70px;
     font-size: 1.5em;
+  }
+
+  button,
+  .distance,
+  .count:focus-visible,
+  select {
+    background-color: @indigo;
+    color: contrast($background-color);
+  }
+
+  .distance:hover,
+  select:hover,
+  button:hover {
+    background-color: lighten(@indigo, 5%);
+    color: contrast($background-color);
+  }
+
+  .distance:active,
+  select:active,
+  button:active {
+    background-color: lighten(@indigo, 10%);
+    color: contrast($background-color);
+  }
+
+  button:disabled {
+    background-color: desaturate(@indigo, 25%);
+    color: contrast($background-color);
   }
 
   input::-webkit-outer-spin-button,

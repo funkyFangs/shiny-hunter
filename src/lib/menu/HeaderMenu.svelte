@@ -32,11 +32,22 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   } = $props()
 
   let open = $state(false)
+  let color = $state('white')
+
+  function onMouseEnter() {
+    color = '#89E4DF'
+  }
+
+  function onMouseLeave() {
+    color = 'white'
+  }
 </script>
 
 <header>
-  <Hamburger --color="var(--font-color)" bind:open />
-  <h1 id="title">{title}</h1>
+  <div role="graphics-object" onmouseenter={onMouseEnter} onmouseleave={onMouseLeave}>
+    <Hamburger --color={color} --hover-opacity="1" bind:open />
+  </div>
+  <h1 id="title" class="unselectable">{title}</h1>
 </header>
 
 {#if open && items.length}
@@ -47,12 +58,15 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   </menu>
 {/if}
 
-<style>
+<style lang="less">
+  @import '../../style/palette';
+  @import '../../style/positioning';
+
   header {
     /* Positioning */
     position: absolute;
     width: 100%;
-    height: var(--top-bar-height);
+    height: @top-bar-height;
     top: 0;
     display: flex;
     flex-direction: row;
@@ -61,28 +75,33 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     z-index: 2;
 
     /* Palette */
-    background-color: var(--primary-darkest);
+    background-color: @shark;
     box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.3);
+
+    h1 {
+      color: contrast($background-color);
+    }
   }
 
   menu {
     /* Positioning */
     position: fixed;
-    height: 100%;
-    width: var(--side-bar-width);
+    height: calc(100% - 2.5 * @top-bar-height);
+    width: @side-bar-width;
     max-width: 100vw;
-    padding: var(--gap-length);
-    top: var(--top-bar-height);
+    padding: @gap-length;
+    top: @top-bar-height;
     margin: 0;
-    z-index: 2;
+    z-index: 3;
 
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--gap-length);
+    gap: @gap-length;
 
     /* Palette */
-    background-color: var(--primary-dark);
+    background-color: @asparagus;
+    color: contrast($background-color);
   }
 
   li {
@@ -93,7 +112,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   }
 
   #title {
-    margin: 0 var(--gap-length) 0 0;
+    margin: 0 @gap-length 0 0;
     font-weight: normal;
   }
 </style>

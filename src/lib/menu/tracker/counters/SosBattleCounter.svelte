@@ -80,20 +80,29 @@
   <button on:click={incrementChain} aria-label="Increment Chain">&plus;</button>
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   input {
     text-align: center;
     border: none;
     background: none;
     font-weight: bold;
-    color: var(--font-color);
+    color: contrast(@darkest-indigo);
     font-size: 1.1em;
     padding: 0;
     max-width: 60px;
   }
 
+  input:hover {
+    background-color: @darker-indigo;
+    color: contrast($background-color);
+  }
+
   input:focus-visible {
-    background-color: var(--primary-light);
+    background-color: @indigo;
+    color: contrast($background-color);
   }
 
   .counter {
@@ -104,9 +113,26 @@
     justify-content: center;
   }
 
-  .counter > button {
+  button {
     height: 87px;
     font-size: 1.5em;
+    background-color: @indigo;
+    color: contrast($background-color);
+  }
+
+  button:hover {
+    background-color: lighten(@indigo, 5%);
+    color: contrast($background-color);
+  }
+
+  button:active {
+    background-color: lighten(@indigo, 10%);
+    color: contrast($background-color);
+  }
+
+  button:disabled {
+    background-color: desaturate(@indigo, 25%);
+    color: contrast($background-color);
   }
 
   input::-webkit-outer-spin-button,
