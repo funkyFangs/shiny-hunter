@@ -54,10 +54,25 @@
   {/each}
 </select>
 
-<style>
+<style lang="less">
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   select {
     height: 36px;
     text-align: center;
     width: fit-content;
+    background-color: @indigo;
+    color: contrast($background-color);
+  }
+
+  select:hover {
+    background-color: lighten(@indigo, 5%);
+    color: contrast($background-color);
+  }
+
+  select:active {
+    background-color: lighten(@indigo, 10%);
+    color: contrast($background-color);
   }
 </style>

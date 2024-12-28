@@ -27,7 +27,10 @@
   <span transition:fade={{ duration: 250 }} role="tooltip" {id}>{title}</span>
 {/if}
 
-<style>
+<style lang="less">
+  @import '../../../style/palette';
+  @import '../../../style/positioning';
+
   button {
     background: none;
     padding: 0;
@@ -38,12 +41,12 @@
     position: fixed;
     padding: 5px;
     max-width: 15em;
-    border-radius: var(--border-radius);
+    border-radius: @border-radius;
     text-align: justify;
-    transform: translateY(calc(50% + 34px / 2 + var(--padding-length))) translateX(-50%);
+    transform: translateY(calc(50% + 34px / 2 + @padding-length)) translateX(-50%);
 
     /* Palette */
-    background: var(--accent);
-    color: var(--primary-darkest);
+    background-color: @riptide;
+    color: contrast($background-color);
   }
 </style>

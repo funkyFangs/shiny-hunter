@@ -325,11 +325,15 @@
   {/if}
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/animation';
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   #tracker-view {
-    background-color: var(--primary-medium);
-    padding: var(--gap-length);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    background-color: @dark-indigo;
+    padding: @gap-length;
+    border-radius: 0 0 @border-radius @border-radius;
     display: grid;
     grid-auto-columns: min-content auto min-content;
   }
@@ -340,9 +344,9 @@
   }
 
   #tabs {
-    background-color: var(--primary-darker);
-    padding: var(--padding-length);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    background-color: @shark;
+    padding: @padding-length;
+    border-radius: @border-radius @border-radius 0 0;
     min-height: 28px;
   }
 
@@ -354,52 +358,51 @@
   [role='tablist'] {
     display: flex;
     flex-direction: row;
-    gap: var(--padding-length);
+    gap: @padding-length;
   }
 
   [role='tab'] {
     max-width: 130px;
     width: 100%;
-    color: var(--font-color);
-    border-radius: var(--border-radius);
-    padding: var(--padding-length);
+    color: white;
+    border-radius: @border-radius;
+    padding: @padding-length;
     cursor: pointer;
   }
 
   [role='tab'][aria-selected='true'] {
-    background-color: var(--primary-medium);
+    background-color: @dark-asparagus;
+    color: contrast($background-color);
   }
 
+  #create-tracker.hoverable,
   [role='tab'][aria-selected='false'].hoverable {
     background: none;
   }
 
   [role='tab'][aria-selected='false'].hoverable:hover,
-  [role='tab'][aria-selected='false']:not(.hoverable) {
-    background-color: var(--primary-dark);
+  [role='tab'][aria-selected='false']:not(.hoverable),
+  #create-tracker.hoverable:hover,
+  #create-tracker:not(.hoverable) {
+    background-color: @darkest-asparagus;
+    color: contrast($background-color);
+  }
+
+  [role='tab'],
+  #create-tracker {
+    transition-property: background-color;
+    transition-duration: @transition-duration;
+    transition-timing-function: @transition-timing-function;
   }
 
   #create-tracker {
-    color: var(--font-color);
-  }
-
-  #create-tracker.hoverable {
-    background: none;
-  }
-
-  #create-tracker.hoverable:hover,
-  #create-tracker:not(.hoverable) {
-    background-color: var(--primary-dark);
-  }
-
-  #create-tracker:active:hover {
-    background-color: var(--primary-medium);
+    color: white;
   }
 
   [role='tabpanel'] {
     display: flex;
     flex-direction: column;
-    gap: var(--padding-length);
+    gap: @padding-length;
   }
 
   [role='tabpanel'] > * {
@@ -420,11 +423,11 @@
   .tracker-menu-control {
     background: none;
     width: 100%;
-    padding: var(--gap-length);
+    padding: @gap-length;
     text-align: left;
   }
 
-  .unselectable {
-    user-select: none;
+  span {
+    color: contrast(@darker-indigo);
   }
 </style>

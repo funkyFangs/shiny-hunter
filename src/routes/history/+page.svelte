@@ -169,11 +169,19 @@
   {/if}
 </div>
 
-<style>
+<style lang="less">
+  @import '../../style/positioning';
+  @import '../../style/palette';
+
+  h1,
+  p {
+    color: contrast(@indigo);
+  }
+
   #history {
     display: flex;
     flex-direction: column;
-    gap: var(--padding-length);
+    gap: @padding-length;
   }
 
   #records {
@@ -187,16 +195,17 @@
 
   #records > tbody > tr:hover,
   tr[aria-selected='true'] {
-    background-color: var(--primary-light);
+    background-color: @asparagus;
+    color: contrast($background-color);
   }
 
   #record-details {
-    padding: var(--gap-length);
-    background-color: var(--primary-darker);
-    border-radius: var(--border-radius);
+    padding: @gap-length;
+    background-color: @shark;
+    border-radius: @border-radius;
     display: grid;
     grid-template-columns: min-content auto min-content;
-    row-gap: var(--gap-length);
+    row-gap: @gap-length;
     align-items: center;
   }
 
@@ -225,7 +234,7 @@
   .record-menu-control {
     background: none;
     width: 100%;
-    padding: var(--gap-length);
+    padding: @gap-length;
     text-align: left;
   }
 </style>

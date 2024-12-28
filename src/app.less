@@ -2,10 +2,11 @@
  *  Global                                                                                     *
 \* ============================================================================================ */
 
-:root {
-  /* Transitions */
-  --transition-duration: 0.2s;
+@import 'style/animation';
+@import 'style/palette';
+@import 'style/positioning';
 
+:root {
   /* Palette */
   --primary-darkest: black;
   --primary-darker: #17252b;
@@ -22,19 +23,15 @@
   --success: #38c750;
 
   /* Positioning */
-  --top-bar-height: 60px;
-  --side-bar-width: min(375px, 100vw);
-  --gap-length: 15px;
   --border-radius: 8px;
   --padding-length: 5px;
 }
 
 body {
+  background-color: @indigo;
+
   /* Positioning */
   margin: 0;
-
-  /* Palette */
-  background-color: var(--primary-lighter);
 }
 
 *:disabled {
@@ -67,106 +64,59 @@ tr {
   font-optical-sizing: auto;
 }
 
-/* ============================================================================================ *\
- *  Text                                                                                        *
-\* ============================================================================================ */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-textarea,
-span,
-p,
-li,
-label,
-td,
-th,
-tr {
-  /* Palette */
-  color: var(--font-color);
+.unselectable {
+  user-select: none;
 }
 
 /* ============================================================================================ *\
  *  Buttons                                                                                     *
 \* ============================================================================================ */
 
-button,
-button.primary-button {
-  /* Transitions */
-  transition-property: background-color;
-  transition-duration: var(--transition-duration);
-  transition-timing-function: ease-in-out;
-
-  /* Positioning */
-  padding: var(--padding-length);
-
-  /* Decoration */
-  border: none;
-  border-radius: var(--border-radius);
-
-  /* Palette */
-  color: var(--primary-darkest);
-}
-
+select,
 button {
-  /* Palette */
-  background-color: var(--font-color);
-}
-
-button.primary-button {
-  /* Palette */
-  background-color: var(--accent);
-}
-
-button:disabled {
-  /* Transitions */
-  transition-property: background-color;
-  transition-duration: var(--transition-duration);
-  transition-timing-function: ease-in-out;
-
-  /* Palette */
-  color: var(--font-color);
-  background-color: var(--primary-lighter) !important;
-}
-
-button:hover,
-button.primary-button:hover {
-  /* Transitions */
-  transition-property: background-color;
-  transition-duration: var(--transition-duration);
-  transition-timing-function: ease-in-out;
+  /* Positioning */
+  padding: @padding-length;
 
   /* Decoration */
   cursor: pointer;
+  border: none;
+  border-radius: @border-radius;
 }
 
+input,
+select,
+button,
+input:hover,
+select:hover,
 button:hover {
-  /* Palette */
-  background-color: var(--accent);
-}
-
-button.primary-button:hover {
-  /* Palette */
-  background-color: var(--font-color);
-}
-
-button:active,
-button.primary-button:active {
   /* Transitions */
-  transition-property: none;
+  transition-property: background-color;
+  transition-duration: @transition-duration;
+  transition-timing-function: @transition-timing-function;
 }
 
-button.primary-button:active {
-  /* Palette */
-  background-color: var(--accent);
-}
-
+input:disabled,
+select:disabled,
+button:disabled,
+input:active,
+select:active,
 button:active {
-  /* Palette */
-  background-color: var(--font-color);
+  /* Transitions */
+  transition: none;
+}
+
+a,
+a:hover {
+  /* Transitions */
+  transition-property: color;
+  transition-duration: @transition-duration;
+  transition-timing-function: @transition-timing-function;
+}
+
+a:active,
+a:disabled {
+  /* Transitions */
+  transition: none;
 }
 
 /* ============================================================================================ *\
@@ -175,19 +125,11 @@ button:active {
 
 input {
   /* Positioning */
-  padding: var(--padding-length);
+  padding: @padding-length;
 
   /* Decoration */
   border: none;
-  border-radius: var(--border-radius);
-
-  /* Palette */
-  color: var(--primary-darkest);
-  background-color: var(--font-color);
-}
-
-input:disabled {
-  background-color: var(--primary-lighter) !important;
+  border-radius: @border-radius;
 }
 
 /* ============================================================================================ *\
@@ -196,14 +138,12 @@ input:disabled {
 
 select {
   /* Positioning */
-  padding: var(--padding-length);
+  padding: @padding-length;
 
   /* Decoration */
   border: none;
-  border-radius: var(--border-radius);
-
-  /* Palette */
-  background-color: var(--font-color);
+  border-radius: @border-radius;
+  cursor: pointer;
 }
 
 /* ============================================================================================ *\
@@ -217,15 +157,6 @@ a {
 
   /* Decoration */
   text-decoration: none;
-
-  /* Palette */
-  color: var(--font-color);
-}
-
-a:hover,
-a:hover > * {
-  /* Palette */
-  color: var(--accent);
 }
 
 /* ============================================================================================ *\
@@ -240,11 +171,8 @@ a:hover > * {
 .help:hover {
   /* Transition */
   transition-property: color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-
-  /* Palette */
-  color: var(--accent);
+  transition-duration: @transition-duration;
+  transition-timing-function: @transition-timing-function;
 }
 
 /* ============================================================================================ *\
@@ -256,73 +184,27 @@ table {
   border-style: hidden;
   border-collapse: separate;
   text-align: center;
-  border-radius: var(--border-radius);
+  border-radius: @border-radius;
   overflow: hidden;
   table-layout: fixed;
 }
 
 thead > tr {
-  background-color: var(--primary-darker);
+  background-color: @shark;
+  color: contrast($background-color);
 }
 
 tbody > tr:nth-of-type(odd) {
-  background-color: var(--primary-dark);
+  background-color: @darkest-indigo;
+  color: contrast($background-color);
 }
 
 tbody > tr:nth-of-type(even) {
-  background-color: var(--primary-medium);
+  background-color: @darker-indigo;
+  color: contrast($background-color);
 }
 
 th,
 td {
-  padding: var(--padding-length);
-}
-
-/* ============================================================================================ *\
- *  Functional Palettes                                                                         *
-\* ============================================================================================ */
-
-span.info,
-span.success,
-span.warning,
-span.error {
-  padding: 2px;
-  cursor: help;
-  min-width: 32px;
-  display: inline-block;
-  border-radius: var(--border-radius);
-  font-size: 22px;
-}
-
-span.info {
-  background-color: var(--info);
-}
-
-span.success {
-  background-color: var(--success);
-}
-
-span.warning {
-  color: var(--primary-darkest);
-  background-color: var(--warning);
-}
-
-span.error {
-  background-color: var(--error);
-}
-
-/* ============================================================================================ *\
- *  Anchors                                                                                     *
-\* ============================================================================================ */
-
-a {
-  color: var(--accent);
-}
-
-a:hover {
-  color: var(--font-color);
-}
-
-a:active {
-  color: var(--accent);
+  padding: @padding-length;
 }

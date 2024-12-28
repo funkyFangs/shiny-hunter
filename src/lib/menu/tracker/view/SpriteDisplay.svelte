@@ -114,11 +114,14 @@
   {/if}
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/palette';
+  @import '../../../../style/positioning';
+
   .sprite-root {
     display: flex;
     flex-direction: row;
-    gap: var(--padding-length);
+    gap: @padding-length;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -129,10 +132,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--gap-length);
-    background: var(--primary-dark);
-    padding: var(--padding-length);
-    border-radius: var(--border-radius);
+    gap: @gap-length;
+    background-color: desaturate(@darker-indigo, 25%);
+    color: contrast($background-color);
+    padding: @padding-length;
+    border-radius: @border-radius;
     width: 100%;
   }
 
@@ -142,7 +146,7 @@
     max-width: 350px;
     width: 100%;
     object-fit: contain;
-    border-radius: var(--border-radius);
+    border-radius: @border-radius;
   }
 
   label {

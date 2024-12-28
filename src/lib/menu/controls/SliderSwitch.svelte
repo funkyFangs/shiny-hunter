@@ -2,9 +2,9 @@
   export let checked = false
   export let id: string | undefined = undefined
   export let offText: string = ''
-  export let offColor: string = 'var(--primary-darker)'
+  export let offColor: string = '#1F2123'
   export let onText: string = ''
-  export let onColor: string = 'var(--primary-lighter)'
+  export let onColor: string = '#4875C6'
 
   $: backgroundColor = checked ? onColor : offColor
 </script>
@@ -21,16 +21,31 @@
   <span>{checked ? onText : offText}</span>
 </button>
 
-<style>
+<style lang="less">
+  @import '../../../style/animation';
+  @import '../../../style/palette';
+  @import '../../../style/positioning';
+
   [role='switch'] {
     width: 3rem;
     cursor: pointer;
-    background-color: var(--primary-darker);
-    padding: var(--padding-length);
+    background-color: @shark;
+    padding: @padding-length;
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
-    transition: background-color 0.25s ease-out;
+
+    span {
+      border-radius: 50%;
+      background-color: white;
+      transition: background-color @transition-duration @transition-timing-function;
+      color: black;
+      width: 1.5em;
+      height: 1.5em;
+      display: inline-block;
+      text-align: center;
+      user-select: none;
+    }
   }
 
   [role='switch'][aria-checked='true'] {
@@ -41,14 +56,7 @@
     justify-content: left;
   }
 
-  span {
-    border-radius: 50%;
-    background-color: var(--font-color);
-    color: var(--primary-darkest);
-    width: 1.5em;
-    height: 1.5em;
-    display: inline-block;
-    text-align: center;
-    user-select: none;
+  [role='switch']:hover > span {
+    background-color: @riptide;
   }
 </style>

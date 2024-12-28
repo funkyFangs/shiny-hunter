@@ -24,13 +24,19 @@
   {/if}
 </div>
 
-<style>
+<style lang="less">
+  @import '../../../../style/positioning';
+
   div {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-length);
+    gap: @gap-length;
     align-items: center;
     justify-content: center;
+  }
+
+  span {
+    color: white;
   }
 
   .pokemon-species {
