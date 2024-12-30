@@ -24,7 +24,7 @@
   @import '../../style/positioning';
 
   footer {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: @top-bar-height;
     bottom: 0;

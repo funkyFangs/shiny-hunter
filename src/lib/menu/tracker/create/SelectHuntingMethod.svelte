@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { getSupportedHuntingMethods, getToolTip, HuntingMethod } from '$lib/api/HuntingMethod.js'
-  import ToolTip from '$lib/menu/controls/ToolTip.svelte'
+  import { getSupportedHuntingMethods, HuntingMethod } from '$lib/api/HuntingMethod.js'
   import type { Generation } from '$lib/api/GenerationResource'
   import type { VersionGroup } from '$lib/api/VersionGroupResource'
   import type { Version } from '$lib/api/VersionResource'
@@ -46,12 +45,6 @@
       {/each}
     </select>
   {/if}
-
-  {#if selectedHuntingMethod}
-    <ToolTip title={getToolTip(selectedHuntingMethod)}>
-      <span class="info">i</span>
-    </ToolTip>
-  {/if}
 </div>
 
 <style lang="less">
@@ -71,15 +64,20 @@
     text-align: center;
     background-color: @indigo;
     color: contrast($background-color);
-  }
 
-  select:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
-  }
+    &:hover {
+      background-color: lighten(@indigo, 5%);
+      color: contrast($background-color);
+    }
 
-  select:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    &:active {
+      background-color: lighten(@indigo, 10%);
+      color: contrast($background-color);
+    }
+
+    &:disabled {
+      background-color: desaturate(@indigo, 25%);
+      color: contrast($background-color);
+    }
   }
 </style>

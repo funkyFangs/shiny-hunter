@@ -64,7 +64,7 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 
   header {
     /* Positioning */
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: @top-bar-height;
     top: 0;

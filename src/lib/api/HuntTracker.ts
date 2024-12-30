@@ -15,6 +15,8 @@ export interface HuntTracker {
     max: number
   }
   complete: boolean
+  startDate?: string
+  endDate?: string
 
   // Shiny Rates
   method: HuntingMethod
@@ -25,7 +27,7 @@ export interface HuntTracker {
   versionGroup?: string
   version: string
 
-  // Pokemon Details
+  // Pokémon Details
   pokemonSpecies: string
   pokemon?: string
   pokemonForm?: string

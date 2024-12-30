@@ -6,27 +6,6 @@
 @import 'style/palette';
 @import 'style/positioning';
 
-:root {
-  /* Palette */
-  --primary-darkest: black;
-  --primary-darker: #17252b;
-  --primary-dark: #25353d;
-  --primary-medium: #2f4550;
-  --primary-light: #3f606e;
-  --primary-lighter: #586f7c;
-  --font-color: #f4f4f9;
-  --accent: #b8d8d9;
-
-  --error: #a84432;
-  --info: #4a6af7;
-  --warning: #fcc81c;
-  --success: #38c750;
-
-  /* Positioning */
-  --border-radius: 8px;
-  --padding-length: 5px;
-}
-
 body {
   background-color: @indigo;
 
@@ -68,6 +47,10 @@ tr {
   user-select: none;
 }
 
+.invisible {
+  display: none;
+}
+
 /* ============================================================================================ *\
  *  Buttons                                                                                     *
 \* ============================================================================================ */
@@ -85,38 +68,20 @@ button {
 
 input,
 select,
-button,
-input:hover,
-select:hover,
-button:hover {
-  /* Transitions */
-  transition-property: background-color;
-  transition-duration: @transition-duration;
-  transition-timing-function: @transition-timing-function;
-}
+button {
+  &,
+  &:hover {
+    /* Transitions */
+    transition-property: background-color;
+    transition-duration: @transition-duration;
+    transition-timing-function: @transition-timing-function;
+  }
 
-input:disabled,
-select:disabled,
-button:disabled,
-input:active,
-select:active,
-button:active {
-  /* Transitions */
-  transition: none;
-}
-
-a,
-a:hover {
-  /* Transitions */
-  transition-property: color;
-  transition-duration: @transition-duration;
-  transition-timing-function: @transition-timing-function;
-}
-
-a:active,
-a:disabled {
-  /* Transitions */
-  transition: none;
+  &:active,
+  &:disabled {
+    /* Transitions */
+    transition: none;
+  }
 }
 
 /* ============================================================================================ *\
@@ -157,22 +122,20 @@ a {
 
   /* Decoration */
   text-decoration: none;
-}
 
-/* ============================================================================================ *\
- *  Help                                                                                        *
-\* ============================================================================================ */
+  &,
+  &:hover {
+    /* Transitions */
+    transition-property: color;
+    transition-duration: @transition-duration;
+    transition-timing-function: @transition-timing-function;
+  }
 
-.help {
-  /* Cursor */
-  cursor: help;
-}
-
-.help:hover {
-  /* Transition */
-  transition-property: color;
-  transition-duration: @transition-duration;
-  transition-timing-function: @transition-timing-function;
+  &:active,
+  &:disabled {
+    /* Transitions */
+    transition: none;
+  }
 }
 
 /* ============================================================================================ *\
@@ -187,21 +150,31 @@ table {
   border-radius: @border-radius;
   overflow: hidden;
   table-layout: fixed;
-}
 
-thead > tr {
-  background-color: @shark;
-  color: contrast($background-color);
-}
+  > thead > tr {
+    background-color: @shark;
+    color: contrast($background-color);
 
-tbody > tr:nth-of-type(odd) {
-  background-color: @darkest-indigo;
-  color: contrast($background-color);
-}
+    > th {
+      font-weight: bold;
+    }
+  }
 
-tbody > tr:nth-of-type(even) {
-  background-color: @darker-indigo;
-  color: contrast($background-color);
+  > tbody {
+    > tr > th {
+      font-weight: bold;
+    }
+
+    > tr:nth-of-type(odd) {
+      background-color: @darkest-indigo;
+      color: contrast($background-color);
+    }
+
+    > tr:nth-of-type(even) {
+      background-color: @darker-indigo;
+      color: contrast($background-color);
+    }
+  }
 }
 
 th,

@@ -106,7 +106,6 @@
     padding: calc(@top-bar-height + @gap-length) @gap-length;
     margin: auto;
     max-width: 1500px;
-    max-height: calc(100vh - 2 * @top-bar-height);
   }
 
   main > div {
