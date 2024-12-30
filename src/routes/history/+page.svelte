@@ -52,6 +52,34 @@
     }
   }
 
+  function getElapsedTime(startDate: Date, endDate: Date) {
+    const startDateUTC = Date.UTC(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+      startDate.getHours(),
+      startDate.getMinutes(),
+      startDate.getSeconds()
+    )
+    const endDateUTC = Date.UTC(
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      endDate.getDate(),
+      endDate.getHours(),
+      endDate.getMinutes(),
+      endDate.getSeconds()
+    )
+
+    const difference = endDateUTC - startDateUTC
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    const hours = Math.floor(difference / (1000 * 60 * 60)) % 24
+    const minutes = Math.floor(difference / (1000 * 60)) % 60
+    const seconds = Math.floor(difference / 1000) % 60
+
+    return `${days} days, ${hours} hours, ${minutes} minutes, & ${seconds} seconds`
+  }
+
   let selectedRecordIndex = $state(-1)
   let selectedRecord = $derived($history[selectedRecordIndex])
   let menuOpen = $state(false)
@@ -156,6 +184,23 @@
               <tr>
                 <th scope="row">{getMaxChainHeader(selectedRecord)}</th>
                 <td>{getMaxChain(selectedRecord)}</td>
+              </tr>
+            {/if}
+            {#if selectedRecord.startDate !== undefined && selectedRecord.endDate !== undefined}
+              {@const startDate = new Date(selectedRecord.startDate)}
+              {@const endDate = new Date(selectedRecord.endDate)}
+
+              <tr>
+                <th scope="row">Start Date</th>
+                <td>{startDate.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <th scope="row">End Date</th>
+                <td>{endDate.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <th scope="row">Elapsed Time</th>
+                <td>{getElapsedTime(startDate, endDate)}</td>
               </tr>
             {/if}
           </tbody>

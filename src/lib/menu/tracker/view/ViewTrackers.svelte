@@ -60,12 +60,27 @@
   }
 
   function deleteTracker(index: number, huntTracker: HuntTracker) {
-    history.update((history) => [...history, huntTracker])
+    const currentSelectedTrackerIndex = $selectedTrackerIndex
+    const currentSelectedTracker = $huntTrackers[currentSelectedTrackerIndex]
+
     huntTrackers.update((huntTrackers) => [
       ...huntTrackers.slice(0, index),
       ...huntTrackers.slice(index + 1)
     ])
-    selectedTrackerIndex.update((selectedTrackerIndex) => Math.max(selectedTrackerIndex - 1, 0))
+
+    selectedTrackerIndex.set(
+      index === currentSelectedTrackerIndex
+        ? Math.max(index - 1, 0)
+        : $huntTrackers.indexOf(currentSelectedTracker)
+    )
+
+    history.update((history) => [
+      ...history,
+      {
+        ...huntTracker,
+        endDate: new Date().toISOString()
+      }
+    ])
   }
 
   function closeTracker(index: number, huntTracker: HuntTracker = $huntTrackers[index]) {
@@ -76,10 +91,9 @@
     return confirmed
   }
 
-  function closeTrackerFromMenu() {
-    if (closeTracker($selectedTrackerIndex)) {
-      kebabMenuOpen = false
-    }
+  function closeTrackerFromButton(event: MouseEvent, index: number) {
+    event.stopPropagation()
+    closeTracker(index)
   }
 
   function createTracker() {
@@ -119,6 +133,7 @@
             }
           : undefined,
         complete: false,
+        startDate: new Date().toISOString(),
         method: createdHuntTracker.method,
         generation: createdHuntTracker.generation,
         versionGroup: createdHuntTracker.versionGroup,
@@ -189,6 +204,14 @@
 
   function onTabDragOver(event: DragEvent) {
     event.preventDefault()
+
+    const clientX = event.x
+    const tabsToShift = tabs
+      .map((tab) => tab.getBoundingClientRect())
+      .map((box, index) => (box.x + box.width / 2 > clientX ? index : -1))
+      .filter((index) => index >= 0)
+
+    console.log(tabsToShift)
   }
 
   function onTabDrop(event: DragEvent) {
@@ -215,7 +238,7 @@
   let kebabMenuOpen = false
 </script>
 
-<div id="tabs">
+<div id="tabs-container">
   <div
     role="tablist"
     aria-label="Hunt Tracker Tabs"
@@ -238,6 +261,11 @@
         bind:this={tabs[index]}
       >
         <span class="unselectable">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
+        <button
+          class="close-tracker-button"
+          class:hoverable={Device.canHover}
+          on:click={(event) => closeTrackerFromButton(event, index)}>&times;</button
+        >
       </div>
     {/each}
   </div>
@@ -258,9 +286,6 @@
       <CreateTracker {generations} created={onTrackerCreated} />
     </div>
   {:else if $huntTrackers.length > 0}
-    {#snippet closeTrackerSnippet()}
-      <button class="tracker-menu-control" on:click={closeTrackerFromMenu}>Close Tracker</button>
-    {/snippet}
     {#snippet completeHuntSnippet()}
       <button class="tracker-menu-control" on:click={completeHunt}>Complete Hunt</button>
     {/snippet}
@@ -271,7 +296,7 @@
         title="Tracker Menu"
         ariaLabel="The button to open a menu of controls for managing this hunt tracker"
         ariaControls="tracker-menu"
-        menuControls={[closeTrackerSnippet, completeHuntSnippet]}
+        menuControls={[completeHuntSnippet]}
       />
     </div>
 
@@ -321,7 +346,7 @@
       </div>
     {/each}
   {:else}
-    <span>You aren't tracking anything! Create a tracker to get started.</span>
+    <span id="notice">You aren't tracking anything! Create a tracker to get started.</span>
   {/if}
 </div>
 
@@ -336,82 +361,41 @@
     border-radius: 0 0 @border-radius @border-radius;
     display: grid;
     grid-auto-columns: min-content auto min-content;
+
+    > * {
+      grid-column: 1 / 4;
+      grid-row: 1;
+    }
   }
 
-  #tracker-view > * {
-    grid-column: 1 / 4;
-    grid-row: 1;
-  }
-
-  #tabs {
+  #tabs-container {
     background-color: @shark;
     padding: @padding-length;
     border-radius: @border-radius @border-radius 0 0;
-    min-height: 28px;
+    min-height: 38px;
   }
 
   [role='tablist'] {
+    flex: 1;
     overflow: scroll;
   }
 
-  #tabs,
+  #tabs-container,
   [role='tablist'] {
     display: flex;
     flex-direction: row;
     gap: @padding-length;
   }
 
-  [role='tab'] {
-    max-width: 130px;
-    width: 100%;
-    color: white;
-    border-radius: @border-radius;
-    padding: @padding-length;
-    cursor: pointer;
-  }
-
-  [role='tab'][aria-selected='true'] {
-    background-color: @dark-asparagus;
-    color: contrast($background-color);
-  }
-
-  #create-tracker.hoverable,
-  [role='tab'][aria-selected='false'].hoverable {
-    background: none;
-  }
-
-  [role='tab'][aria-selected='false'].hoverable:hover,
-  [role='tab'][aria-selected='false']:not(.hoverable),
-  #create-tracker.hoverable:hover,
-  #create-tracker:not(.hoverable) {
-    background-color: @darkest-asparagus;
-    color: contrast($background-color);
-  }
-
-  [role='tab'],
-  #create-tracker {
-    transition-property: background-color;
-    transition-duration: @transition-duration;
-    transition-timing-function: @transition-timing-function;
-  }
-
-  #create-tracker {
-    color: white;
-  }
-
   [role='tabpanel'] {
     display: flex;
     flex-direction: column;
     gap: @padding-length;
-  }
 
-  [role='tabpanel'] > * {
-    width: 100%;
-    text-align: center;
-  }
-
-  .invisible {
-    display: none;
+    > * {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   #tracker-menu {
@@ -427,7 +411,111 @@
     text-align: left;
   }
 
-  span {
-    color: contrast(@darker-indigo);
+  [role='tab'] {
+    max-width: 130px;
+    min-width: 90px;
+    color: white;
+    border-radius: @border-radius;
+    padding: @padding-length;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    flex: 1 28px;
+    gap: @padding-length;
+    transition-property: background-color;
+    transition-duration: @transition-duration;
+    transition-timing-function: @transition-timing-function;
+
+    > span {
+      overflow: hidden;
+      text-wrap: nowrap;
+    }
+
+    &[aria-selected='false'] {
+      /* Display tab background on hover or if the device cannot hover */
+      &.hoverable {
+        background: none;
+      }
+
+      &.hoverable:hover,
+      &:not(.hoverable) {
+        background-color: @darkest-asparagus;
+        color: contrast($background-color);
+      }
+
+      /* Display close tab button background on hover or if the device cannot hover */
+      > .close-tracker-button {
+        &.hoverable:hover:not(:active),
+        &:not(.hoverable) {
+          background-color: @darker-asparagus;
+          color: contrast($background-color);
+        }
+
+        &:active {
+          background-color: @dark-asparagus;
+          color: contrast($background-color);
+        }
+      }
+    }
+
+    &[aria-selected='true'] {
+      background-color: @dark-asparagus;
+      color: contrast($background-color);
+
+      > .close-tracker-button {
+        &.hoverable:hover:not(:active),
+        &:not(.hoverable) {
+          background-color: darken(@asparagus, 5%);
+          color: contrast($background-color);
+        }
+
+        &:active {
+          background-color: @asparagus;
+          color: contrast($background-color);
+        }
+      }
+    }
+  }
+
+  #create-tracker {
+    font-size: 25px;
+    min-width: 38px;
+    min-height: 38px;
+
+    &.hoverable:hover:not(:active),
+    &:not(.hoverable) {
+      background-color: @darker-asparagus;
+      color: contrast($background-color);
+    }
+
+    &:active {
+      background-color: @dark-asparagus;
+      color: contrast($background-color);
+    }
+  }
+
+  .close-tracker-button {
+    font-size: 20.5px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  #create-tracker,
+  .close-tracker-button {
+    background: none;
+    color: white;
+    text-align: center;
+    border-radius: @border-radius;
+    padding: 0;
+  }
+
+  .invisible {
+    display: none;
+  }
+
+  #notice {
+    color: white;
   }
 </style>
