@@ -3,47 +3,63 @@
   import {
     formatPokemonSpeciesName,
     getPokemonSpecies,
+    getPokemonSpeciesList,
     type PokemonSpecies
   } from '$lib/api/PokemonSpeciesResource'
-  import { onDestroy } from 'svelte'
-  import { writable } from 'svelte/store'
+  import type { VersionGroup } from '$lib/api/VersionGroupResource'
 
-  export let generations: Generation[]
-  export let generation: Generation
-  export let id: string = 'pokemon-species'
-  export let selectedPokemonSpecies: PokemonSpecies | undefined
+  let {
+    generations,
+    selectedGeneration,
+    selectedVersionGroup,
+    id = 'pokemon-species',
+    selectPokemonSpecies
+  }: {
+    generations: Generation[]
+    selectedGeneration: Generation
+    selectedVersionGroup: VersionGroup
+    id: string
+    selectPokemonSpecies: (pokemonSpecies: PokemonSpecies | undefined) => void
+  } = $props()
 
-  const pokemonSpeciesNameToPokemonSpecies: {
+  let selectedPokemonSpeciesName = $state('')
+  let pokemonSpeciesList = $derived(
+    getPokemonSpeciesList(generations, selectedGeneration, selectedVersionGroup)
+  )
+  let pokemonSpeciesNameToPokemonSpecies: {
     [pokemonSpeciesName: string]: PokemonSpecies | { name: string }
-  } = Object.fromEntries(
-    generations.flatMap((generation) =>
-      generation.pokemonSpecies.map((pokemonSpecies) => [
-        formatPokemonSpeciesName(pokemonSpecies.name),
-        pokemonSpecies
-      ])
+  } = $derived(
+    Object.fromEntries(
+      generations.flatMap((generation) =>
+        generation.pokemonSpecies.map((pokemonSpecies) => [
+          formatPokemonSpeciesName(pokemonSpecies.name),
+          pokemonSpecies
+        ])
+      )
     )
   )
 
-  const selectedPokemonSpeciesName = writable('')
-  const unsubscribe = selectedPokemonSpeciesName.subscribe(async (pokemonSpeciesName) => {
-    const pokemonSpecies = pokemonSpeciesNameToPokemonSpecies[pokemonSpeciesName]
-    selectedPokemonSpecies = pokemonSpecies
-      ? 'varieties' in pokemonSpecies
-        ? pokemonSpecies
-        : await getPokemonSpecies(pokemonSpecies.name)
-      : undefined
-  })
+  $effect(() => {
+    if (pokemonSpeciesList.includes(selectedPokemonSpeciesName)) {
+      const pokemonSpecies = pokemonSpeciesNameToPokemonSpecies[selectedPokemonSpeciesName]
 
-  onDestroy(() => {
-    unsubscribe()
+      // Simple heuristic to determine if the full Pokemon species object is present
+      if ('varieties' in pokemonSpecies) {
+        selectPokemonSpecies(pokemonSpecies)
+      }
+      // Otherwise, fetch the Pokemon and load it
+      else {
+        getPokemonSpecies(pokemonSpecies.name).then((pokemonSpecies) =>
+          selectPokemonSpecies(pokemonSpecies)
+        )
+      }
+    }
   })
 </script>
 
 <datalist id="pokemon-species-list">
-  {#each generations
-    .filter((_, index) => index < generation.id)
-    .flatMap((generation) => generation.pokemonSpecies) as pokemonSpecies}
-    <option>{formatPokemonSpeciesName(pokemonSpecies.name)}</option>
+  {#each pokemonSpeciesList as pokemonSpecies}
+    <option>{formatPokemonSpeciesName(pokemonSpecies)}</option>
   {/each}
 </datalist>
 
@@ -53,7 +69,7 @@
   type="search"
   list="pokemon-species-list"
   aria-autocomplete="list"
-  bind:value={$selectedPokemonSpeciesName}
+  bind:value={selectedPokemonSpeciesName}
 />
 
 <style lang="less">

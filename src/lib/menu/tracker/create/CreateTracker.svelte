@@ -122,8 +122,9 @@
     <SelectPokemonSpecies
       id="pokemon-species"
       {generations}
-      generation={selectedGeneration}
-      bind:selectedPokemonSpecies
+      {selectedGeneration}
+      {selectedVersionGroup}
+      selectPokemonSpecies={(pokemonSpecies) => (selectedPokemonSpecies = pokemonSpecies)}
     />
 
     {#if selectedPokemonSpecies}

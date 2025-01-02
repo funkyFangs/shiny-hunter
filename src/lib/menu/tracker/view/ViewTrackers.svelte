@@ -8,7 +8,7 @@
   import type { Writable } from 'svelte/store'
   import TrackerCounter from '$lib/menu/tracker/counters/TrackerCounter.svelte'
   import type { SpritePreference } from '$lib/menu/SpritePreference'
-  import SpriteDisplay from '$lib/menu/tracker/view/SpriteDisplay.svelte'
+  import SpriteDisplay from '$lib/menu/tracker/view/sprites/SpriteDisplay.svelte'
   import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
   import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
   import Device from 'svelte-device-info'
@@ -204,14 +204,6 @@
 
   function onTabDragOver(event: DragEvent) {
     event.preventDefault()
-
-    const clientX = event.x
-    const tabsToShift = tabs
-      .map((tab) => tab.getBoundingClientRect())
-      .map((box, index) => (box.x + box.width / 2 > clientX ? index : -1))
-      .filter((index) => index >= 0)
-
-    console.log(tabsToShift)
   }
 
   function onTabDrop(event: DragEvent) {
