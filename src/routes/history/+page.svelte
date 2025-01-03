@@ -115,7 +115,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each $history as record, index (JSON.stringify(record))}
+        {#each $history as record, index (record.id)}
           <tr
             onclick={() => selectRecord(index)}
             aria-selected={index === selectedRecordIndex}

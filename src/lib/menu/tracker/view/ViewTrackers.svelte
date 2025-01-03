@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { flip } from 'svelte/animate'
   import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource.js'
   import { formatVersionName } from '$lib/api/VersionResource.js'
   import { type CreatedHuntTracker } from '$lib/api/HuntTracker.js'
@@ -18,6 +19,7 @@
   export let history: Writable<HuntTracker[]>
   export let selectedTrackerIndex: Writable<number>
   export let spritePreference: SpritePreference
+  export let nextId: Writable<number>
   export let showNormal: boolean
   export let generations: Generation[] = []
 
@@ -90,7 +92,10 @@
       ])
     )
 
-    huntTrackers.update((huntTrackers) => [...huntTrackers, newHuntTracker(createdHuntTracker)])
+    huntTrackers.update((huntTrackers) => [
+      ...huntTrackers,
+      newHuntTracker(createdHuntTracker, nextId)
+    ])
 
     creatingTracker = false
   }
@@ -167,7 +172,7 @@
     on:dragover={onTabDragOver}
     on:drop={onTabDrop}
   >
-    {#each $huntTrackers as huntTracker, index}
+    {#each $huntTrackers as huntTracker, index (huntTracker.id)}
       <div
         id="tab-{index + 1}"
         tabindex={index === $selectedTrackerIndex ? 0 : -1}
@@ -175,6 +180,7 @@
         aria-selected={index === $selectedTrackerIndex}
         aria-controls="tracker-{index + 1}"
         draggable="true"
+        animate:flip={{ duration: 200 }}
         class:hoverable={Device.canHover}
         on:click={selectTracker(index)}
         on:keydown={onTabKeyPress}

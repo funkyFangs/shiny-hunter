@@ -83,7 +83,8 @@ export function getSprites(
 
 export function isPixelated(huntTracker: HuntTracker, spritePreference: SpritePreference) {
   return (
-    spritePreference === SpritePreference.SHOWDOWN ||
-    !defaultsToHome(huntTracker.generation, huntTracker.versionGroup!)
+    (spritePreference !== SpritePreference.HOME &&
+      !defaultsToHome(huntTracker.generation, huntTracker.versionGroup!)) ||
+    spritePreference === SpritePreference.SHOWDOWN
   )
 }

@@ -2,6 +2,7 @@ import {
   HISTORY,
   HUNT_TRACKERS,
   type HuntTracker,
+  NEXT_ID,
   SELECTED_TRACKER_INDEX
 } from '$lib/api/HuntTracker'
 import { localStorageWritable } from '$lib/storage/StorageWritable'
@@ -12,7 +13,24 @@ import { get } from 'svelte/store'
 const GENERATION_NUMBERS = range(1, MAX_GENERATION, true)
 
 export async function load({ fetch }) {
+  const nextId = localStorageWritable<number>(NEXT_ID, 0)
   const huntTrackers = localStorageWritable<HuntTracker[]>(HUNT_TRACKERS, [])
+
+  // Give existing trackers IDs as needed
+  huntTrackers.update((huntTrackers) =>
+    huntTrackers.map((huntTracker) => {
+      if (huntTracker.id === undefined) {
+        const newTracker = {
+          ...huntTracker,
+          id: get(nextId)
+        }
+        nextId.update((id) => id + 1)
+        return newTracker
+      }
+      return huntTracker
+    })
+  )
+
   const currentHuntTrackers = get(huntTrackers)
 
   const currentTrackedPokemon = new Set(
@@ -41,6 +59,7 @@ export async function load({ fetch }) {
     huntTrackers,
     selectedTrackerIndex,
     generations,
+    nextId,
     history: localStorageWritable<HuntTracker[]>(HISTORY, [])
   }
 }

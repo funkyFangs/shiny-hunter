@@ -6,10 +6,12 @@ import type { PokemonForm } from '$lib/api/PokemonFormResource'
 export const HUNT_TRACKERS = 'huntTrackers'
 export const HISTORY = 'history'
 export const SELECTED_TRACKER_INDEX = 'selectedTrackerIndex'
+export const NEXT_ID = 'nextId'
 
 export interface HuntTracker {
   // Tracker Details
   count: number
+  id: number
   chain?: {
     current: number
     max: number

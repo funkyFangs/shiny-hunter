@@ -1,5 +1,5 @@
 import type { CreatedHuntTracker, HuntTracker } from '$lib/api/HuntTracker'
-import type { Writable } from 'svelte/store'
+import { get, type Writable } from 'svelte/store'
 import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
 
 export function moveHuntTracker(
@@ -53,8 +53,14 @@ export function focusTab(
   tabs[index]?.focus()
 }
 
-export function newHuntTracker(createdHuntTracker: CreatedHuntTracker): HuntTracker {
+export function newHuntTracker(
+  createdHuntTracker: CreatedHuntTracker,
+  nextId: Writable<number>
+): HuntTracker {
+  const id = get(nextId)
+  nextId.update((id) => id + 1)
   return {
+    id,
     count: createdHuntTracker.count,
     chain: CHAIN_HUNTING_METHODS.has(createdHuntTracker.method)
       ? {
