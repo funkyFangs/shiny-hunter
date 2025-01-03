@@ -1,65 +1,52 @@
-<!--
-@component
-# Description
-`StaticCounter` is a general-purpose component for tracking a count for shiny hunts with constant odds.
-
-## Fields
-|Field|Description|Default|Required|
-|:-:|-|:-:|:-:|
-|count|This is the current value of the counter. It is intended to be bound to other variables for further use.|`0`|No|
-|label|This describes what the count represents for display purposes.|`"Count"`|No|
-|numerator|This is the upper-half of the fraction representing the probability.|`1`|No|
-|denominator|This is the lower-half off the fraction representing the probability.|`8192`|No|
-
-## Example
-If you wanted to count the number of "attempts" with a probability of 1/2, you could declare a `StaticCounter` as follows.
-```svelte
-<StaticCounter
-  bind:count={value}
-  label="Attempts"
-  numerator={1}
-  denominator={2}
-/>
-```
--->
 <script lang="ts">
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
-  import type { Fraction } from '$lib/menu/tracker/counters/odds/Odds'
+  import type { HuntTracker } from '$lib/api/HuntTracker'
+  import { getLegendsArceusMassOutbreakOdds } from '$lib/menu/tracker/counters/odds/Odds'
 
   let {
     index,
-    count = $bindable(),
-    label = 'Count',
-    odds
+    huntTracker,
+    researchLevel = $bindable(),
+    count = $bindable()
   }: {
     index: number
+    huntTracker: HuntTracker
+    researchLevel: 'Less than 10' | '10' | 'Perfect'
     count: number
-    label: string
-    odds: Fraction
   } = $props()
 
   function incrementCount() {
     count += 1
   }
+
+  let odds = $derived(getLegendsArceusMassOutbreakOdds(huntTracker))
 </script>
 
 <div id="counter">
   <table>
     <thead>
       <tr>
-        <th scope="col"><label for="count-{index}">{label}</label></th>
+        <th scope="col"><label for="count-{index}">Encounters</label></th>
+        <th scope="col"><label for="research-level-{index}">Research Level</label></th>
         <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><input type="number" min="0" id="count-{index}" bind:value={count} /></td>
+        <td>
+          <select id="research-level-{index}" bind:value={researchLevel}>
+            {#each ['Less than 10', '10', 'Perfect'] as level}
+              <option value={level}>{level}</option>
+            {/each}
+          </select>
+        </td>
         <td><Odds id="odds-{index}" numerator={odds.numerator} denominator={odds.denominator} /></td
         >
       </tr>
     </tbody>
   </table>
-  <button onclick={incrementCount} aria-label="Increment {label}">&plus;</button>
+  <button onclick={incrementCount} aria-label="Increment Number Encountered">&plus;</button>
 </div>
 
 <style lang="less">
@@ -86,11 +73,13 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     color: contrast($background-color);
   }
 
+  select:hover,
   button:hover {
     background-color: lighten(@indigo, 5%);
     color: contrast($background-color);
   }
 
+  select:active,
   button:active {
     background-color: lighten(@indigo, 10%);
     color: contrast($background-color);
@@ -105,6 +94,11 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
     font-size: 1.1em;
     max-width: 90px;
     padding: 0;
+  }
+
+  select {
+    background-color: @indigo;
+    color: contrast($background-color);
   }
 
   input:focus-visible {

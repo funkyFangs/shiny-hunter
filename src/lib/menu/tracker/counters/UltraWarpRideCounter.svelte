@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Odds from '$lib/menu/tracker/counters/Odds.svelte'
+  import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
   import { sanitizeInteger } from '$lib/utilities/Strings'
 
   export let index: number

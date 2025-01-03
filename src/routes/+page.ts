@@ -2,45 +2,44 @@ import {
   HISTORY,
   HUNT_TRACKERS,
   type HuntTracker,
+  NEXT_ID,
   SELECTED_TRACKER_INDEX
 } from '$lib/api/HuntTracker'
 import { localStorageWritable } from '$lib/storage/StorageWritable'
 import { range } from '$lib/utilities/Arrays'
 import { type Generation, getGenerationResource, MAX_GENERATION } from '$lib/api/GenerationResource'
-import { getVersionGroup } from '$lib/api/VersionGroupResource'
-import { getPokemonSpecies } from '$lib/api/PokemonSpeciesResource'
 import { get } from 'svelte/store'
 
 const GENERATION_NUMBERS = range(1, MAX_GENERATION, true)
 
 export async function load({ fetch }) {
+  const nextId = localStorageWritable<number>(NEXT_ID, 0)
   const huntTrackers = localStorageWritable<HuntTracker[]>(HUNT_TRACKERS, [])
+
+  // Give existing trackers IDs as needed
+  huntTrackers.update((huntTrackers) =>
+    huntTrackers.map((huntTracker) => {
+      if (huntTracker.id === undefined) {
+        const newTracker = {
+          ...huntTracker,
+          id: get(nextId)
+        }
+        nextId.update((id) => id + 1)
+        return newTracker
+      }
+      return huntTracker
+    })
+  )
+
   const currentHuntTrackers = get(huntTrackers)
+
   const currentTrackedPokemon = new Set(
     currentHuntTrackers.map((huntTracker) => huntTracker!.pokemonSpecies)
   )
 
   const generations: Generation[] = await Promise.all(
     GENERATION_NUMBERS.map(async (generationNumber) =>
-      getGenerationResource(generationNumber, fetch).then(async (generationResource) => ({
-        name: generationResource.name,
-        id: generationResource.id,
-        versionGroups: await Promise.all(
-          generationResource.version_groups.map((versionGroupLinkResource) =>
-            getVersionGroup(versionGroupLinkResource.name, fetch)
-          )
-        ),
-        pokemonSpecies: await Promise.all(
-          generationResource.pokemon_species.map(async (pokemonSpeciesLinkResource) =>
-            // Only fetch full Pokémon details if it is currently being tracked to reduce load time
-            currentTrackedPokemon.has(pokemonSpeciesLinkResource.name)
-              ? await getPokemonSpecies(pokemonSpeciesLinkResource.name, fetch)
-              : {
-                  name: pokemonSpeciesLinkResource.name
-                }
-          )
-        )
-      }))
+      getGenerationResource(generationNumber, fetch, currentTrackedPokemon)
     )
   )
 
@@ -60,6 +59,7 @@ export async function load({ fetch }) {
     huntTrackers,
     selectedTrackerIndex,
     generations,
+    nextId,
     history: localStorageWritable<HuntTracker[]>(HISTORY, [])
   }
 }

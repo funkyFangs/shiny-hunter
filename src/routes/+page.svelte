@@ -3,8 +3,15 @@
 
   export let data
 
-  const { generations, huntTrackers, history, selectedTrackerIndex, spritePreference, showNormal } =
-    data
+  const {
+    generations,
+    huntTrackers,
+    history,
+    selectedTrackerIndex,
+    spritePreference,
+    showNormal,
+    nextId
+  } = data
 </script>
 
 <ViewTrackers
@@ -12,6 +19,7 @@
   {huntTrackers}
   {history}
   {selectedTrackerIndex}
+  {nextId}
   spritePreference={$spritePreference}
   showNormal={$showNormal}
 />

@@ -1,53 +1,30 @@
-<!--
-@component
-# Description
-`StaticCounter` is a general-purpose component for tracking a count for shiny hunts with constant odds.
-
-## Fields
-|Field|Description|Default|Required|
-|:-:|-|:-:|:-:|
-|count|This is the current value of the counter. It is intended to be bound to other variables for further use.|`0`|No|
-|label|This describes what the count represents for display purposes.|`"Count"`|No|
-|numerator|This is the upper-half of the fraction representing the probability.|`1`|No|
-|denominator|This is the lower-half off the fraction representing the probability.|`8192`|No|
-
-## Example
-If you wanted to count the number of "attempts" with a probability of 1/2, you could declare a `StaticCounter` as follows.
-```svelte
-<StaticCounter
-  bind:count={value}
-  label="Attempts"
-  numerator={1}
-  denominator={2}
-/>
-```
--->
 <script lang="ts">
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
-  import type { Fraction } from '$lib/menu/tracker/counters/odds/Odds'
+  import type { HuntTracker } from '$lib/api/HuntTracker'
+  import { getBrilliantPokemonOdds } from '$lib/menu/tracker/counters/odds/Odds'
 
   let {
     index,
-    count = $bindable(),
-    label = 'Count',
-    odds
+    huntTracker,
+    count = $bindable()
   }: {
     index: number
+    huntTracker: HuntTracker
     count: number
-    label: string
-    odds: Fraction
   } = $props()
 
   function incrementCount() {
     count += 1
   }
+
+  let odds = $derived(getBrilliantPokemonOdds(huntTracker))
 </script>
 
 <div id="counter">
   <table>
     <thead>
       <tr>
-        <th scope="col"><label for="count-{index}">{label}</label></th>
+        <th scope="col"><label for="count-{index}">No. Battled</label></th>
         <th scope="col"><label for="odds-{index}">Odds</label></th>
       </tr>
     </thead>
@@ -59,7 +36,7 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
       </tr>
     </tbody>
   </table>
-  <button onclick={incrementCount} aria-label="Increment {label}">&plus;</button>
+  <button onclick={incrementCount} aria-label="Increment Number Battled">&plus;</button>
 </div>
 
 <style lang="less">

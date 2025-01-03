@@ -1,11 +1,16 @@
 <script lang="ts">
   import type { HuntTracker } from '$lib/api/HuntTracker'
   import { HuntingMethod } from '$lib/api/HuntingMethod'
-  import PokeRadarCounter from '$lib/menu/tracker/counters/PokeRadarCounter.svelte'
   import StaticCounter from '$lib/menu/tracker/counters/StaticCounter.svelte'
-  import ConsecutiveFishingCounter from '$lib/menu/tracker/counters/ConsecutiveFishingCounter.svelte'
   import UltraWarpRideCounter from '$lib/menu/tracker/counters/UltraWarpRideCounter.svelte'
-  import SosBattleCounter from '$lib/menu/tracker/counters/SosBattleCounter.svelte'
+  import ChainCounter from '$lib/menu/tracker/counters/ChainCounter.svelte'
+  import {
+    getChainMethodDetails,
+    getStaticMethodDetails
+  } from '$lib/menu/tracker/counters/odds/Odds'
+  import BrilliantPokemonCounter from '$lib/menu/tracker/counters/BrilliantPokemonCounter.svelte'
+  import ScarletVioletMassOutbreakCounter from '$lib/menu/tracker/counters/ScarletVioletMassOutbreakCounter.svelte'
+  import LegendsArceusMassOutbreakCounter from '$lib/menu/tracker/counters/LegendsArceusMassOutbreakCounter.svelte'
 
   let {
     huntTracker = $bindable(),
@@ -16,86 +21,43 @@
   } = $props()
 </script>
 
-{#if huntTracker.method === HuntingMethod.ODD_EGG}
-  <StaticCounter
-    {index}
-    bind:count={huntTracker.count}
-    label="Eggs"
-    numerator={14}
-    denominator={100}
-  />
-{:else if huntTracker.method === HuntingMethod.POKE_RADAR && huntTracker.chain}
-  <PokeRadarCounter
-    {index}
-    bind:chains={huntTracker.count}
-    bind:currentChainLength={huntTracker.chain.current}
-    bind:maxChainLength={huntTracker.chain.max}
-    generation={huntTracker.generation}
-    shinyCharm={huntTracker.shinyCharm ?? false}
-  />
-{:else if huntTracker.method === HuntingMethod.MASUDA_METHOD}
-  {#if huntTracker.generation <= 4}
-    <StaticCounter {index} bind:count={huntTracker.count} label="Eggs" numerator={5} />
-  {:else if huntTracker.generation === 5}
-    <StaticCounter {index} bind:count={huntTracker.count} label="Eggs" numerator={6} />
-  {:else}
-    <StaticCounter
-      {index}
-      bind:count={huntTracker.count}
-      label="Eggs"
-      numerator={6}
-      denominator={4096}
-    />
-  {/if}
-{:else if huntTracker.method === HuntingMethod.CONSECUTIVE_FISHING && huntTracker.chain}
-  <ConsecutiveFishingCounter
-    {index}
-    bind:chains={huntTracker.count}
-    bind:currentChainLength={huntTracker.chain.current}
-    bind:maxChainLength={huntTracker.chain.max}
-    shinyCharm={huntTracker.shinyCharm}
-  />
-{:else if huntTracker.method === HuntingMethod.FRIEND_SAFARI}
-  {#if huntTracker.shinyCharm}
-    <StaticCounter
-      {index}
-      bind:count={huntTracker.count}
-      label="Encounters"
-      numerator={5}
-      denominator={4096}
-    />
-  {:else}
-    <StaticCounter
-      {index}
-      bind:count={huntTracker.count}
-      label="Encounters"
-      numerator={7}
-      denominator={4096}
-    />
-  {/if}
-{:else if huntTracker.method === HuntingMethod.HIDDEN_POKEMON}
-  {#if huntTracker.generation <= 5}
-    <StaticCounter {index} bind:count={huntTracker.count} label="Encounters" />
-  {:else}
-    <StaticCounter {index} bind:count={huntTracker.count} label="Encounters" denominator={4096} />
-  {/if}
-{:else if huntTracker.method === HuntingMethod.SOS_BATTLE && huntTracker.chain}
-  <SosBattleCounter
-    {index}
-    bind:chains={huntTracker.count}
-    bind:currentChainLength={huntTracker.chain.current}
-    bind:maxChainLength={huntTracker.chain.max}
-    bind:shinyCharm={huntTracker.shinyCharm}
-    isSunOrMoon={huntTracker.versionGroup === 'sun-moon'}
-  />
-{:else if huntTracker.method === HuntingMethod.ULTRA_WARP_RIDE && huntTracker.chain}
+{#if huntTracker.method === HuntingMethod.ULTRA_WARP_RIDE && huntTracker.chain}
   <UltraWarpRideCounter
     {index}
     bind:count={huntTracker.count}
     bind:furthestDistance={huntTracker.chain.max}
   />
-{:else if huntTracker.generation <= 5}
-  <StaticCounter {index} bind:count={huntTracker.count} label="Encounters" />
+{:else if huntTracker.method === HuntingMethod.BRILLIANT_POKEMON}
+  <BrilliantPokemonCounter {index} {huntTracker} bind:count={huntTracker.count} />
+{:else if huntTracker.method === HuntingMethod.MASS_OUTBREAK}
+  {#if huntTracker.versionGroup === 'scarlet-violet' && huntTracker.sparklingPowerLevel !== undefined}
+    <ScarletVioletMassOutbreakCounter
+      {index}
+      {huntTracker}
+      bind:count={huntTracker.count}
+      bind:sparklingPowerLevel={huntTracker.sparklingPowerLevel}
+    />
+  {:else if huntTracker.researchLevel && huntTracker.isMassive !== undefined}
+    <LegendsArceusMassOutbreakCounter
+      {index}
+      {huntTracker}
+      bind:count={huntTracker.count}
+      bind:researchLevel={huntTracker.researchLevel}
+    />
+  {/if}
+{:else if huntTracker.chain}
+  {@const details = getChainMethodDetails(huntTracker)}
+  <ChainCounter
+    {index}
+    {huntTracker}
+    bind:currentChain={huntTracker.chain.current}
+    currentChainLabel={details.currentChainsLabel}
+    bind:maxChain={huntTracker.chain.max}
+    bind:count={huntTracker.count}
+    chainLabel={details.chainsLabel}
+    getOdds={details.oddsFunction}
+  />
 {:else}
-  <StaticCounter {index} bind:count={huntTracker.count} label="Encounters" denominator={4096} />
+  {@const details = getStaticMethodDetails(huntTracker)}
+  <StaticCounter {index} bind:count={huntTracker.count} label={details.label} odds={details.odds} />
 {/if}

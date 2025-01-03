@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
-  import { getSpriteVersionGroup } from '$lib/api/SpritesResource'
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import type { HuntTracker } from '$lib/api/HuntTracker'
-  import { toRomanNumerals } from '$lib/utilities/Strings'
   import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource'
   import { base } from '$app/paths'
   import { formatPokemonName } from '$lib/api/PokemonResource'
+  import { getSprites, isPixelated } from '$lib/menu/tracker/view/sprites/SpriteDisplay'
 
   let {
     huntTracker,
@@ -29,39 +28,6 @@
     index: number
   } = $props()
 
-  function getSprites(
-    sprites: {
-      [pokemonName: string]: {
-        sprites: GenerationalSprites
-        forms: {
-          [formName: string]: Sprites
-        }
-      }
-    },
-    huntTracker: HuntTracker,
-    spritePreference: SpritePreference
-  ): Sprites {
-    // Get the selected variety if specified or else the first variety
-    const pokemon = huntTracker.pokemon ? sprites[huntTracker.pokemon] : Object.values(sprites)[0]
-
-    switch (spritePreference) {
-      case SpritePreference.SHOWDOWN:
-        return pokemon.sprites.other.showdown!
-      case SpritePreference.HOME:
-        return pokemon.sprites.other.home!
-      case SpritePreference.GENERATION: {
-        // Get the selected form if specified or else the generational sprites
-        const baseSprites = huntTracker.pokemonForm
-          ? pokemon.forms[huntTracker.pokemonForm]
-          : pokemon.sprites.versions[`generation-${toRomanNumerals(huntTracker.generation)}`][
-              getSpriteVersionGroup(huntTracker.version, huntTracker.versionGroup)
-            ]
-
-        return 'animated' in baseSprites ? (baseSprites.animated as Sprites) : baseSprites
-      }
-    }
-  }
-
   const selectedSprites = $derived(getSprites(sprites, huntTracker, spritePreference))
   const { female, pokemon, pokemonSpecies } = huntTracker
 
@@ -79,6 +45,7 @@
       ? `The sprite for female ${formatPokemonName(pokemonSpecies, pokemon ?? pokemonSpecies)}`
       : `The sprite for ${formatPokemonName(pokemonSpecies, pokemon ?? pokemonSpecies)}`
   )
+  let imageRendering = $derived(isPixelated(huntTracker, spritePreference) ? 'pixelated' : 'smooth')
 
   function onError(event: Event) {
     const target = event.target as HTMLImageElement
@@ -95,6 +62,7 @@
       src={shinySprite}
       alt={shinyAlt}
       draggable="false"
+      style="image-rendering: {imageRendering}"
     />
     {#if showNormal}
       <label for="shiny-sprite-{index}">Shiny {formatPokemonSpeciesName(pokemon)}</label>
@@ -108,6 +76,7 @@
         src={normalSprite}
         alt={normalAlt}
         draggable="false"
+        style="image-rendering: {imageRendering}"
       />
       <label for="sprite-{index}">Normal {formatPokemonSpeciesName(pokemon)}</label>
     </div>
@@ -115,8 +84,8 @@
 </div>
 
 <style lang="less">
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
+  @import '../../../../../style/palette';
+  @import '../../../../../style/positioning';
 
   .sprite-root {
     display: flex;
@@ -141,7 +110,6 @@
   }
 
   img.sprite {
-    image-rendering: pixelated;
     max-height: 350px;
     max-width: 350px;
     width: 100%;

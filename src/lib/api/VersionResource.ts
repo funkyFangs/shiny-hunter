@@ -27,9 +27,20 @@ export function formatVersionName(name: string): string {
       return 'HeartGold'
     case 'soulsilver':
       return 'SoulSilver'
+    case 'lets-go-pikachu':
+      return "Let's Go Pikachu!"
+    case 'lets-go-eevee':
+      return "Let's Go Eevee!"
     default:
       return delimitedTitleCase(name)
   }
 }
 
-export const VERSION_BLACKLIST = new Set(['xd', 'colosseum', 'lets-go-eevee', 'lets-go-pikachu'])
+export const VERSION_BLACKLIST = new Set([
+  'xd',
+  'colosseum',
+  'the-isle-of-armor',
+  'the-crown-tundra',
+  'the-teal-mask',
+  'the-indigo-disk'
+])
