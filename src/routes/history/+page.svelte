@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { flip } from 'svelte/animate'
   import { formatVersionName } from '$lib/api/VersionResource'
   import { formatPokemonName } from '$lib/api/PokemonResource'
   import type { HuntTracker } from '$lib/api/HuntTracker'
@@ -7,7 +8,7 @@
   import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
   import { fade } from 'svelte/transition'
   import { HuntingMethod } from '$lib/api/HuntingMethod'
-  import Kebab from '$lib/menu/controls/Kebab.svelte'
+  import Device from 'svelte-device-info'
 
   let { data } = $props()
   const history = data.history
@@ -82,7 +83,6 @@
 
   let selectedRecordIndex = $state(-1)
   let selectedRecord = $derived($history[selectedRecordIndex])
-  let menuOpen = $state(false)
 
   function selectRecord(index: number) {
     selectedRecordIndex = index === selectedRecordIndex ? -1 : index
@@ -96,7 +96,6 @@
       ])
       selectedRecordIndex = -1
     }
-    menuOpen = false
   }
 </script>
 
@@ -116,8 +115,12 @@
         </tr>
       </thead>
       <tbody>
-        {#each $history as record, index}
-          <tr onclick={() => selectRecord(index)} aria-selected={index === selectedRecordIndex}>
+        {#each $history as record, index (JSON.stringify(record))}
+          <tr
+            onclick={() => selectRecord(index)}
+            aria-selected={index === selectedRecordIndex}
+            animate:flip={{ duration: 200 }}
+          >
             <td>
               <span>{formatVersionName(record.version)}</span>
             </td>
@@ -140,13 +143,9 @@
 
     {#if selectedRecord}
       <div id="record-details" transition:fade={{ duration: 250 }}>
-        {#snippet deleteRecordSnippet()}
-          <button class="record-menu-control" onclick={deleteRecord}>Delete Record</button>
-        {/snippet}
-
-        <div id="record-menu">
-          <Kebab bind:open={menuOpen} menuControls={[deleteRecordSnippet]} />
-        </div>
+        <button id="delete-record" class:hoverable={Device.canHover} onclick={deleteRecord}
+          >&times;</button
+        >
 
         <div id="pokemon-details">
           <PokemonDetails huntTracker={selectedRecord} />
@@ -165,10 +164,6 @@
             <tr>
               <th scope="row">Method</th>
               <td>{selectedRecord.method}</td>
-            </tr>
-            <tr>
-              <th scope="row">Status</th>
-              <td>{selectedRecord.complete ? 'Found' : 'Not Found'}</td>
             </tr>
             <tr>
               <th scope="row">Count</th>
@@ -254,8 +249,26 @@
     align-items: center;
   }
 
-  #record-menu {
+  #delete-record {
     grid-column: 3 / 4;
+    z-index: 1;
+    align-self: start;
+    font-size: 20.5px;
+    min-width: 38px;
+    min-height: 38px;
+    background: none;
+    color: contrast(@shark);
+
+    &:hover:not(:active),
+    &:not(.hoverable) {
+      background-color: @darker-indigo;
+      color: contrast($background-color);
+    }
+
+    &:active {
+      background-color: @dark-indigo;
+      color: contrast($background-color);
+    }
   }
 
   #pokemon-details,
@@ -263,23 +276,8 @@
     grid-column: 1 / 4;
   }
 
-  #record-menu,
+  #delete-record,
   #pokemon-details {
     grid-row: 1;
-  }
-
-  #record-menu {
-    z-index: 1;
-  }
-
-  #record-menu {
-    grid-row: 1;
-  }
-
-  .record-menu-control {
-    background: none;
-    width: 100%;
-    padding: @gap-length;
-    text-align: left;
   }
 </style>

@@ -6,6 +6,38 @@ import {
 import type { HuntTracker } from '$lib/api/HuntTracker'
 import { SpritePreference } from '$lib/menu/SpritePreference'
 import { toRomanNumerals } from '$lib/utilities/Strings'
+import type { Generation } from '$lib/api/GenerationResource'
+
+export type SpriteMap = {
+  [pokemonSpeciesName: string]: {
+    [pokemonName: string]: {
+      sprites: GenerationalSprites
+      forms: {
+        [formName: string]: Sprites
+      }
+    }
+  }
+}
+
+export function buildSpriteMap(generations: Generation[]): SpriteMap {
+  return Object.fromEntries(
+    generations
+      .flatMap((generation) => generation.pokemonSpecies)
+      .filter((pokemonSpecies) => pokemonSpecies.varieties)
+      .map((pokemonSpecies) => [
+        pokemonSpecies.name,
+        Object.fromEntries(
+          pokemonSpecies.varieties!.map((pokemon) => [
+            pokemon.name,
+            {
+              sprites: pokemon.sprites,
+              forms: Object.fromEntries(pokemon.forms.map((form) => [form.name, form.sprites]))
+            }
+          ])
+        )
+      ])
+  )
+}
 
 function defaultsToHome(generation: number, versionGroup: string) {
   return generation > 7 || versionGroup == 'lets-go-pikachu-lets-go-eevee'
@@ -51,7 +83,7 @@ export function getSprites(
 
 export function isPixelated(huntTracker: HuntTracker, spritePreference: SpritePreference) {
   return (
-    spritePreference !== SpritePreference.HOME &&
+    spritePreference === SpritePreference.SHOWDOWN ||
     !defaultsToHome(huntTracker.generation, huntTracker.versionGroup!)
   )
 }

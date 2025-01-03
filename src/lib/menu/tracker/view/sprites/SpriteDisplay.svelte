@@ -45,9 +45,7 @@
       ? `The sprite for female ${formatPokemonName(pokemonSpecies, pokemon ?? pokemonSpecies)}`
       : `The sprite for ${formatPokemonName(pokemonSpecies, pokemon ?? pokemonSpecies)}`
   )
-  let imageRendering = $derived(
-    isPixelated(huntTracker, spritePreference) ? 'pixelated' : 'high-quality'
-  )
+  let imageRendering = $derived(isPixelated(huntTracker, spritePreference) ? 'pixelated' : 'smooth')
 
   function onError(event: Event) {
     const target = event.target as HTMLImageElement

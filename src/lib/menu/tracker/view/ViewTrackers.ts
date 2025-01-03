@@ -1,5 +1,6 @@
-import type { HuntTracker } from '$lib/api/HuntTracker'
+import type { CreatedHuntTracker, HuntTracker } from '$lib/api/HuntTracker'
 import type { Writable } from 'svelte/store'
+import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
 
 export function moveHuntTracker(
   huntTrackers: HuntTracker[],
@@ -50,4 +51,36 @@ export function focusTab(
 ) {
   selectedTrackerIndex.set(index)
   tabs[index]?.focus()
+}
+
+export function newHuntTracker(createdHuntTracker: CreatedHuntTracker): HuntTracker {
+  return {
+    count: createdHuntTracker.count,
+    chain: CHAIN_HUNTING_METHODS.has(createdHuntTracker.method)
+      ? {
+          current: 0,
+          max: 0
+        }
+      : undefined,
+    startDate: new Date().toISOString(),
+    method: createdHuntTracker.method,
+    generation: createdHuntTracker.generation,
+    versionGroup: createdHuntTracker.versionGroup,
+    version: createdHuntTracker.version,
+    shinyCharm: createdHuntTracker.shinyCharm,
+    lure: createdHuntTracker.lure,
+    researchLevel: createdHuntTracker.researchLevel,
+    isMassive: createdHuntTracker.isMassive,
+    sparklingPowerLevel: createdHuntTracker.sparklingPowerLevel,
+    pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
+    pokemon:
+      createdHuntTracker.pokemon?.name === createdHuntTracker.pokemonSpecies.name
+        ? undefined
+        : createdHuntTracker.pokemon?.name,
+    pokemonForm:
+      createdHuntTracker.pokemonForm?.name === createdHuntTracker.pokemon?.name
+        ? undefined
+        : createdHuntTracker.pokemonForm?.name,
+    female: createdHuntTracker.female
+  }
 }

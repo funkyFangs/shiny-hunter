@@ -14,13 +14,16 @@ export interface HuntTracker {
     current: number
     max: number
   }
-  complete: boolean
   startDate?: string
   endDate?: string
 
   // Shiny Rates
   method: HuntingMethod
   shinyCharm?: boolean
+  lure?: boolean
+  researchLevel?: 'Less than 10' | '10' | 'Perfect'
+  isMassive?: boolean
+  sparklingPowerLevel?: 0 | 1 | 2 | 3
 
   // Version Details
   generation: number
@@ -35,6 +38,9 @@ export interface HuntTracker {
 }
 
 export interface CreatedHuntTracker {
+  // Tracker Details
+  count: number
+
   // Version Details
   generation: number
   versionGroup?: string
@@ -43,6 +49,10 @@ export interface CreatedHuntTracker {
   // Shiny Rates
   method: HuntingMethod
   shinyCharm?: boolean
+  lure?: boolean
+  researchLevel?: 'Less than 10' | '10' | 'Perfect'
+  isMassive?: boolean
+  sparklingPowerLevel?: 0 | 1 | 2 | 3
 
   // Pokemon Details
   pokemonSpecies: PokemonSpecies

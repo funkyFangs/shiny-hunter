@@ -9,12 +9,10 @@
   import TrackerCounter from '$lib/menu/tracker/counters/TrackerCounter.svelte'
   import type { SpritePreference } from '$lib/menu/SpritePreference'
   import SpriteDisplay from '$lib/menu/tracker/view/sprites/SpriteDisplay.svelte'
-  import { CHAIN_HUNTING_METHODS } from '$lib/api/HuntingMethod'
-  import type { GenerationalSprites, Sprites } from '$lib/api/SpritesResource'
   import Device from 'svelte-device-info'
   import PokemonDetails from '$lib/menu/tracker/view/PokemonDetails.svelte'
-  import Kebab from '$lib/menu/controls/Kebab.svelte'
-  import { focusTab, moveHuntTracker } from '$lib/menu/tracker/view/ViewTrackers'
+  import { focusTab, moveHuntTracker, newHuntTracker } from '$lib/menu/tracker/view/ViewTrackers'
+  import { buildSpriteMap, type SpriteMap } from '$lib/menu/tracker/view/sprites/SpriteDisplay'
 
   export let huntTrackers: Writable<HuntTracker[]>
   export let history: Writable<HuntTracker[]>
@@ -23,33 +21,7 @@
   export let showNormal: boolean
   export let generations: Generation[] = []
 
-  const sprites: {
-    [pokemonSpeciesName: string]: {
-      [pokemonName: string]: {
-        sprites: GenerationalSprites
-        forms: {
-          [formName: string]: Sprites
-        }
-      }
-    }
-  } = Object.fromEntries(
-    generations
-      .flatMap((generation) => generation.pokemonSpecies)
-      .filter((pokemonSpecies) => pokemonSpecies.varieties)
-      .map((pokemonSpecies) => [
-        pokemonSpecies.name,
-        Object.fromEntries(
-          pokemonSpecies.varieties!.map((pokemon) => [
-            pokemon.name,
-            {
-              sprites: pokemon.sprites,
-              forms: Object.fromEntries(pokemon.forms.map((form) => [form.name, form.sprites]))
-            }
-          ])
-        )
-      ])
-  )
-
+  const sprites: SpriteMap = buildSpriteMap(generations)
   let creatingTracker: boolean = false
 
   function selectTracker(index: number) {
@@ -59,34 +31,30 @@
     }
   }
 
-  function deleteTracker(index: number, huntTracker: HuntTracker) {
-    const currentSelectedTrackerIndex = $selectedTrackerIndex
-    const currentSelectedTracker = $huntTrackers[currentSelectedTrackerIndex]
-
-    huntTrackers.update((huntTrackers) => [
-      ...huntTrackers.slice(0, index),
-      ...huntTrackers.slice(index + 1)
-    ])
-
-    selectedTrackerIndex.set(
-      index === currentSelectedTrackerIndex
-        ? Math.max(index - 1, 0)
-        : $huntTrackers.indexOf(currentSelectedTracker)
-    )
-
-    history.update((history) => [
-      ...history,
-      {
-        ...huntTracker,
-        endDate: new Date().toISOString()
-      }
-    ])
-  }
-
   function closeTracker(index: number, huntTracker: HuntTracker = $huntTrackers[index]) {
     const confirmed = confirm('Are you sure you want to close this shiny hunt?')
     if (confirmed) {
-      deleteTracker(index, huntTracker)
+      const currentSelectedTrackerIndex = $selectedTrackerIndex
+      const currentSelectedTracker = $huntTrackers[currentSelectedTrackerIndex]
+
+      huntTrackers.update((huntTrackers) => [
+        ...huntTrackers.slice(0, index),
+        ...huntTrackers.slice(index + 1)
+      ])
+
+      selectedTrackerIndex.set(
+        index === currentSelectedTrackerIndex
+          ? Math.max(index - 1, 0)
+          : $huntTrackers.indexOf(currentSelectedTracker)
+      )
+
+      history.update((history) => [
+        ...history,
+        {
+          ...huntTracker,
+          endDate: new Date().toISOString()
+        }
+      ])
     }
     return confirmed
   }
@@ -122,47 +90,9 @@
       ])
     )
 
-    huntTrackers.update((huntTrackers) => [
-      ...huntTrackers,
-      {
-        count: 0,
-        chain: CHAIN_HUNTING_METHODS.has(createdHuntTracker.method)
-          ? {
-              current: 0,
-              max: 0
-            }
-          : undefined,
-        complete: false,
-        startDate: new Date().toISOString(),
-        method: createdHuntTracker.method,
-        generation: createdHuntTracker.generation,
-        versionGroup: createdHuntTracker.versionGroup,
-        version: createdHuntTracker.version,
-        shinyCharm: createdHuntTracker.shinyCharm,
-        pokemonSpecies: createdHuntTracker.pokemonSpecies.name,
-        pokemon:
-          createdHuntTracker.pokemon?.name === createdHuntTracker.pokemonSpecies.name
-            ? undefined
-            : createdHuntTracker.pokemon?.name,
-        pokemonForm:
-          createdHuntTracker.pokemonForm?.name === createdHuntTracker.pokemon?.name
-            ? undefined
-            : createdHuntTracker.pokemonForm?.name,
-        female: createdHuntTracker.female
-      }
-    ])
+    huntTrackers.update((huntTrackers) => [...huntTrackers, newHuntTracker(createdHuntTracker)])
 
     creatingTracker = false
-  }
-
-  function completeHunt() {
-    if (confirm('Are you sure you want to finish your shiny hunt?')) {
-      const index = $selectedTrackerIndex
-      const huntTracker = $huntTrackers[index]
-      huntTracker.complete = true
-      deleteTracker(index, huntTracker)
-      kebabMenuOpen = false
-    }
   }
 
   function onTabKeyPress(event: KeyboardEvent) {
@@ -227,7 +157,6 @@
   }
 
   let tabs: HTMLElement[] = []
-  let kebabMenuOpen = false
 </script>
 
 <div id="tabs-container">
@@ -278,20 +207,6 @@
       <CreateTracker {generations} created={onTrackerCreated} />
     </div>
   {:else if $huntTrackers.length > 0}
-    {#snippet completeHuntSnippet()}
-      <button class="tracker-menu-control" on:click={completeHunt}>Complete Hunt</button>
-    {/snippet}
-
-    <div id="tracker-menu">
-      <Kebab
-        bind:open={kebabMenuOpen}
-        title="Tracker Menu"
-        ariaLabel="The button to open a menu of controls for managing this hunt tracker"
-        ariaControls="tracker-menu"
-        menuControls={[completeHuntSnippet]}
-      />
-    </div>
-
     {#each $huntTrackers as huntTracker, index}
       <div
         id="tracker-{index + 1}"
@@ -309,6 +224,12 @@
               {#if huntTracker.generation >= 5}
                 <th scope="col"><label for="shiny-charm-{index}">Shiny Charm</label></th>
               {/if}
+              {#if huntTracker.lure !== undefined}
+                <th scope="col"><label for="lure-{index}">Lure</label></th>
+              {/if}
+              {#if huntTracker.isMassive !== undefined}
+                <th scope="col"><label for="lure-{index}">Is Massive</label></th>
+              {/if}
             </tr>
           </thead>
           <tbody>
@@ -321,6 +242,14 @@
                     >{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</span
                   ></td
                 >
+              {/if}
+              {#if huntTracker.lure !== undefined}
+                <td><span id="lure={index}">{huntTracker.lure ? 'Yes' : 'No'}</span></td>
+              {/if}
+              {#if huntTracker.isMassive !== undefined}
+                <td>
+                  <span id="is-massive-{index}">{huntTracker.isMassive ? 'Yes' : 'No'}</span>
+                </td>
               {/if}
             </tr>
           </tbody>
@@ -388,19 +317,6 @@
       width: 100%;
       text-align: center;
     }
-  }
-
-  #tracker-menu {
-    grid-column: 3 / 4;
-    height: 37px;
-    z-index: 1;
-  }
-
-  .tracker-menu-control {
-    background: none;
-    width: 100%;
-    padding: @gap-length;
-    text-align: left;
   }
 
   [role='tab'] {

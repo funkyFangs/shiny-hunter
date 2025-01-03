@@ -1,19 +1,21 @@
 <script lang="ts">
   import { type Version } from '$lib/api/VersionResource'
   import { type Generation } from '$lib/api/GenerationResource'
-  import { type HuntingMethod } from '$lib/api/HuntingMethod'
+  import { HuntingMethod } from '$lib/api/HuntingMethod'
   import { type PokemonSpecies } from '$lib/api/PokemonSpeciesResource'
   import { type Pokemon } from '$lib/api/PokemonResource'
   import type { PokemonForm } from '$lib/api/PokemonFormResource'
   import SelectVersion from '$lib/menu/tracker/create/SelectVersion.svelte'
   import type { VersionGroup } from '$lib/api/VersionGroupResource'
-  import SelectHuntingMethod from '$lib/menu/tracker/create/SelectHuntingMethod.svelte'
+  import SelectHuntingMethod from '$lib/menu/tracker/create/hunting-method/SelectHuntingMethod.svelte'
   import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
   import type { CreatedHuntTracker } from '$lib/api/HuntTracker'
   import SelectPokemonSpecies from '$lib/menu/tracker/create/SelectPokemonSpecies.svelte'
   import SelectPokemon from '$lib/menu/tracker/create/SelectPokemon.svelte'
   import SelectPokemonForm from '$lib/menu/tracker/create/SelectPokemonForm.svelte'
   import { getSupportedPokemon } from '$lib/api/VarietyResource'
+  import Input from '$lib/menu/tracker/create/Input.svelte'
+  import Select from '$lib/menu/tracker/create/Select.svelte'
 
   /* ============================================================================================ *\
 	 *  Inputs																																											*
@@ -31,6 +33,7 @@
 	 *  Form  																																											*
 	\* ============================================================================================ */
 
+  let count: number = $state(0)
   let selectedVersion = $state<Version>()
   let selectedVersionGroup = $state<VersionGroup>()
   let selectedGeneration = $state<Generation>()
@@ -40,6 +43,10 @@
   let isFemale = $state(false)
   let selectedHuntingMethod: HuntingMethod | undefined = $state()
   let shinyCharm: boolean = $state(false)
+  let lure: boolean = $state(false)
+  let sparklingPowerLevel: 0 | 1 | 2 | 3 = $state(0)
+  let researchLevel: 'Less than 10' | '10' | 'Perfect' = $state('Less than 10')
+  let isMassive: boolean = $state(false)
 
   const readyToSubmit = $derived(
     selectedVersion &&
@@ -76,6 +83,7 @@
     )
 
     created({
+      count,
       method: selectedHuntingMethod!,
       pokemonSpecies: selectedPokemonSpecies!,
       pokemon: supportedPokemon.length === 1 ? undefined : (selectedPokemon ?? undefined),
@@ -88,7 +96,12 @@
           ? undefined
           : selectedVersionGroup!.name,
       generation: selectedGeneration!.id,
-      shinyCharm: selectedGeneration!.id >= 5 ? shinyCharm : undefined
+      shinyCharm: selectedGeneration!.id >= 5 ? shinyCharm : undefined,
+      lure: selectedVersionGroup!.name === 'lets-go-pikachu-lets-go-eevee' ? lure : undefined,
+      researchLevel: selectedVersion!.name === 'legends-arceus' ? researchLevel : undefined,
+      isMassive: selectedVersion!.name === 'legends-arceus' ? isMassive : undefined,
+      sparklingPowerLevel:
+        selectedVersionGroup!.name === 'scarlet-violet' ? sparklingPowerLevel : undefined
     })
   }
 </script>
@@ -108,6 +121,11 @@
     <SliderSwitch id="shiny-charm" bind:checked={shinyCharm} />
   {/if}
 
+  {#if selectedVersionGroup && selectedVersionGroup.name === 'lets-go-pikachu-lets-go-eevee'}
+    <label for="lure">Lure</label>
+    <SliderSwitch id="lure" bind:checked={lure} />
+  {/if}
+
   {#if selectedVersion && selectedVersionGroup && selectedGeneration}
     <label for="hunting-method">Hunting Method</label>
     <SelectHuntingMethod
@@ -117,6 +135,28 @@
       {selectedGeneration}
       bind:selectedHuntingMethod
     />
+
+    {#if selectedHuntingMethod === HuntingMethod.BRILLIANT_POKEMON}
+      <label for="number-battled">No. Battled</label>
+      <Input id="number-battled" type="number" bind:value={count} />
+    {/if}
+
+    {#if selectedHuntingMethod === HuntingMethod.MASS_OUTBREAK}
+      {#if selectedVersionGroup && selectedVersionGroup.name === 'scarlet-violet'}
+        <label for="number-battled">Sparkling Power Level</label>
+        <Input id="number-battled" type="number" min={0} max={3} bind:value={sparklingPowerLevel} />
+      {:else}
+        <label for="research-level">Research Level</label>
+        <Select
+          id="research-level"
+          bind:value={researchLevel}
+          options={['Less than 10', '10', 'Perfect']}
+        />
+
+        <label for="is-massive">Is Massive Mass Outbreak</label>
+        <SliderSwitch id="is-massive" bind:checked={isMassive} />
+      {/if}
+    {/if}
 
     <label for="pokemon-species">Pokémon Species</label>
     <SelectPokemonSpecies

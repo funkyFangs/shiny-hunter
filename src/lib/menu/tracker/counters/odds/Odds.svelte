@@ -102,7 +102,7 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
 </output>
 
 <style lang="less">
-  @import '../../../../style/palette';
+  @import '../../../../../style/palette';
 
   output {
     display: flex;
