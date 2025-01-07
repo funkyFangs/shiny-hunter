@@ -36,6 +36,7 @@
   },
   "type": "module",
   "dependencies": {
+    "dragdroptouch-bug-fixed": "^1.0.8",
     "npm": "^10.9.0",
     "svelte-device-info": "^1.0.6",
     "svelte-hamburgers": "^5.0.0",
