@@ -25,37 +25,59 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
 <script lang="ts">
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
   import type { Fraction } from '$lib/menu/tracker/counters/odds/Odds'
+  import type { HuntTracker } from '$lib/api/HuntTracker'
+  import { fade } from 'svelte/transition'
 
   let {
-    index,
+    huntTracker,
     count = $bindable(),
     label = 'Count',
-    odds
+    odds,
+    showFraction = true,
+    showPercentage = true
   }: {
-    index: number
+    huntTracker: HuntTracker
     count: number
     label: string
     odds: Fraction
+    showFraction: boolean
+    showPercentage: boolean
   } = $props()
 
   function incrementCount() {
     count += 1
   }
+
+  let id = $derived(huntTracker.id)
+  let showOdds = $derived(showFraction || showPercentage)
 </script>
 
-<div id="counter">
+<div class="counter-container">
   <table>
     <thead>
       <tr>
-        <th scope="col"><label for="count-{index}">{label}</label></th>
-        <th scope="col"><label for="odds-{index}">Odds</label></th>
+        <th scope="col"><label for="count-{id}">{label}</label></th>
+        {#if showOdds}
+          <th scope="col" transition:fade={{ duration: 200 }}
+            ><label for="odds-{id}">Odds</label></th
+          >
+        {/if}
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input type="number" min="0" id="count-{index}" bind:value={count} /></td>
-        <td><Odds id="odds-{index}" numerator={odds.numerator} denominator={odds.denominator} /></td
-        >
+        <td><input type="number" min="0" id="count-{id}" bind:value={count} /></td>
+        {#if showOdds}
+          <td transition:fade={{ duration: 200 }}
+            ><Odds
+              id="odds-{id}"
+              numerator={odds.numerator}
+              denominator={odds.denominator}
+              {showFraction}
+              {showPercentage}
+            /></td
+          >
+        {/if}
       </tr>
     </tbody>
   </table>
@@ -66,11 +88,10 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   @import '../../../../style/palette';
   @import '../../../../style/positioning';
 
-  #counter {
+  .counter-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
-    align-items: center;
     justify-content: center;
   }
 
@@ -80,7 +101,6 @@ If you wanted to count the number of "attempts" with a probability of 1/2, you c
   }
 
   button {
-    height: 87px;
     font-size: 1.5em;
     background-color: @indigo;
     color: contrast($background-color);

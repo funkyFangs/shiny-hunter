@@ -61,16 +61,25 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
     return gcd(second, first % second)
   }
 
-  export let numerator: number
-  export let denominator: number
-  export let id: string | null = null
-  export let inputs: string[] | string = []
-  export let showPercentage: boolean = true
-  export let showFraction: boolean = true
-  export let accuracy: number = 3
-  export let reduce: boolean = true
-
-  $: divisor = reduce ? gcd(numerator, denominator) : 1
+  let {
+    numerator,
+    denominator,
+    id,
+    inputs = [],
+    showFraction = true,
+    showPercentage = true,
+    accuracy = 3,
+    reduce = true
+  }: {
+    numerator: number
+    denominator: number
+    id: string
+    inputs?: string[] | string
+    showPercentage?: boolean
+    showFraction?: boolean
+    accuracy?: number
+    reduce?: boolean
+  } = $props()
 
   function getDecimalValue(numerator: number, denominator: number) {
     return denominator === 0
@@ -80,7 +89,8 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
       : numerator / denominator
   }
 
-  $: decimalValue = getDecimalValue(numerator, denominator)
+  let divisor = $derived(reduce ? gcd(numerator, denominator) : 1)
+  let decimalValue = $derived(getDecimalValue(numerator, denominator))
 </script>
 
 <output {id} for={Array.isArray(inputs) ? inputs.join(' ') : inputs}>

@@ -5,15 +5,14 @@
   import type { HuntTracker } from '$lib/api/HuntTracker'
 
   let {
-    huntTracker = $bindable(),
-    id = 'pokemon-details'
+    huntTracker = $bindable()
   }: {
     huntTracker: HuntTracker
     id?: string
   } = $props()
 </script>
 
-<div {id}>
+<div id="pokemon-details-{huntTracker.id}">
   <span class="pokemon-species">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
   {#if huntTracker.pokemon}
     <span class="pokemon">{formatPokemonName(huntTracker.pokemonSpecies, huntTracker.pokemon)}</span

@@ -11,8 +11,7 @@
     huntTracker,
     sprites,
     spritePreference,
-    showNormal = false,
-    index
+    showNormal = false
   }: {
     huntTracker: HuntTracker
     sprites: {
@@ -25,7 +24,6 @@
     }
     spritePreference: SpritePreference
     showNormal: boolean
-    index: number
   } = $props()
 
   const selectedSprites = $derived(getSprites(sprites, huntTracker, spritePreference))
@@ -46,6 +44,7 @@
       : `The sprite for ${formatPokemonName(pokemonSpecies, pokemon ?? pokemonSpecies)}`
   )
   let imageRendering = $derived(isPixelated(huntTracker, spritePreference) ? 'pixelated' : 'smooth')
+  let id = $derived(huntTracker.id)
 
   function onError(event: Event) {
     const target = event.target as HTMLImageElement
@@ -57,7 +56,7 @@
   <div class="sprite-container">
     <img
       onerror={onError}
-      id="shiny-sprite-{index}"
+      id="shiny-sprite-{id}"
       class="sprite"
       src={shinySprite}
       alt={shinyAlt}
@@ -65,20 +64,20 @@
       style="image-rendering: {imageRendering}"
     />
     {#if showNormal}
-      <label for="shiny-sprite-{index}">Shiny {formatPokemonSpeciesName(pokemon)}</label>
+      <label for="shiny-sprite-{id}">Shiny {formatPokemonSpeciesName(pokemon)}</label>
     {/if}
   </div>
   {#if showNormal}
     <div class="sprite-container">
       <img
-        id="sprite-{index}"
+        id="sprite-{id}"
         class="sprite"
         src={normalSprite}
         alt={normalAlt}
         draggable="false"
         style="image-rendering: {imageRendering}"
       />
-      <label for="sprite-{index}">Normal {formatPokemonSpeciesName(pokemon)}</label>
+      <label for="sprite-{id}">Normal {formatPokemonSpeciesName(pokemon)}</label>
     </div>
   {/if}
 </div>

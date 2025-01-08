@@ -2,18 +2,19 @@
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
   import type { OddsFunction } from '$lib/menu/tracker/counters/odds/Odds'
   import type { HuntTracker } from '$lib/api/HuntTracker'
+  import { fade } from 'svelte/transition'
 
   let {
-    index,
     huntTracker,
     currentChain = $bindable(),
     maxChain = $bindable(),
     count = $bindable(),
     currentChainLabel = 'Chain Length',
     chainLabel = 'Chains',
-    getOdds
+    getOdds,
+    showFraction,
+    showPercentage
   }: {
-    index: number
     huntTracker: HuntTracker
     currentChain: number
     maxChain: number
@@ -21,6 +22,8 @@
     currentChainLabel?: string
     chainLabel?: string
     getOdds: OddsFunction
+    showFraction: boolean
+    showPercentage: boolean
   } = $props()
 
   function incrementChain() {
@@ -33,10 +36,12 @@
   }
 
   let odds = $derived(getOdds(huntTracker))
+  let id = $derived(huntTracker.id)
+  let showOdds = $derived(showFraction || showPercentage)
 </script>
 
 {#if huntTracker.chain}
-  <div class="counter">
+  <div class="counter-container">
     <button
       onclick={resetChain}
       disabled={currentChain === 0}
@@ -45,27 +50,35 @@
     <table>
       <thead>
         <tr>
-          <th scope="col"><label for="chain-length-{index}">{currentChainLabel}</label></th>
-          <th scope="col"><label for="chains-{index}">{chainLabel}</label></th>
-          <th scope="col"><label for="odds-{index}">Odds</label></th>
+          <th scope="col"><label for="chain-length-{id}">{currentChainLabel}</label></th>
+          <th scope="col"><label for="chains-{id}">{chainLabel}</label></th>
+          {#if showOdds}
+            <th transition:fade={{ duration: 200 }} scope="col"
+              ><label for="odds-{id}">Odds</label></th
+            >
+          {/if}
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            <input type="number" min="0" id="chain-length-{index}" bind:value={currentChain} />
+            <input type="number" min="0" id="chain-length-{id}" bind:value={currentChain} />
           </td>
           <td>
-            <input type="number" min="0" id="chains-{index}" bind:value={count} />
+            <input type="number" min="0" id="chains-{id}" bind:value={count} />
           </td>
-          <td>
-            <Odds
-              id="odds-{index}"
-              inputs="chain-length"
-              numerator={odds.numerator}
-              denominator={odds.denominator}
-            />
-          </td>
+          {#if showOdds}
+            <td transition:fade={{ duration: 200 }}>
+              <Odds
+                id="odds-{id}"
+                inputs="chain-length"
+                numerator={odds.numerator}
+                denominator={odds.denominator}
+                {showFraction}
+                {showPercentage}
+              />
+            </td>
+          {/if}
         </tr>
       </tbody>
     </table>
@@ -99,17 +112,15 @@
     color: contrast($background-color);
   }
 
-  .counter {
+  .counter-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
-    align-items: center;
     justify-content: center;
     max-width: calc(100vw - 4 * @gap-length);
   }
 
   button {
-    height: 87px;
     font-size: 1.5em;
     background-color: @indigo;
     color: contrast($background-color);

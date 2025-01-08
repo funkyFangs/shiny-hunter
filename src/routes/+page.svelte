@@ -10,6 +10,10 @@
     selectedTrackerIndex,
     spritePreference,
     showNormal,
+    promptOnClose,
+    keepHistory,
+    showFraction,
+    showPercentage,
     nextId
   } = data
 </script>
@@ -22,4 +26,8 @@
   {nextId}
   spritePreference={$spritePreference}
   showNormal={$showNormal}
+  promptOnClose={$promptOnClose}
+  keepHistory={$keepHistory}
+  showFraction={$showFraction}
+  showPercentage={$showPercentage}
 />

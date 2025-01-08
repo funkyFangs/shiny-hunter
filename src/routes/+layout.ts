@@ -8,6 +8,10 @@ export const ssr = false
 export const load: PageLoad = () => {
   return {
     spritePreference: localStorageWritable(SPRITE_PREFERENCE_STORE, SpritePreference.SHOWDOWN),
-    showNormal: localStorageWritable('showNormal', false)
+    showNormal: localStorageWritable('showNormal', false),
+    promptOnClose: localStorageWritable('promptOnClose', true),
+    keepHistory: localStorageWritable('keepHistory', true),
+    showFraction: localStorageWritable('showFraction', true),
+    showPercentage: localStorageWritable('showPercentage', true)
   }
 }
