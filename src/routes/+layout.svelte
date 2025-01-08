@@ -1,5 +1,5 @@
 <script>
-  import { navigating } from '$app/stores'
+  import { navigating } from '$app/state'
   import '../app.less'
   import HeaderMenu from '$lib/menu/HeaderMenu.svelte'
   import { Circle2 } from 'svelte-loading-spinners'
@@ -65,7 +65,7 @@
 />
 
 <main>
-  {#if $navigating}
+  {#if navigating.to}
     <div>
       <Circle2 colorOuter="red" colorCenter="black" colorInner="white" size="100" unit="px" />
     </div>
