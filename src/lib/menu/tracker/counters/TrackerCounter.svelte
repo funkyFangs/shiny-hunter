@@ -14,41 +14,51 @@
 
   let {
     huntTracker = $bindable(),
-    index
+    showFraction = true,
+    showPercentage = true
   }: {
     huntTracker: HuntTracker
-    index: number
+    showFraction: boolean
+    showPercentage: boolean
   } = $props()
 </script>
 
 {#if huntTracker.method === HuntingMethod.ULTRA_WARP_RIDE && huntTracker.chain}
   <UltraWarpRideCounter
-    {index}
+    {huntTracker}
+    {showFraction}
+    {showPercentage}
     bind:count={huntTracker.count}
     bind:furthestDistance={huntTracker.chain.max}
   />
 {:else if huntTracker.method === HuntingMethod.BRILLIANT_POKEMON}
-  <BrilliantPokemonCounter {index} {huntTracker} bind:count={huntTracker.count} />
+  <BrilliantPokemonCounter
+    {huntTracker}
+    bind:count={huntTracker.count}
+    {showFraction}
+    {showPercentage}
+  />
 {:else if huntTracker.method === HuntingMethod.MASS_OUTBREAK}
   {#if huntTracker.versionGroup === 'scarlet-violet' && huntTracker.sparklingPowerLevel !== undefined}
     <ScarletVioletMassOutbreakCounter
-      {index}
       {huntTracker}
       bind:count={huntTracker.count}
       bind:sparklingPowerLevel={huntTracker.sparklingPowerLevel}
+      {showFraction}
+      {showPercentage}
     />
   {:else if huntTracker.researchLevel && huntTracker.isMassive !== undefined}
     <LegendsArceusMassOutbreakCounter
-      {index}
       {huntTracker}
       bind:count={huntTracker.count}
       bind:researchLevel={huntTracker.researchLevel}
+      {showFraction}
+      {showPercentage}
     />
   {/if}
 {:else if huntTracker.chain}
   {@const details = getChainMethodDetails(huntTracker)}
   <ChainCounter
-    {index}
     {huntTracker}
     bind:currentChain={huntTracker.chain.current}
     currentChainLabel={details.currentChainsLabel}
@@ -56,8 +66,17 @@
     bind:count={huntTracker.count}
     chainLabel={details.chainsLabel}
     getOdds={details.oddsFunction}
+    {showFraction}
+    {showPercentage}
   />
 {:else}
   {@const details = getStaticMethodDetails(huntTracker)}
-  <StaticCounter {index} bind:count={huntTracker.count} label={details.label} odds={details.odds} />
+  <StaticCounter
+    {huntTracker}
+    {showFraction}
+    {showPercentage}
+    bind:count={huntTracker.count}
+    label={details.label}
+    odds={details.odds}
+  />
 {/if}

@@ -2,15 +2,18 @@
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
   import type { HuntTracker } from '$lib/api/HuntTracker'
   import { getBrilliantPokemonOdds } from '$lib/menu/tracker/counters/odds/Odds'
+  import { fade } from 'svelte/transition'
 
   let {
-    index,
     huntTracker,
-    count = $bindable()
+    count = $bindable(),
+    showPercentage,
+    showFraction
   }: {
-    index: number
     huntTracker: HuntTracker
     count: number
+    showPercentage: boolean
+    showFraction: boolean
   } = $props()
 
   function incrementCount() {
@@ -18,21 +21,36 @@
   }
 
   let odds = $derived(getBrilliantPokemonOdds(huntTracker))
+  let id = $derived(huntTracker.id)
+  let showOdds = $derived(showFraction || showPercentage)
 </script>
 
-<div id="counter">
+<div class="counter-container">
   <table>
     <thead>
       <tr>
-        <th scope="col"><label for="count-{index}">No. Battled</label></th>
-        <th scope="col"><label for="odds-{index}">Odds</label></th>
+        <th scope="col"><label for="count-{id}">No. Battled</label></th>
+        {#if showOdds}
+          <th transition:fade={{ duration: 200 }} scope="col"
+            ><label for="odds-{id}">Odds</label></th
+          >
+        {/if}
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><input type="number" min="0" id="count-{index}" bind:value={count} /></td>
-        <td><Odds id="odds-{index}" numerator={odds.numerator} denominator={odds.denominator} /></td
-        >
+        <td><input type="number" min="0" id="count-{id}" bind:value={count} /></td>
+        {#if showOdds}
+          <td transition:fade={{ duration: 200 }}
+            ><Odds
+              id="odds-{id}"
+              numerator={odds.numerator}
+              denominator={odds.denominator}
+              {showFraction}
+              {showPercentage}
+            /></td
+          >
+        {/if}
       </tr>
     </tbody>
   </table>
@@ -43,11 +61,10 @@
   @import '../../../../style/palette';
   @import '../../../../style/positioning';
 
-  #counter {
+  .counter-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
-    align-items: center;
     justify-content: center;
   }
 
@@ -57,7 +74,6 @@
   }
 
   button {
-    height: 87px;
     font-size: 1.5em;
     background-color: @indigo;
     color: contrast($background-color);

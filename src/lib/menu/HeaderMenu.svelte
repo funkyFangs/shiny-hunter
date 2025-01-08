@@ -19,19 +19,16 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
 ```
 -->
 <script lang="ts">
-  import { fly } from 'svelte/transition'
   import { Hamburger } from 'svelte-hamburgers'
-  import type { Snippet } from 'svelte'
 
   let {
     title,
-    items = []
+    open = $bindable()
   }: {
     title: string
-    items: Snippet[]
+    open: boolean
   } = $props()
 
-  let open = $state(false)
   let color = $state('white')
 
   function onMouseEnter() {
@@ -49,14 +46,6 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   </div>
   <h1 id="title" class="unselectable">{title}</h1>
 </header>
-
-{#if open && items.length}
-  <menu transition:fly={{ x: '-100%' }}>
-    {#each items as item}
-      <li>{@render item()}</li>
-    {/each}
-  </menu>
-{/if}
 
 <style lang="less">
   @import '../../style/palette';
@@ -81,34 +70,6 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     h1 {
       color: contrast($background-color);
     }
-  }
-
-  menu {
-    /* Positioning */
-    position: fixed;
-    height: calc(100% - 2.5 * @top-bar-height);
-    width: @side-bar-width;
-    max-width: 100vw;
-    padding: @gap-length;
-    top: @top-bar-height;
-    margin: 0;
-    z-index: 3;
-
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: @gap-length;
-
-    /* Palette */
-    background-color: @asparagus;
-    color: contrast($background-color);
-  }
-
-  li {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
   }
 
   #title {

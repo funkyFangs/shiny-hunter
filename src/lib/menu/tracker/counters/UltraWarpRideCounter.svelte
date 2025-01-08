@@ -1,24 +1,28 @@
 <script lang="ts">
   import Odds from '$lib/menu/tracker/counters/odds/Odds.svelte'
-  import { sanitizeInteger } from '$lib/utilities/Strings'
+  import type { HuntTracker } from '$lib/api/HuntTracker'
+  import { fade } from 'svelte/transition'
 
-  export let index: number
-  export let count: number = 0
-  export let furthestDistance: number = 0
+  let {
+    huntTracker,
+    count = $bindable(),
+    furthestDistance = $bindable(),
+    showPercentage,
+    showFraction
+  }: {
+    huntTracker: HuntTracker
+    count: number
+    furthestDistance: number
+    showPercentage: boolean
+    showFraction: boolean
+  } = $props()
 
-  let rarity: 0 | 1 | 2 | 3 | undefined
-  let distance: number | undefined
-
-  $: count = sanitizeInteger(count)
-  $: distance = distance === undefined ? undefined : sanitizeInteger(distance)
-  $: furthestDistance = sanitizeInteger(furthestDistance)
+  let rarity: 0 | 1 | 2 | 3 | undefined = $state(undefined)
+  let distance: number | undefined = $state(undefined)
 
   function increment() {
     count += 1
-    if (distance! > furthestDistance) {
-      furthestDistance = distance!
-    }
-
+    furthestDistance = Math.max(furthestDistance, distance!)
     rarity = undefined
     distance = undefined
   }
@@ -50,23 +54,29 @@
     }
   }
 
-  $: odds = getOdds(rarity, distance)
+  let odds = $derived(getOdds(rarity, distance))
+  let id = $derived(huntTracker.id)
+  let showOdds = $derived(showFraction || showPercentage)
 </script>
 
-<div id="counter">
+<div class="counter-container">
   <table>
     <thead>
       <tr>
-        <th scope="col"><label for="rarity-{index}">Rarity</label></th>
-        <th scope="col"><label for="distance-{index}">Distance</label></th>
-        <th scope="col"><label for="count-{index}">Count</label></th>
-        <th scope="col"><label for="odds-{index}">Odds</label></th>
+        <th scope="col"><label for="rarity-{id}">Rarity</label></th>
+        <th scope="col"><label for="distance-{id}">Distance</label></th>
+        <th scope="col"><label for="count-{id}">Count</label></th>
+        {#if showOdds}
+          <th transition:fade={{ duration: 200 }} scope="col"
+            ><label for="odds-{id}">Odds</label></th
+          >
+        {/if}
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
-          <select id="rarity-{index}" bind:value={rarity}>
+          <select id="rarity-{id}" bind:value={rarity}>
             <option value={null} hidden selected></option>
             <option value={0}>0</option>
             <option value={1}>1</option>
@@ -76,34 +86,37 @@
         </td>
         <td
           ><input
-            id="distance-{index}"
+            id="distance-{id}"
             class="distance"
             type="number"
             min="0"
             bind:value={distance}
           /></td
         >
-        <td><input id="count-{index}" class="count" type="number" min="0" bind:value={count} /></td>
-        <td>
-          {#if odds !== undefined}
-            <Odds
-              id="odds-{index}"
-              inputs={[`distance-${index}`, `count-${index}`]}
-              numerator={odds}
-              denominator={100}
-              showFraction={false}
-              accuracy={0}
-            />
-          {:else}
-            <span id="odds-{index}" aria-label="The undefined odds for finding a shiny Pokémon"
-              >-</span
-            >
-          {/if}
-        </td>
+        <td><input id="count-{id}" class="count" type="number" min="0" bind:value={count} /></td>
+        {#if showOdds}
+          <td transition:fade={{ duration: 200 }}>
+            {#if odds !== undefined}
+              <Odds
+                id="odds-{id}"
+                inputs={[`distance-${id}`, `count-${id}`]}
+                numerator={odds}
+                denominator={100}
+                {showFraction}
+                {showPercentage}
+                accuracy={0}
+              />
+            {:else}
+              <span id="odds-{id}" aria-label="The undefined odds for finding a shiny Pokémon"
+                >-</span
+              >
+            {/if}
+          </td>
+        {/if}
       </tr>
     </tbody>
   </table>
-  <button on:click={increment} disabled={odds === undefined} aria-label="Increment Counter"
+  <button onclick={increment} disabled={odds === undefined} aria-label="Increment Counter"
     >&plus;</button
   >
 </div>
@@ -141,17 +154,15 @@
     background: none;
   }
 
-  #counter {
+  .counter-container {
     display: flex;
     flex-direction: row;
     gap: 5px;
-    align-items: center;
     justify-content: center;
     max-width: calc(100vw - 4 * @gap-length);
   }
 
   button {
-    height: 70px;
     font-size: 1.5em;
   }
 

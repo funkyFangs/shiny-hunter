@@ -18,10 +18,14 @@
   export let huntTrackers: Writable<HuntTracker[]>
   export let history: Writable<HuntTracker[]>
   export let selectedTrackerIndex: Writable<number>
-  export let spritePreference: SpritePreference
   export let nextId: Writable<number>
-  export let showNormal: boolean
   export let generations: Generation[] = []
+  export let spritePreference: SpritePreference
+  export let showNormal: boolean
+  export let promptOnClose: boolean
+  export let keepHistory: boolean
+  export let showFraction: boolean
+  export let showPercentage: boolean
 
   const sprites: SpriteMap = buildSpriteMap(generations)
   let creatingTracker: boolean = false
@@ -34,7 +38,7 @@
   }
 
   function closeTracker(index: number, huntTracker: HuntTracker = $huntTrackers[index]) {
-    const confirmed = confirm('Are you sure you want to close this shiny hunt?')
+    const confirmed = !promptOnClose || confirm('Are you sure you want to close this shiny hunt?')
     if (confirmed) {
       const currentSelectedTrackerIndex = $selectedTrackerIndex
       const currentSelectedTracker = $huntTrackers[currentSelectedTrackerIndex]
@@ -50,13 +54,15 @@
           : $huntTrackers.indexOf(currentSelectedTracker)
       )
 
-      history.update((history) => [
-        ...history,
-        {
-          ...huntTracker,
-          endDate: new Date().toISOString()
-        }
-      ])
+      if (keepHistory) {
+        history.update((history) => [
+          ...history,
+          {
+            ...huntTracker,
+            endDate: new Date().toISOString()
+          }
+        ])
+      }
     }
     return confirmed
   }
@@ -169,29 +175,31 @@
     role="tablist"
     aria-label="Hunt Tracker Tabs"
     tabindex={-1}
-    on:dragover={onTabDragOver}
-    on:drop={onTabDrop}
+    ondragover={onTabDragOver}
+    ondrop={onTabDrop}
   >
     {#each $huntTrackers as huntTracker, index (huntTracker.id)}
+      {@const id = huntTracker.id}
+
       <div
-        id="tab-{index + 1}"
+        id="tab-{id}"
         tabindex={index === $selectedTrackerIndex ? 0 : -1}
         role="tab"
         aria-selected={index === $selectedTrackerIndex}
-        aria-controls="tracker-{index + 1}"
+        aria-controls="tracker-{id}"
         draggable="true"
         animate:flip={{ duration: 200 }}
         class:hoverable={Device.canHover}
-        on:click={selectTracker(index)}
-        on:keydown={onTabKeyPress}
-        on:dragstart={(event) => onTabDragStart(event, index)}
+        onclick={selectTracker(index)}
+        onkeydown={onTabKeyPress}
+        ondragstart={(event) => onTabDragStart(event, index)}
         bind:this={tabs[index]}
       >
         <span class="unselectable">{formatPokemonSpeciesName(huntTracker.pokemonSpecies)}</span>
         <button
           class="close-tracker-button"
           class:hoverable={Device.canHover}
-          on:click={(event) => closeTrackerFromButton(event, index)}>&times;</button
+          onclick={(event) => closeTrackerFromButton(event, index)}>&times;</button
         >
       </div>
     {/each}
@@ -199,7 +207,7 @@
   {#if !creatingTracker}
     <button
       id="create-tracker"
-      on:click={createTracker}
+      onclick={createTracker}
       class:hoverable={Device.canHover}
       aria-label="Create New Tracker"
       class="unselectable">&plus;</button
@@ -214,10 +222,12 @@
     </div>
   {:else if $huntTrackers.length > 0}
     {#each $huntTrackers as huntTracker, index}
+      {@const id = huntTracker.id}
+
       <div
-        id="tracker-{index + 1}"
+        id="tracker-{id}"
         role="tabpanel"
-        aria-labelledby="tab-{index + 1}"
+        aria-labelledby="tab-{id}"
         class:invisible={index !== $selectedTrackerIndex}
       >
         <PokemonDetails {huntTracker} />
@@ -225,36 +235,36 @@
         <table>
           <thead>
             <tr>
-              <th scope="col"><label for="game-{index}">Game</label></th>
-              <th scope="col"><label for="method-{index}">Method</label></th>
+              <th scope="col"><label for="game-{id}">Game</label></th>
+              <th scope="col"><label for="method-{id}">Method</label></th>
               {#if huntTracker.generation >= 5}
-                <th scope="col"><label for="shiny-charm-{index}">Shiny Charm</label></th>
+                <th scope="col"><label for="shiny-charm-{id}">Shiny Charm</label></th>
               {/if}
               {#if huntTracker.lure !== undefined}
-                <th scope="col"><label for="lure-{index}">Lure</label></th>
+                <th scope="col"><label for="lure-{id}">Lure</label></th>
               {/if}
               {#if huntTracker.isMassive !== undefined}
-                <th scope="col"><label for="lure-{index}">Is Massive</label></th>
+                <th scope="col"><label for="lure-{id}">Is Massive</label></th>
               {/if}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span id="game-{index}">{formatVersionName(huntTracker.version)}</span></td>
-              <td><span id="method-{index}">{huntTracker.method}</span></td>
+              <td><span id="game-{id}">{formatVersionName(huntTracker.version)}</span></td>
+              <td><span id="method-{id}">{huntTracker.method}</span></td>
               {#if huntTracker.generation >= 5}
                 <td
-                  ><span id="shiny-charm-{index}"
+                  ><span id="shiny-charm-{id}"
                     >{(huntTracker.shinyCharm ?? false) ? 'Yes' : 'No'}</span
                   ></td
                 >
               {/if}
               {#if huntTracker.lure !== undefined}
-                <td><span id="lure={index}">{huntTracker.lure ? 'Yes' : 'No'}</span></td>
+                <td><span id="lure={id}">{huntTracker.lure ? 'Yes' : 'No'}</span></td>
               {/if}
               {#if huntTracker.isMassive !== undefined}
                 <td>
-                  <span id="is-massive-{index}">{huntTracker.isMassive ? 'Yes' : 'No'}</span>
+                  <span id="is-massive-{id}">{huntTracker.isMassive ? 'Yes' : 'No'}</span>
                 </td>
               {/if}
             </tr>
@@ -262,14 +272,13 @@
         </table>
 
         <SpriteDisplay
-          {index}
           {huntTracker}
           sprites={sprites[huntTracker.pokemonSpecies]}
           {spritePreference}
           {showNormal}
         />
 
-        <TrackerCounter {index} bind:huntTracker />
+        <TrackerCounter bind:huntTracker {showFraction} {showPercentage} />
       </div>
     {/each}
   {:else}

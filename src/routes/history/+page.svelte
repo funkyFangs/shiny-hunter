@@ -11,7 +11,7 @@
   import Device from 'svelte-device-info'
 
   let { data } = $props()
-  const history = data.history
+  const { history, keepHistory } = data
   const emptyField = '-'
 
   function getPokemon(record: HuntTracker) {
@@ -102,7 +102,9 @@
 <h1>History</h1>
 
 <div id="history">
-  {#if $history.length}
+  {#if !$keepHistory}
+    <p>History is currently disabled. Enable it in the settings menu to view your history.</p>
+  {:else if $history.length}
     <p>Click a record to view its details.</p>
     <table id="records">
       <thead>

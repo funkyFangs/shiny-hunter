@@ -1,5 +1,5 @@
-<script>
-  import { navigating } from '$app/stores'
+<script lang="ts">
+  import { navigating } from '$app/state'
   import '../app.less'
   import HeaderMenu from '$lib/menu/HeaderMenu.svelte'
   import { Circle2 } from 'svelte-loading-spinners'
@@ -7,9 +7,12 @@
   import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
   import { base } from '$app/paths'
   import FooterMenu from '$lib/menu/FooterMenu.svelte'
+  import SideBar from '$lib/menu/SideBar.svelte'
 
   let { data, children } = $props()
-  const { spritePreference, showNormal } = data
+  let open: boolean = $state(false)
+  const { spritePreference, showNormal, promptOnClose, keepHistory, showFraction, showPercentage } =
+    data
 
   const links = [
     {
@@ -39,6 +42,16 @@
       window.location.reload()
     }
   }
+
+  const menuControls = [
+    spritePreferenceSnippet,
+    showNormalSnippet,
+    promptOnCloseSnippet,
+    keepHistorySnippet,
+    showFractionSnippet,
+    showPercentageSnippet,
+    clearCacheSnippet
+  ]
 </script>
 
 {#snippet spritePreferenceSnippet()}
@@ -55,17 +68,38 @@
   <SliderSwitch bind:checked={$showNormal} id="show-normal" />
 {/snippet}
 
+{#snippet promptOnCloseSnippet()}
+  <label class="unselectable" for="prompt-on-close">Prompt On Close</label>
+  <SliderSwitch bind:checked={$promptOnClose} id="prompt-on-close" />
+{/snippet}
+
+{#snippet keepHistorySnippet()}
+  <label class="unselectable" for="keep-history">Keep History</label>
+  <SliderSwitch bind:checked={$keepHistory} id="keep-history" />
+{/snippet}
+
+{#snippet showFractionSnippet()}
+  <label class="unselectable" for="show-fraction">Show Fraction</label>
+  <SliderSwitch bind:checked={$showFraction} id="show-fraction" />
+{/snippet}
+
+{#snippet showPercentageSnippet()}
+  <label class="unselectable" for="show-percentage">Show Percentage</label>
+  <SliderSwitch bind:checked={$showPercentage} id="show-percentage" />
+{/snippet}
+
 {#snippet clearCacheSnippet()}
   <button disabled={localStorage.length === 0} onclick={clearCache}>Clear Cache</button>
 {/snippet}
 
-<HeaderMenu
-  title="Shiny Hunter"
-  items={[spritePreferenceSnippet, showNormalSnippet, clearCacheSnippet]}
-/>
+<HeaderMenu title="Shiny Hunter" bind:open />
+
+{#if open}
+  <SideBar items={menuControls} />
+{/if}
 
 <main>
-  {#if $navigating}
+  {#if navigating.to}
     <div>
       <Circle2 colorOuter="red" colorCenter="black" colorInner="white" size="100" unit="px" />
     </div>
