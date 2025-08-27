@@ -11,7 +11,7 @@
 </script>
 
 <select {id} bind:value>
-  {#each options as option}
+  {#each options as option (option)}
     <option value={option}>{option}</option>
   {/each}
 </select>

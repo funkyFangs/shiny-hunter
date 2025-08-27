@@ -221,7 +221,7 @@
       <CreateTracker {generations} created={onTrackerCreated} />
     </div>
   {:else if $huntTrackers.length > 0}
-    {#each $huntTrackers as huntTracker, index}
+    {#each $huntTrackers as huntTracker, index (huntTracker.id)}
       {@const id = huntTracker.id}
 
       <div

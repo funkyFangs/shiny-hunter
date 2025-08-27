@@ -40,7 +40,7 @@
 <div id="hunting-method-entry">
   {#if huntingMethods}
     <select {id} bind:value={selectedHuntingMethod} disabled={huntingMethods.length === 1} required>
-      {#each huntingMethods as huntingMethod}
+      {#each huntingMethods as huntingMethod (huntingMethod)}
         <option value={huntingMethod}>{huntingMethod}</option>
       {/each}
     </select>

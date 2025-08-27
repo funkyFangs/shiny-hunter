@@ -12,7 +12,7 @@
 <footer>
   {#if links.length}
     <nav>
-      {#each links as link}
+      {#each links as link (link.href)}
         <a href={link.href}>{link.content ?? link.href}</a>
       {/each}
     </nav>

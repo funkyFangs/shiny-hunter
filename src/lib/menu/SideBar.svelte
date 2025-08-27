@@ -6,7 +6,7 @@
 </script>
 
 <menu transition:fly={{ x: '-100%' }}>
-  {#each items as item}
+  {#each items as item (item)}
     <li>{@render item()}</li>
   {/each}
 </menu>
