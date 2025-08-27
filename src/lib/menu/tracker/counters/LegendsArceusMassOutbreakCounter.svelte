@@ -45,7 +45,7 @@
         <td><input type="number" min="0" id="count-{id}" bind:value={count} /></td>
         <td>
           <select id="research-level-{id}" bind:value={researchLevel}>
-            {#each ['Less than 10', '10', 'Perfect'] as level}
+            {#each ['Less than 10', '10', 'Perfect'] as level (level)}
               <option value={level}>{level}</option>
             {/each}
           </select>

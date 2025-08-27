@@ -58,7 +58,7 @@
 </script>
 
 <datalist id="pokemon-species-list">
-  {#each pokemonSpeciesList as pokemonSpecies}
+  {#each pokemonSpeciesList as pokemonSpecies (pokemonSpecies)}
     <option>{formatPokemonSpeciesName(pokemonSpecies)}</option>
   {/each}
 </datalist>

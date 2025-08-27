@@ -23,7 +23,7 @@
 </script>
 
 <select {id} bind:value={selectedPokemon} disabled={supportedPokemon.length === 1} required>
-  {#each supportedPokemon as pokemon}
+  {#each supportedPokemon as pokemon (pokemon.id)}
     <option value={pokemon}>{formatPokemonName(pokemonSpecies.name, pokemon.name)}</option>
   {/each}
 </select>

@@ -57,7 +57,7 @@
 {#snippet spritePreferenceSnippet()}
   <label class="unselectable" for="sprite-preference">Sprite Preference</label>
   <select id="sprite-preference" bind:value={$spritePreference}>
-    {#each Object.values(SpritePreference) as spritePreference}
+    {#each Object.values(SpritePreference) as spritePreference (spritePreference)}
       <option value={spritePreference}>{spritePreference}</option>
     {/each}
   </select>

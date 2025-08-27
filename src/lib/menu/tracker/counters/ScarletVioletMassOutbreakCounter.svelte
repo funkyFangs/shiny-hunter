@@ -46,7 +46,7 @@
         <td><input type="number" min="0" id="count-{id}" bind:value={count} /></td>
         <td>
           <select id="sparkling-power-level-{id}" bind:value={sparklingPowerLevel}>
-            {#each range(0, 4) as level}
+            {#each range(0, 4) as level (level)}
               <option value={level}>{level}</option>
             {/each}
           </select>

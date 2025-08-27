@@ -37,7 +37,7 @@
 
 {#if open && menuControls.length}
   <menu bind:this={menu}>
-    {#each menuControls as control}
+    {#each menuControls as control (control)}
       <li>{@render control()}</li>
     {/each}
   </menu>

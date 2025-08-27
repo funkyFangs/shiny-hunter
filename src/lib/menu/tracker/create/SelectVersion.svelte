@@ -43,11 +43,11 @@
 </script>
 
 <select {id} required bind:value={selectedVersion}>
-  {#each generations.filter((generation) => generation.id >= MIN_GENERATION) as generation}
+  {#each generations.filter((generation) => generation.id >= MIN_GENERATION) as generation (generation.id)}
     <optgroup label={formatGenerationName(generation.name)}>
       {#each generation.versionGroups
         .flatMap((versionGroup) => versionGroup.versions)
-        .filter((version) => !VERSION_BLACKLIST.has(version.name)) as version}
+        .filter((version) => !VERSION_BLACKLIST.has(version.name)) as version (version.name)}
         <option value={version}>{formatVersionName(version.name)}</option>
       {/each}
     </optgroup>
