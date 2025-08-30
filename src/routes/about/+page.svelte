@@ -38,18 +38,14 @@
   </section>
 </div>
 
-<style lang="less">
-  @import '../../style/animation';
-  @import '../../style/palette';
-  @import '../../style/positioning';
-
+<style lang="css">
   #container {
     /* Positioning */
-    padding: @gap-length;
-    border-radius: @border-radius;
+    padding: var(--l-gap);
+    border-radius: var(--default-border-radius);
 
     /* Palette */
-    background-color: @dark-indigo;
+    background-color: var(--color-indigo-600);
   }
 
   p,
@@ -57,12 +53,12 @@
   li,
   a:hover {
     /* Palette */
-    color: contrast(@indigo);
+    color: whitesmoke;
   }
 
   a,
   a:active {
     /* Palette */
-    color: @riptide;
+    color: var(--color-riptide);
   }
 </style>

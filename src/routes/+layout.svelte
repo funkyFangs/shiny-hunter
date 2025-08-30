@@ -1,13 +1,13 @@
 <script lang="ts">
   import { navigating } from '$app/state'
-  import '../app.less'
+  import '../app.css'
   import HeaderMenu from '$lib/menu/HeaderMenu.svelte'
   import { Circle2 } from 'svelte-loading-spinners'
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
-  import { base } from '$app/paths'
   import FooterMenu from '$lib/menu/FooterMenu.svelte'
   import SideBar from '$lib/menu/SideBar.svelte'
+  import { resolve } from '$app/paths'
 
   let { data, children } = $props()
   let open: boolean = $state(false)
@@ -16,19 +16,19 @@
 
   const links = [
     {
-      href: `${base}/`,
+      href: resolve('/'),
       content: 'Trackers'
     },
     {
-      href: `${base}/history`,
+      href: resolve('/history'),
       content: 'History'
     },
     {
-      href: `${base}/about`,
+      href: resolve('/about'),
       content: 'About'
     },
     {
-      href: `${base}/credits`,
+      href: resolve('/credits'),
       content: 'Credits'
     }
   ]
@@ -101,7 +101,7 @@
 <main>
   {#if navigating.to}
     <div>
-      <Circle2 colorOuter="red" colorCenter="black" colorInner="white" size="100" unit="px" />
+      <Circle2 colorOuter="red" colorCenter="black" colorInner="whitesmoke" size="100" unit="px" />
     </div>
   {:else}
     {@render children()}
@@ -110,10 +110,7 @@
 
 <FooterMenu {links} />
 
-<style lang="less">
-  @import '../style/palette';
-  @import '../style/positioning';
-
+<style lang="css">
   select,
   label,
   button {
@@ -123,21 +120,17 @@
 
   button {
     width: 100%;
-    background-color: @shark;
-    color: contrast($background-color);
+    background-color: var(--color-shark);
+    color: whitesmoke;
     transition-property: color;
-  }
 
-  button:hover {
-    color: @riptide;
-  }
-
-  button:active {
-    color: contrast(@shark);
+    &:hover:not(:active) {
+      color: var(--color-riptide);
+    }
   }
 
   main {
-    padding: calc(@top-bar-height + @gap-length) @gap-length;
+    padding: calc(var(--h-top-bar) + var(--l-gap)) var(--l-gap);
     margin: auto;
     max-width: 1500px;
   }
@@ -150,16 +143,16 @@
   }
 
   #sprite-preference {
-    background-color: @shark;
-    color: contrast($background-color);
+    background-color: var(--color-shark);
+    color: whitesmoke;
     transition-property: color;
   }
 
   #sprite-preference:hover {
-    color: @riptide;
+    color: var(--color-riptide);
   }
 
   #sprite-preference:active {
-    color: white;
+    color: whitesmoke;
   }
 </style>

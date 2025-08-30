@@ -211,19 +211,16 @@
   {/if}
 </div>
 
-<style lang="less">
-  @import '../../style/positioning';
-  @import '../../style/palette';
-
+<style lang="css">
   h1,
   p {
-    color: contrast(@indigo);
+    color: whitesmoke;
   }
 
   #history {
     display: flex;
     flex-direction: column;
-    gap: @padding-length;
+    gap: var(--default-padding);
   }
 
   #records {
@@ -237,17 +234,17 @@
 
   #records > tbody > tr:hover,
   tr[aria-selected='true'] {
-    background-color: @asparagus;
-    color: contrast($background-color);
+    background-color: var(--color-asparagus-500);
+    color: whitesmoke;
   }
 
   #record-details {
-    padding: @gap-length;
-    background-color: @shark;
-    border-radius: @border-radius;
+    padding: var(--l-gap);
+    background-color: var(--color-shark);
+    border-radius: var(--default-border-radius);
     display: grid;
     grid-template-columns: min-content auto min-content;
-    row-gap: @gap-length;
+    row-gap: var(--l-gap);
     align-items: center;
   }
 
@@ -259,17 +256,17 @@
     min-width: 38px;
     min-height: 38px;
     background: none;
-    color: contrast(@shark);
+    color: whitesmoke;
 
     &:hover:not(:active),
     &:not(.hoverable) {
-      background-color: @darker-indigo;
-      color: contrast($background-color);
+      background-color: var(--color-indigo-700);
+      color: whitesmoke;
     }
 
     &:active {
-      background-color: @dark-indigo;
-      color: contrast($background-color);
+      background-color: var(--color-indigo-600);
+      color: whitesmoke;
     }
   }
 

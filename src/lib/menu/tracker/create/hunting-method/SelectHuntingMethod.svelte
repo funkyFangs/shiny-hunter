@@ -47,14 +47,11 @@
   {/if}
 </div>
 
-<style lang="less">
-  @import '../../../../../style/palette';
-  @import '../../../../../style/positioning';
-
+<style lang="css">
   #hunting-method-entry {
     display: flex;
     flex-direction: row;
-    gap: @padding-length;
+    gap: var(--default-padding);
     justify-content: left;
     align-items: center;
   }
@@ -62,22 +59,22 @@
   select {
     height: 36px;
     text-align: center;
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
 
     &:hover {
-      background-color: lighten(@indigo, 5%);
-      color: contrast($background-color);
+      background-color: var(--color-indigo-400);
+      color: black;
     }
 
     &:active {
-      background-color: lighten(@indigo, 10%);
-      color: contrast($background-color);
+      background-color: var(--color-indigo-300);
+      color: black;
     }
 
     &:disabled {
-      background-color: desaturate(@indigo, 25%);
-      color: contrast($background-color);
+      background-color: #677ea6;
+      color: black;
     }
   }
 </style>

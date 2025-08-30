@@ -3,9 +3,9 @@
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import type { HuntTracker } from '$lib/api/HuntTracker'
   import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource'
-  import { base } from '$app/paths'
   import { formatPokemonName } from '$lib/api/PokemonResource'
   import { getSprites, isPixelated } from '$lib/menu/tracker/view/sprites/SpriteDisplay'
+  import { resolve } from '$app/paths'
 
   let {
     huntTracker,
@@ -48,7 +48,7 @@
 
   function onError(event: Event) {
     const target = event.target as HTMLImageElement
-    target.src = `${base}/assets/unknown.gif`
+    target.src = `${resolve('/')}/assets/unknown.gif`
   }
 </script>
 
@@ -82,14 +82,11 @@
   {/if}
 </div>
 
-<style lang="less">
-  @import '../../../../../style/palette';
-  @import '../../../../../style/positioning';
-
+<style lang="css">
   .sprite-root {
     display: flex;
     flex-direction: row;
-    gap: @padding-length;
+    gap: var(--default-padding);
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -100,11 +97,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: @gap-length;
-    background-color: desaturate(@darker-indigo, 25%);
-    color: contrast($background-color);
-    padding: @padding-length;
-    border-radius: @border-radius;
+    gap: var(--l-gap);
+    background-color: #3b4b66;
+    color: whitesmoke;
+    padding: var(--default-padding);
+    border-radius: var(--default-border-radius);
     width: 100%;
   }
 
@@ -113,7 +110,7 @@
     max-width: 350px;
     width: 100%;
     object-fit: contain;
-    border-radius: @border-radius;
+    border-radius: var(--default-border-radius);
   }
 
   label {

@@ -201,22 +201,19 @@
   <button form="create-tracker" id="submit" disabled={!readyToSubmit}>Create Hunt Tracker</button>
 </form>
 
-<style lang="less">
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
-
+<style lang="css">
   #create-tracker {
     /* Positioning */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: @gap-length;
+    gap: var(--l-gap);
     align-items: center;
   }
 
   label {
     text-align: right;
     font-size: 1.2rem;
-    color: contrast(@darker-indigo);
+    color: whitesmoke;
   }
 
   #submit {
@@ -227,22 +224,22 @@
     font-size: 15pt;
     grid-column: 1 / 3;
 
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   #submit:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-400);
+    color: whitesmoke;
   }
 
   #submit:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-300);
+    color: whitesmoke;
   }
 
   #submit:disabled {
-    background-color: desaturate(@indigo, 25%);
-    color: contrast($background-color);
+    background-color: #677ea6;
+    color: black;
   }
 </style>

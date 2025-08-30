@@ -19,14 +19,11 @@
   {/if}
 </footer>
 
-<style lang="less">
-  @import '../../style/palette';
-  @import '../../style/positioning';
-
+<style lang="css">
   footer {
     position: fixed;
     width: 100%;
-    height: @top-bar-height;
+    height: var(--h-top-bar);
     bottom: 0;
     display: flex;
     flex-direction: row;
@@ -35,23 +32,22 @@
     z-index: 2;
 
     /* Palette */
-    background-color: @shark;
+    background-color: var(--color-shark);
     box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.3);
-  }
 
-  a:hover {
-    color: @riptide;
-  }
+    > nav {
+      display: flex;
+      flex-direction: row;
+      gap: var(--l-gap);
+      font-size: 1.25rem;
 
-  a,
-  a:active {
-    color: contrast(@shark);
-  }
+      & a {
+        color: whitesmoke;
 
-  nav {
-    display: flex;
-    flex-direction: row;
-    gap: @gap-length;
-    font-size: 1.25rem;
+        &:hover:not(:active) {
+          color: var(--color-riptide);
+        }
+      }
+    }
   }
 </style>

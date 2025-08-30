@@ -29,14 +29,14 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     open: boolean
   } = $props()
 
-  let color = $state('white')
+  let color = $state('whitesmoke')
 
   function onMouseEnter() {
     color = '#89E4DF'
   }
 
   function onMouseLeave() {
-    color = 'white'
+    color = 'whitesmoke'
   }
 </script>
 
@@ -47,15 +47,12 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
   <h1 id="title" class="unselectable">{title}</h1>
 </header>
 
-<style lang="less">
-  @import '../../style/palette';
-  @import '../../style/positioning';
-
+<style lang="css">
   header {
     /* Positioning */
     position: fixed;
     width: 100%;
-    height: @top-bar-height;
+    height: var(--h-top-bar);
     top: 0;
     display: flex;
     flex-direction: row;
@@ -64,16 +61,16 @@ If you wanted to display a header menu titled "My Application" with an anchor ca
     z-index: 2;
 
     /* Palette */
-    background-color: @shark;
+    background-color: var(--color-shark);
     box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0.3);
 
     h1 {
-      color: contrast($background-color);
+      color: whitesmoke;
     }
   }
 
   #title {
-    margin: 0 @gap-length 0 0;
+    margin: 0 var(--l-gap) 0 0;
     font-weight: normal;
   }
 </style>
