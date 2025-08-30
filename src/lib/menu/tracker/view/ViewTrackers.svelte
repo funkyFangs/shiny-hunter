@@ -286,15 +286,11 @@
   {/if}
 </div>
 
-<style lang="less">
-  @import '../../../../style/animation';
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
-
+<style lang="css">
   #tracker-view {
-    background-color: @dark-indigo;
-    padding: @gap-length;
-    border-radius: 0 0 @border-radius @border-radius;
+    background-color: var(--color-indigo-600);
+    padding: var(--l-gap);
+    border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
     display: grid;
     grid-auto-columns: min-content auto min-content;
 
@@ -305,9 +301,9 @@
   }
 
   #tabs-container {
-    background-color: @shark;
-    padding: @padding-length;
-    border-radius: @border-radius @border-radius 0 0;
+    background-color: var(--color-shark);
+    padding: var(--default-padding);
+    border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
     min-height: 38px;
   }
 
@@ -320,13 +316,13 @@
   [role='tablist'] {
     display: flex;
     flex-direction: row;
-    gap: @padding-length;
+    gap: var(--default-padding);
   }
 
   [role='tabpanel'] {
     display: flex;
     flex-direction: column;
-    gap: @padding-length;
+    gap: var(--default-padding);
 
     > * {
       width: 100%;
@@ -337,19 +333,19 @@
   [role='tab'] {
     max-width: 130px;
     min-width: 90px;
-    color: white;
-    border-radius: @border-radius;
-    padding: @padding-length;
+    color: whitesmoke;
+    border-radius: var(--default-border-radius);
+    padding: var(--default-padding);
     cursor: pointer;
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
     flex: 1 28px;
-    gap: @padding-length;
+    gap: var(--default-padding);
     transition-property: background-color;
-    transition-duration: @transition-duration;
-    transition-timing-function: @transition-timing-function;
+    transition-duration: var(--default-transition-duration);
+    transition-timing-function: var(--default-transition-timing-function);
 
     > span {
       overflow: hidden;
@@ -364,39 +360,39 @@
 
       &.hoverable:hover,
       &:not(.hoverable) {
-        background-color: @darkest-asparagus;
-        color: contrast($background-color);
+        background-color: var(--color-asparagus-800);
+        color: whitesmoke;
       }
 
       /* Display close tab button background on hover or if the device cannot hover */
       > .close-tracker-button {
+        color: whitesmoke;
+
         &.hoverable:hover:not(:active),
         &:not(.hoverable) {
-          background-color: @darker-asparagus;
-          color: contrast($background-color);
+          background-color: var(--color-asparagus-700);
         }
 
         &:active {
-          background-color: @dark-asparagus;
-          color: contrast($background-color);
+          background-color: var(--color-asparagus-600);
         }
       }
     }
 
     &[aria-selected='true'] {
-      background-color: @dark-asparagus;
-      color: contrast($background-color);
+      background-color: var(--color-asparagus-600);
+      color: whitesmoke;
 
       > .close-tracker-button {
+        color: whitesmoke;
+
         &.hoverable:hover:not(:active),
         &:not(.hoverable) {
-          background-color: darken(@asparagus, 5%);
-          color: contrast($background-color);
+          background-color: var(--color-asparagus-600);
         }
 
         &:active {
-          background-color: @asparagus;
-          color: contrast($background-color);
+          background-color: var(--color-asparagus-500);
         }
       }
     }
@@ -409,13 +405,12 @@
 
     &.hoverable:hover:not(:active),
     &:not(.hoverable) {
-      background-color: @darker-asparagus;
-      color: contrast($background-color);
+      background-color: var(--color-asparagus-700);
+      color: whitesmoke;
     }
 
     &:active {
-      background-color: @dark-asparagus;
-      color: contrast($background-color);
+      background-color: var(--color-asparagus-600);
     }
   }
 
@@ -428,9 +423,9 @@
   #create-tracker,
   .close-tracker-button {
     background: none;
-    color: white;
+    color: whitesmoke;
     text-align: center;
-    border-radius: @border-radius;
+    border-radius: var(--default-border-radius);
     padding: 0;
   }
 
@@ -439,6 +434,6 @@
   }
 
   #notice {
-    color: white;
+    color: whitesmoke;
   }
 </style>

@@ -2,12 +2,44 @@
  *  Global                                                                                     *
 \* ============================================================================================ */
 
-@import 'style/animation';
-@import 'style/palette';
-@import 'style/positioning';
+:root {
+  --default-transition-duration: 0.2s;
+  --default-transition-timing-function: ease-out;
+
+  --color-riptide: #89e4df;
+  --color-shark: #1f2123;
+
+  --color-indigo-50: #edf1f9;
+  --color-indigo-100: #dae3f4;
+  --color-indigo-200: #b6c8e8;
+  --color-indigo-300: #91acdd;
+  --color-indigo-400: #6d91d1;
+  --color-indigo-500: #4875c6;
+  --color-indigo-600: #335ca5;
+  --color-indigo-700: #26457c;
+  --color-indigo-800: #1a2e52;
+  --color-indigo-900: #0d1729;
+
+  --color-asparagus-50: #f0f6ed;
+  --color-asparagus-100: #e1ecdc;
+  --color-asparagus-200: #c4d9b9;
+  --color-asparagus-300: #a6c696;
+  --color-asparagus-400: #88b373;
+  --color-asparagus-500: #6c9c54;
+  --color-asparagus-600: #567d43;
+  --color-asparagus-700: #415e32;
+  --color-asparagus-800: #2b3e22;
+  --color-asparagus-900: #161f11;
+
+  --h-top-bar: 60px;
+  --w-side-bar: min(375px, 100vw);
+  --l-gap: 15px;
+  --default-border-radius: 8px;
+  --default-padding: 5px;
+}
 
 body {
-  background-color: @indigo;
+  background-color: var(--color-indigo-500);
 
   /* Positioning */
   margin: 0;
@@ -58,12 +90,12 @@ tr {
 select,
 button {
   /* Positioning */
-  padding: @padding-length;
+  padding: var(--default-padding);
 
   /* Decoration */
   cursor: pointer;
   border: none;
-  border-radius: @border-radius;
+  border-radius: var(--default-border-radius);
 }
 
 input,
@@ -73,9 +105,8 @@ details {
   &,
   &:hover {
     /* Transitions */
-    transition-property: background-color;
-    transition-duration: @transition-duration;
-    transition-timing-function: @transition-timing-function;
+    transition: background-color var(--default-transition-duration)
+      var(--default-transition-timing-function);
   }
 
   &:active,
@@ -91,11 +122,11 @@ details {
 
 input {
   /* Positioning */
-  padding: @padding-length;
+  padding: var(--default-padding);
 
   /* Decoration */
   border: none;
-  border-radius: @border-radius;
+  border-radius: var(--default-border-radius);
 }
 
 /* ============================================================================================ *\
@@ -104,11 +135,11 @@ input {
 
 select {
   /* Positioning */
-  padding: @padding-length;
+  padding: var(--default-padding);
 
   /* Decoration */
   border: none;
-  border-radius: @border-radius;
+  border-radius: var(--default-border-radius);
   cursor: pointer;
 }
 
@@ -127,9 +158,7 @@ a {
   &,
   &:hover {
     /* Transitions */
-    transition-property: color;
-    transition-duration: @transition-duration;
-    transition-timing-function: @transition-timing-function;
+    transition: color var(--default-transition-duration) var(--default-transition-timing-function);
   }
 
   &:active,
@@ -148,13 +177,13 @@ table {
   border-style: hidden;
   border-collapse: separate;
   text-align: center;
-  border-radius: @border-radius;
+  border-radius: var(--default-border-radius);
   overflow: hidden;
   table-layout: fixed;
 
   > thead > tr {
-    background-color: @shark;
-    color: contrast($background-color);
+    background-color: var(--color-shark);
+    color: whitesmoke;
 
     > th {
       font-weight: bold;
@@ -162,23 +191,25 @@ table {
   }
 
   > tbody {
-    > tr > th {
+    > tr {
+      color: whitesmoke;
+    }
+
+    > th {
       font-weight: bold;
     }
 
     > tr:nth-of-type(odd) {
-      background-color: @darkest-indigo;
-      color: contrast($background-color);
+      background-color: var(--color-indigo-800);
     }
 
     > tr:nth-of-type(even) {
-      background-color: @darker-indigo;
-      color: contrast($background-color);
+      background-color: var(--color-indigo-700);
     }
   }
 }
 
 th,
 td {
-  padding: @padding-length;
+  padding: var(--default-padding);
 }

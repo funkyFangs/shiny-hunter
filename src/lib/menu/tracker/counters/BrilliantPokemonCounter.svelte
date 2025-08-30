@@ -57,10 +57,7 @@
   <button onclick={incrementCount} aria-label="Increment Number Battled">&plus;</button>
 </div>
 
-<style lang="less">
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
-
+<style lang="css">
   .counter-container {
     display: flex;
     flex-direction: row;
@@ -69,24 +66,24 @@
   }
 
   input:hover {
-    background-color: @darker-indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-700);
+    color: whitesmoke;
   }
 
   button {
     font-size: 1.5em;
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   button:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-400);
+    color: black;
   }
 
   button:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-300);
+    color: black;
   }
 
   input {
@@ -94,15 +91,15 @@
     border: none;
     background: none;
     font-weight: bold;
-    color: white;
+    color: whitesmoke;
     font-size: 1.1em;
     max-width: 90px;
     padding: 0;
   }
 
   input:focus-visible {
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   input::-webkit-outer-spin-button,

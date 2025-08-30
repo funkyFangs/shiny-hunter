@@ -21,24 +21,21 @@
   <span>{checked ? onText : offText}</span>
 </button>
 
-<style lang="less">
-  @import '../../../style/animation';
-  @import '../../../style/palette';
-  @import '../../../style/positioning';
-
+<style lang="css">
   [role='switch'] {
     width: 3rem;
     cursor: pointer;
-    background-color: @shark;
-    padding: @padding-length;
+    background-color: var(--color-shark);
+    padding: var(--default-padding);
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
 
     span {
       border-radius: 50%;
-      background-color: white;
-      transition: background-color @transition-duration @transition-timing-function;
+      background-color: whitesmoke;
+      transition: background-color var(--default-transition-duration)
+        var(--default-transition-timing-function);
       color: black;
       width: 1.5em;
       height: 1.5em;
@@ -57,6 +54,6 @@
   }
 
   [role='switch']:hover > span {
-    background-color: @riptide;
+    background-color: var(--color-riptide);
   }
 </style>

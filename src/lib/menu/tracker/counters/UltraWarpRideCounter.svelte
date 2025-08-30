@@ -121,15 +121,12 @@
   >
 </div>
 
-<style lang="less">
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
-
+<style lang="css">
   input,
   select {
     text-align: center;
     font-weight: bold;
-    color: contrast(@darkest-indigo);
+    color: whitesmoke;
     height: 28px;
     background: none;
   }
@@ -137,11 +134,10 @@
   input {
     border: none;
     padding: 0;
-  }
 
-  input:hover {
-    background-color: @darker-indigo;
-    color: contrast($background-color);
+    &:hover {
+      background-color: var(--color-indigo-700);
+    }
   }
 
   .count {
@@ -159,7 +155,7 @@
     flex-direction: row;
     gap: 5px;
     justify-content: center;
-    max-width: calc(100vw - 4 * @gap-length);
+    max-width: calc(100vw - 4 * var(--l-gap));
   }
 
   button {
@@ -170,27 +166,27 @@
   .distance,
   .count:focus-visible,
   select {
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   .distance:hover,
   select:hover,
   button:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-400);
+    color: black;
   }
 
   .distance:active,
   select:active,
   button:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-300);
+    color: black;
   }
 
   button:disabled {
-    background-color: desaturate(@indigo, 25%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-300);
+    color: black;
   }
 
   input::-webkit-outer-spin-button,

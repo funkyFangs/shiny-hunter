@@ -26,24 +26,25 @@
   {/each}
 </select>
 
-<style lang="less">
-  @import '../../../../style/palette';
-
+<style lang="css">
   select {
     height: 36px;
     text-align: center;
     width: fit-content;
-    background-color: @indigo;
-    color: contrast($background-color);
-  }
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
 
-  select:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
-  }
+    &:active,
+    &:hover {
+      color: black;
+    }
 
-  select:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    &:hover {
+      background-color: var(--color-indigo-400);
+    }
+
+    &:active {
+      background-color: var(--color-indigo-300);
+    }
   }
 </style>

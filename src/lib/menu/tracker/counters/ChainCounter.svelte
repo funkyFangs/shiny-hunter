@@ -88,10 +88,7 @@
   </div>
 {/if}
 
-<style lang="less">
-  @import '../../../../style/palette';
-  @import '../../../../style/positioning';
-
+<style lang="css">
   input {
     text-align: center;
     background: none;
@@ -99,17 +96,17 @@
     font-size: 1.1em;
     padding: 0;
     max-width: 60px;
-    color: contrast(@darkest-indigo);
+    color: whitesmoke;
   }
 
   input:hover {
-    background-color: @darker-indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-700);
+    color: whitesmoke;
   }
 
   input:focus-visible {
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   .counter-container {
@@ -117,28 +114,28 @@
     flex-direction: row;
     gap: 5px;
     justify-content: center;
-    max-width: calc(100vw - 4 * @gap-length);
+    max-width: calc(100vw - 4 * var(--l-gap));
   }
 
   button {
     font-size: 1.5em;
-    background-color: @indigo;
-    color: contrast($background-color);
+    background-color: var(--color-indigo-500);
+    color: whitesmoke;
   }
 
   button:hover {
-    background-color: lighten(@indigo, 5%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-400);
+    color: whitesmoke;
   }
 
   button:active {
-    background-color: lighten(@indigo, 10%);
-    color: contrast($background-color);
+    background-color: var(--color-indigo-300);
+    color: whitesmoke;
   }
 
   button:disabled {
-    background-color: desaturate(@indigo, 25%);
-    color: contrast($background-color);
+    background-color: #677ea6;
+    color: black;
   }
 
   input::-webkit-outer-spin-button,

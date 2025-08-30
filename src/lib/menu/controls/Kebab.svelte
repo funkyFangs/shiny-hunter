@@ -43,10 +43,7 @@
   </menu>
 {/if}
 
-<style lang="less">
-  @import '../../../style/palette';
-  @import '../../../style/positioning';
-
+<style lang="css">
   button {
     background: none;
     transition: 0.125s ease-out;
@@ -56,17 +53,17 @@
 
   button:hover,
   button.open {
-    background-color: @darker-indigo;
+    background-color: var(--color-indigo-700);
   }
 
   button {
     transition: 0.25s ease-out;
     font-size: 1.6rem;
-    color: contrast(@darker-indigo);
+    color: whitesmoke;
   }
 
   menu {
-    margin: @padding-length 0 0 0;
+    margin: var(--default-padding) 0 0 0;
     transform: translateX(calc(-100% + 37px));
     position: fixed;
     padding: 0;
@@ -74,9 +71,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: left;
-    border-radius: @border-radius;
-    background-color: contrast($color);
-    color: @shark;
+    border-radius: var(--default-border-radius);
+    background-color: whitesmoke;
+    color: var(--color-shark);
     list-style: none;
   }
 
@@ -86,17 +83,17 @@
   }
 
   menu > li:first-child {
-    border-top-left-radius: @border-radius;
-    border-top-right-radius: @border-radius;
+    border-top-left-radius: var(--default-border-radius);
+    border-top-right-radius: var(--default-border-radius);
   }
 
   menu > li:last-child {
-    border-bottom-left-radius: @border-radius;
-    border-bottom-right-radius: @border-radius;
+    border-bottom-left-radius: var(--default-border-radius);
+    border-bottom-right-radius: var(--default-border-radius);
   }
 
   li:hover {
-    background-color: @riptide;
+    background-color: var(--color-riptide);
   }
 
   li ~ li {

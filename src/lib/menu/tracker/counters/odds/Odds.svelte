@@ -111,9 +111,7 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
   {/if}
 </output>
 
-<style lang="less">
-  @import '../../../../../style/palette';
-
+<style lang="css">
   output {
     display: flex;
     flex-direction: row;
@@ -129,6 +127,6 @@ Finally, if you wanted to hide the percentage for the previous example, you coul
   }
 
   .fraction > span + span {
-    border-top: 1px solid contrast(@darkest-indigo);
+    border-top: 1px solid whitesmoke;
   }
 </style>
