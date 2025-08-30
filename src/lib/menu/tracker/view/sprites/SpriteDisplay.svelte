@@ -3,9 +3,9 @@
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import type { HuntTracker } from '$lib/api/HuntTracker'
   import { formatPokemonSpeciesName } from '$lib/api/PokemonSpeciesResource'
-  import { base } from '$app/paths'
   import { formatPokemonName } from '$lib/api/PokemonResource'
   import { getSprites, isPixelated } from '$lib/menu/tracker/view/sprites/SpriteDisplay'
+  import { resolve } from '$app/paths'
 
   let {
     huntTracker,
@@ -48,7 +48,7 @@
 
   function onError(event: Event) {
     const target = event.target as HTMLImageElement
-    target.src = `${base}/assets/unknown.gif`
+    target.src = `${resolve('/')}/assets/unknown.gif`
   }
 </script>
 

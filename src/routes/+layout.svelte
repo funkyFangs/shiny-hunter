@@ -5,9 +5,9 @@
   import { Circle2 } from 'svelte-loading-spinners'
   import { SpritePreference } from '$lib/menu/SpritePreference'
   import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
-  import { base } from '$app/paths'
   import FooterMenu from '$lib/menu/FooterMenu.svelte'
   import SideBar from '$lib/menu/SideBar.svelte'
+  import { resolve } from '$app/paths'
 
   let { data, children } = $props()
   let open: boolean = $state(false)
@@ -16,19 +16,19 @@
 
   const links = [
     {
-      href: `${base}/`,
+      href: resolve('/'),
       content: 'Trackers'
     },
     {
-      href: `${base}/history`,
+      href: resolve('/history'),
       content: 'History'
     },
     {
-      href: `${base}/about`,
+      href: resolve('/about'),
       content: 'About'
     },
     {
-      href: `${base}/credits`,
+      href: resolve('/credits'),
       content: 'Credits'
     }
   ]
