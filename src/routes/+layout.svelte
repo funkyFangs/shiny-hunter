@@ -7,7 +7,6 @@
   import SliderSwitch from '$lib/menu/controls/SliderSwitch.svelte'
   import FooterMenu from '$lib/menu/FooterMenu.svelte'
   import SideBar from '$lib/menu/SideBar.svelte'
-  import { resolve } from '$app/paths'
 
   let { data, children } = $props()
   let open: boolean = $state(false)
@@ -16,19 +15,19 @@
 
   const links = [
     {
-      href: resolve('/'),
+      href: '/',
       content: 'Trackers'
     },
     {
-      href: resolve('/history'),
+      href: '/history',
       content: 'History'
     },
     {
-      href: resolve('/about'),
+      href: '/about',
       content: 'About'
     },
     {
-      href: resolve('/credits'),
+      href: '/credits',
       content: 'Credits'
     }
   ]
