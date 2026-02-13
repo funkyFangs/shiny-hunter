@@ -5,8 +5,8 @@
     <h2>PokéAPI</h2>
 
     <p>
-      This project uses <a href="https://pokeapi.co">PokéAPI</a> for data related to Pokémon as well
-      as their sprites.
+      This project uses <a href="https://pokeapi.co">PokéAPI</a> for data related to Pokémon as well as
+      their sprites.
     </p>
   </section>
 

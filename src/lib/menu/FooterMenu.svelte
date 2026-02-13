@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { resolve } from '$app/paths'
+
   let {
     links
   }: {
     links: {
-      href: string
+      href: '/' | '/about' | '/credits' | '/history'
       content?: string
     }[]
   } = $props()
@@ -13,7 +15,7 @@
   {#if links.length}
     <nav>
       {#each links as link (link.href)}
-        <a href={link.href}>{link.content ?? link.href}</a>
+        <a href={resolve(link.href)}>{link.content ?? link.href}</a>
       {/each}
     </nav>
   {/if}
